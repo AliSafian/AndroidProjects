@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.facefive.meetbook.UpdateActivity">
+
+
+
+    <TextView
+        android:id="@+id/textview"
+        android:layout_width="100dp"
+        android:layout_height="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="14dp"
+        android:layout_toStartOf="@+id/dateTxt"
+        android:text="Sender:"
+        android:textColor="@color/colorAccent"
+        android:textSize="14sp"
+        android:textStyle="normal"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <TextView
+        android:id="@+id/senderTxt"
+        android:layout_width="200dp"
+        android:layout_height="20dp"
+        android:layout_alignBaseline="@+id/textview"
+        android:layout_alignBottom="@+id/textview"
+        android:layout_toEndOf="@+id/textview"
+        tools:layout_editor_absoluteX="168dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <TextView
+        android:id="@+id/tv_2"
+        android:layout_width="60dp"
+        android:layout_height="20dp"
+        android:layout_alignStart="@+id/textview"
+        android:layout_below="@+id/textview"
+        android:layout_marginTop="13dp"
+        android:text="Date:"
+        android:textColor="@color/colorAccent"
+        android:textSize="14sp"
+        tools:layout_editor_absoluteX="28dp"
+        tools:layout_editor_absoluteY="402dp" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="70dp"
+        android:layout_height="20dp"
+        android:layout_alignStart="@+id/tv_2"
+        android:layout_below="@+id/tv_2"
+        android:text="Time:"
+        android:textColor="@color/colorAccent"
+        android:textSize="14sp"
+        tools:layout_editor_absoluteX="28dp"
+        tools:layout_editor_absoluteY="445dp" />
+
+    <TextView
+        android:id="@+id/dateTxt"
+        android:layout_width="150dp"
+        android:layout_height="20dp"
+        android:layout_alignTop="@+id/tv_2"
+        android:layout_centerHorizontal="true"
+        tools:layout_editor_absoluteX="119dp"
+        tools:layout_editor_absoluteY="402dp" />
+
+    <TextView
+        android:id="@+id/timeTxt"
+        android:layout_width="150dp"
+        android:layout_height="20dp"
+        android:layout_alignStart="@+id/dateTxt"
+        android:layout_below="@+id/dateTxt"
+        tools:layout_editor_absoluteX="117dp"
+        tools:layout_editor_absoluteY="445dp" />
+
+    <TextView
+        android:id="@+id/updateTxt"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:layout_alignStart="@+id/textView5"
+        android:layout_below="@+id/textView5"
+        android:layout_marginTop="12dp"
+        android:autoText="false"
+        android:maxLines="@android:integer/config_shortAnimTime"
+        android:text="Hi dear! I am a notice..." />
+
+
+
+
+
+</RelativeLayout>

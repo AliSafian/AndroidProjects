@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.facefive.meetbook.PrivacyActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/prof_visibility"
+                android:layout_width="wrap_content"
+                android:layout_height="33dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="16dp"
+                android:text="Profile Visibility"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/Rg_profilevisibility"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/prof_visibility"
+                android:layout_marginBottom="10dp">
+
+
+                <RadioButton
+                    android:id="@+id/prof_subs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/prof_visibility"
+                    android:layout_below="@+id/Rg_profilevisibility"
+                    android:text="Subscribers" />
+
+                <RadioButton
+                    android:id="@+id/Prof_pub"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/prof_visibility"
+                    android:layout_below="@+id/Rg_profilevisibility"
+                    android:text="Everyone" />
+
+                <RadioButton
+                    android:id="@+id/Prof_none"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/Prof_pub"
+                    android:layout_below="@+id/Rg_profilevisibility"
+                    android:text="Nobody" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/subs_request"
+                android:layout_width="wrap_content"
+                android:layout_height="33dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/Rg_profilevisibility"
+                android:text="Subscription Request"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/Rg_subscriptionrequest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/subs_request"
+                android:layout_marginBottom="10dp">
+
+                <RadioButton
+                    android:id="@+id/Subs_public"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/subs_invite"
+                    android:layout_below="@+id/Rg_subscriptionrequest"
+                    android:text="Everyone" />
+
+                <RadioButton
+                    android:id="@+id/subs_non"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_below="@+id/Rg_subscriptionrequest"
+                    android:text="Nobody" />
+
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/Time_Table"
+                android:layout_width="wrap_content"
+                android:layout_height="33dp"
+                android:layout_alignStart="@+id/subs_request"
+                android:layout_below="@+id/Rg_subscriptionrequest"
+                android:text="Time Table"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/Rg_timetable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/Time_Table"
+                android:layout_marginBottom="10dp">
+
+
+                <RadioButton
+                    android:id="@+id/Time_subs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_below="@+id/Rg_timetable"
+                    android:text="Subscribers" />
+
+                <RadioButton
+                    android:id="@+id/time_every"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_below="@+id/Rg_timetable"
+                    android:text="Everyone" />
+
+                <RadioButton
+                    android:id="@+id/Time_non"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/Rg_timetable"
+                    android:text="Nobody" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/Meeting_Request"
+                android:layout_width="wrap_content"
+                android:layout_height="33dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/Rg_timetable"
+                android:text="Meeting Request"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/Rg_meetingrequest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/Meeting_Request"
+                android:layout_marginBottom="10dp">
+
+
+                <RadioButton
+                    android:id="@+id/meet_subs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/Rg_meetingrequest"
+                    android:text="Subscribers" />
+
+                <RadioButton
+                    android:id="@+id/Meet_Pub"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/Rg_meetingrequest"
+                    android:text="Everyone" />
+
+                <RadioButton
+                    android:id="@+id/Meet_noone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/Rg_meetingrequest"
+                    android:text="Nobody" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/Message"
+                android:layout_width="wrap_content"
+                android:layout_height="33dp"
+                android:layout_below="@+id/Rg_meetingrequest"
+                android:text="Message"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp"
+
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/Rg_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/Message"
+                android:layout_marginBottom="10dp">
+
+                <RadioButton
+                    android:id="@+id/Mes_Pub"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/Rg_message"
+                    android:text="Everyone" />
+
+
+                <RadioButton
+                    android:id="@+id/Mes_noone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/Rg_message"
+                    android:text="Nobody" />
+
+                <RadioButton
+                    android:id="@+id/mes_subs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/Rg_message"
+                    android:text="Subscribers" />
+
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/prof_visibility"
+                android:layout_alignBottom="@+id/prof_visibility"
+                android:layout_marginStart="12dp"
+                android:layout_toEndOf="@+id/prof_visibility"
+                android:text="(set who can view your profile)" />
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/subs_request"
+                android:layout_alignEnd="@+id/textView14"
+                android:text="(set who can send you subscription requests)" />
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/Time_Table"
+                android:layout_alignBottom="@+id/Time_Table"
+                android:layout_toEndOf="@+id/Rg_subscriptionrequest"
+                android:text="(set who can see your time table)" />
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/Meeting_Request"
+                android:layout_alignEnd="@+id/textView16"
+                android:text="(set who can send you meeting requests)" />
+
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/Message"
+                android:layout_alignBottom="@+id/Message"
+                android:layout_centerHorizontal="true"
+                android:text="(set who can send you messeges)" />
+
+
+            <Button
+                android:id="@+id/btn_save_changes"
+                android:layout_width="150dp"
+                android:layout_height="30dp"
+                android:text="Save Changes"
+                android:textColor="@android:color/white"
+                android:layout_below="@+id/Rg_message"
+                android:layout_marginRight="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/rounded_btn"
+                />
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

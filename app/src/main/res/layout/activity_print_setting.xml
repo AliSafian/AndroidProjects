@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.facefive.meetbook.PrintSettingActivity">
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="Print"
+        android:textAlignment="center"
+        android:textColor="@color/colorAccent"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/tv_1"
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="52dp"
+        android:text="File:"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/tv_file"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLength="25"
+        android:layout_above="@+id/tv_2"
+        android:layout_toEndOf="@+id/tv_3"
+        android:text="select a file"
+        android:textColor="@color/colorLink"
+        android:clickable="true"/>
+
+    <TextView
+        android:id="@+id/tv_2"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:layout_alignStart="@+id/tv_1"
+        android:layout_below="@+id/tv_1"
+        android:layout_marginTop="20dp"
+        android:text="Type:"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/tv_type"
+        android:layout_width="240dp"
+        android:layout_height="30dp"
+        android:layout_alignBottom="@+id/tv_2"
+        android:layout_toEndOf="@+id/tv_2" />
+
+    <TextView
+        android:id="@+id/tv_3"
+        android:layout_width="75dp"
+        android:layout_height="30dp"
+        android:layout_alignStart="@+id/tv_2"
+        android:layout_below="@+id/tv_2"
+        android:layout_marginTop="19dp"
+        android:text="Pages:"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/tv_pages"
+        android:layout_width="225dp"
+        android:layout_height="30dp"
+        android:layout_alignTop="@+id/tv_3"
+        android:layout_toEndOf="@+id/tv_3" />
+
+    <CheckBox
+        android:id="@+id/cb_colored"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_alignStart="@+id/tv_3"
+        android:layout_below="@+id/tv_3"
+        android:layout_marginTop="28dp"
+        android:text="Colored"
+        android:textSize="18sp" />
+
+    <CheckBox
+        android:id="@+id/cb_printOnBothSide"
+        android:layout_width="180dp"
+        android:layout_height="30dp"
+        android:layout_alignBaseline="@+id/cb_colored"
+        android:layout_alignBottom="@+id/cb_colored"
+        android:layout_toEndOf="@+id/cb_colored"
+        android:text="Print on both side"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:layout_alignStart="@+id/cb_colored"
+        android:layout_below="@+id/cb_colored"
+        android:layout_marginTop="11dp"
+        android:text="Copies:"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/et_noOfPages"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignBaseline="@+id/btn_minus"
+        android:layout_alignBottom="@+id/btn_minus"
+        android:layout_toEndOf="@+id/btn_minus"
+        android:inputType="number"
+        android:text="1"
+        android:textAlignment="center" />
+
+    <Button
+        android:id="@+id/btn_minus"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignStart="@+id/textView"
+        android:layout_alignTop="@+id/textView8"
+        android:text="-"
+        android:textAlignment="center"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/btn_plus"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignTop="@+id/et_noOfPages"
+        android:layout_toEndOf="@+id/et_noOfPages"
+        android:text="+" />
+
+    <Spinner
+        android:id="@+id/sp_paperSize"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_above="@+id/textView11"
+        android:layout_toEndOf="@+id/cb_colored" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="120dp"
+        android:layout_height="30dp"
+        android:layout_alignStart="@+id/textView8"
+        android:layout_below="@+id/btn_plus"
+        android:layout_marginTop="11dp"
+        android:text="Paper Size:"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="130dp"
+        android:layout_height="30dp"
+        android:layout_alignStart="@+id/textView10"
+        android:layout_below="@+id/textView10"
+        android:layout_marginTop="16dp"
+        android:text="Orientation:"
+        android:textSize="24sp" />
+
+    <Spinner
+        android:id="@+id/sp_orientation"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_alignStart="@+id/sp_paperSize"
+        android:layout_alignTop="@+id/textView11" />
+
+    <ImageView
+        android:id="@+id/btn_print"
+        android:layout_width="70dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/sp_orientation"
+        android:layout_marginTop="26dp"
+        android:layout_toEndOf="@+id/btn_plus"
+        app:srcCompat="@drawable/ic_menu_print" />
+
+
+</RelativeLayout>

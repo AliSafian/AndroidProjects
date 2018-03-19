@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="125dp"
+            android:id="@+id/layout_pic_plus_subject"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/image_message_profile"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:src="@drawable/userpic"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="8dp"
+                app:civ_border_width="2dp"
+                app:civ_border_color="@color/colorPrimaryDark"
+
+                />
+
+            <TextView
+                android:id="@+id/meet_subject_in_resp_activity"
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="20dp"
+                android:ems="15"
+                android:fontFamily="sans-serif-thin"
+                android:inputType="textMultiLine"
+                android:maxLength="250"
+                android:maxLines="4"
+                android:minLines="1"
+
+                android:text="Here the requester's meeting request text will appear"
+                android:textColor="@color/colorText" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:id="@+id/layout_name"
+            android:layout_marginLeft="10dp"
+            android:orientation="horizontal"
+            android:layout_below="@id/layout_pic_plus_subject">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-thin"
+                android:textColor="@color/colorPrimaryDark"
+                android:text="Shahid Kanwal"
+                android:textStyle="bold"
+                android:textSize="22sp" />
+            <Button
+                android:layout_width="170dp"
+                android:layout_height="30dp"
+                android:id="@+id/resp_startconv"
+                android:textColor="@android:color/white"
+                android:text="Start conversation"
+                android:background="@drawable/rounded_btn"
+                android:layout_marginLeft="5dp"
+                android:textSize="12sp"
+                />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/layout_meetreq_date"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical"
+            android:layout_below="@id/layout_name">
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-thin"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="30dp"
+                android:text="Date"
+                android:textSize="22sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-thin"
+                android:textColor="@color/colorText"
+                android:textStyle="bold"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="20dp"
+                android:text="01/15/2018"
+                android:textSize="18sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/layout_meetreq_start_time"
+            android:layout_marginLeft="30dp"
+            android:orientation="vertical"
+            android:layout_below="@id/layout_name"
+            android:layout_toRightOf="@id/layout_meetreq_date">
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-thin"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="30dp"
+                android:text="To"
+                android:textSize="22sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-thin"
+                android:textColor="@color/colorText"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold"
+                android:text="7:05 PM"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/layout_meetreq_end_time_time"
+            android:layout_marginLeft="30dp"
+            android:orientation="vertical"
+            android:layout_below="@id/layout_name"
+            android:layout_toRightOf="@id/layout_meetreq_start_time">
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-thin"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="30dp"
+                android:textStyle="bold"
+                android:text="From"
+                android:textSize="22sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-thin"
+                android:textColor="@color/colorText"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold"
+                android:text="7:15 PM"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/layout_bt_accept"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="30dp"
+
+            android:layout_below="@id/layout_meetreq_end_time_time">
+            <Button
+                android:layout_width="120dp"
+                android:layout_height="30dp"
+                android:id="@+id/resp_btn_accept"
+                android:layout_marginLeft="8dp"
+                android:ems="10"
+                android:text="Accept"
+                android:textColor="@android:color/white"
+                android:background="@drawable/rounded_btn"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/layout_bt_reject"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical"
+            android:layout_toRightOf="@id/layout_bt_accept"
+            android:layout_below="@id/layout_meetreq_end_time_time">
+
+            <Button
+                android:id="@+id/resp_btn_reject"
+                android:layout_width="120dp"
+                android:layout_height="30dp"
+                android:background="@drawable/rounded_btn"
+                android:ems="10"
+                android:text="Reject"
+                android:textColor="@android:color/white" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

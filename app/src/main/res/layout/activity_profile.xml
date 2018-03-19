@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.facefive.meetbook.ProfileActivity">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="6dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iv_dp"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
+                    android:layout_marginTop="30dp"
+                    android:src="@drawable/ic_dp_demo"
+                    app:civ_border_color="@color/colorPrimaryDark"
+                    app:civ_border_width="2dp" />
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/linearLayout"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="11dp"
+                    android:text="Amina Naeem"
+                    android:textSize="18dp"
+                    android:textColor="@color/colorText"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/name"
+                    android:layout_centerHorizontal="true"
+                    android:text="bsef14044@pucit.edu.pk"
+                    android:textSize="14sp"
+                    android:textStyle="normal" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/availabilty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Available"
+                android:textSize="16dp"
+                android:layout_below="@+id/linearLayout"
+                android:layout_marginBottom="10dp"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/colorPrimary"/>
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/availabilty"
+                android:layout_centerHorizontal="true"
+                >
+
+
+                <Button
+                    android:id="@+id/meet_req"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/linearLayout"
+
+                    android:background="@drawable/rounded_btn"
+                    android:text="Request Meeting"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    />
+
+
+
+                <Button
+                    android:id="@+id/subs"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:layout_alignStart="@+id/timetable"
+                    android:layout_below="@+id/linearLayout"
+                    android:layout_marginStart="12dp"
+                    android:background="@drawable/rounded_btn"
+                    android:text="subscribe"
+                    android:textColor="@android:color/white" />
+
+
+
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout2">
+            <TextView
+                android:id="@+id/timetable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="11dp"
+                android:layout_marginLeft="20dp"
+                android:text="Time Table"
+                android:textSize="16sp"
+                android:textColor="@color/colorText"/>
+
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/timetable"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="30dp"
+                android:minHeight="25px"
+                android:minWidth="25px"
+                android:id="@+id/tableLayout">
+
+                <TableRow
+                    android:id="@+id/TR_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@android:color/white"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/serialno"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="Sr.No"
+                        android:textSize="16sp"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/slot"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Slot"
+                        android:textSize="16sp"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/timestart"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:padding="10dp"
+                        android:text="Time Start"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/timeend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:padding="10dp"
+                        android:text="Time End"
+                        android:textSize="16sp" />
+                </TableRow>
+
+                <View
+                    android:id="@+id/line"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:background="@color/colorAccent"
+                  >
+
+                </View>
+
+                <TableRow
+                    android:id="@+id/TR_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/serialno1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:padding="10dp"
+                        android:text="1"
+                        android:textSize="14sp"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/slot1"
+                        android:layout_width="100dp"
+                        android:layout_height="50dp"
+                        android:gravity="left"
+                        android:padding="10dp"
+                        android:text="Availability"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/timest"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:padding="10dp"
+                        android:text="2:00 PM"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/timeend1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:padding="10dp"
+                        android:text="4:00 PM"
+                        android:textSize="14sp" />
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/TR_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/serialno2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:padding="10dp"
+                        android:text="2"
+                        android:textSize="14sp"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/slot2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:padding="10dp"
+                        android:text="Lecture"
+                        android:textSize="14sp"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/timestart2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:padding="10dp"
+                        android:text="4:00 PM"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/timeend2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:padding="10dp"
+                        android:text="5:30 PM"
+                        android:textSize="14sp" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/TR_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/serialno3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:gravity="left"
+                        android:padding="10dp"
+                        android:text="3"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/slot3"
+                        android:layout_width="100dp"
+                        android:layout_height="60dp"
+                        android:gravity="left"
+                        android:padding="10dp"
+                        android:text="Visiting Hours"
+                        android:textSize="14sp"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/timestart3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:padding="10dp"
+                        android:text="11:00 AM"
+                        android:textSize="14sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/timeend3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:padding="10dp"
+                        android:text="12:30 PM"
+                        android:textSize="14sp"
+                         />
+                </TableRow>
+            </TableLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

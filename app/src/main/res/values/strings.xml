@@ -1,0 +1,73 @@
+<resources>
+    <string name="app_name">MeetBook</string>
+    <string name="emailLabel">Email</string>
+    <string name="passLabel">Password</string>
+    <string name="loginBLabel">Login</string>
+    <string name="forget_password">Forgot your password?</string>
+    <string name="sign_up_link">Sign Up</string>
+    <string name="search_hint">Enter Query</string>
+
+
+    <string name="radio_male">Male</string>
+    <string name="radio_female">Female</string>
+
+    <string name="title_activity_home">MeetBook</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_new_password">Set New Password</string>
+    <string name="title_activity_signup">Create New Account</string>
+    <string name="title_activity_verify_code">Verify Code</string>
+    <string name="title_activity_verify_email">Verify Email</string>
+
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_change_name">ChangeNameActivity</string>
+    <string name="title_activity_test">TestActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_activity_meetings">MeetingsActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_3">Tab 3</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_subscriptions">SubscriptionsActivity</string>
+    <string name="title_activity_conversation_basic">ConversationBasic</string>
+
+
+    <string-array name="names">
+        <item>Fareed ul Hassan</item>
+        <item>Muhammad Usama</item>
+        <item>Muhammad Shahid</item>
+        <item>Amina Naeem</item>
+        <item>Saira Rehan</item>
+        <item>Ali Safian</item>
+        <item>Ashar Ahmad</item>
+
+    </string-array>
+
+    <string-array name="emails">
+        <item>fareed@pucit.edu.pk</item>
+        <item>bsef14a031@pucit.edu.pk</item>
+        <item>bsef14a046@pucit.edu.pk</item>
+        <item>bsef14a044@pucit.edu.pk</item>
+        <item>bsef14a054@pucit.edu.pk</item>
+        <item>bsef14a33@pucit.edu.pk</item>
+        <item>ashar@meetbook.com</item>
+
+    </string-array>
+    <string-array name="messages">
+        <item>Assalam u Alaikum</item>
+        <item>Kese Hen Ap?</item>
+        <item>Where Are You?</item>
+        <item>I Am Fine.</item>
+        <item>What about Yout</item>
+        <item>Ali Safian</item>
+        <item>ashar@meetbook.com</item>
+
+    </string-array>
+</resources>

@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.facefive.meetbook.SetLectureHoursActivity"
+    >
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/textView13"
+                android:layout_alignBottom="@+id/textView13"
+                android:layout_alignStart="@+id/tb_ch"
+                android:text="Day"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="440dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="125dp"
+                android:layout_marginTop="30dp"
+                android:text="Lecture Hourse"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="28sp"
+                android:id="@+id/textView13" />
+
+            <TableLayout
+                android:layout_width="542dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="26dp"
+                android:layout_marginTop="70dp"
+                android:id="@+id/tb_ch"
+                >
+
+
+
+                <TableRow android:layout_marginTop="10dp">
+
+                    <RadioButton
+                        android:id="@+id/rb_mon"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="Monday"
+                        android:textAlignment="center"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/st_11"
+                        android:layout_height="60dp"
+                        android:width="110dp"
+                        android:textAlignment="center"
+                        android:textSize="30sp"
+                        android:background="@drawable/cell_shape"
+                        />
+
+                    <TextView
+                        android:id="@+id/st_12"
+                        android:layout_height="60dp"
+                        android:width="110dp"
+                        android:textAlignment="center"
+                        android:background="@drawable/cell_shape"
+                        android:textSize="30sp" />
+
+                    <TextView
+                        android:id="@+id/st_13"
+                        android:layout_height="60dp"
+                        android:width="110dp"
+                        android:background="@drawable/cell_shape"
+                        android:textAlignment="center"
+                        android:textSize="30sp" />
+
+                    <TextView
+                        android:id="@+id/st_14"
+                        android:layout_height="60dp"
+                        android:width="110dp"
+                        android:textAlignment="center"
+                        android:background="@drawable/cell_shape"
+                        android:textSize="30sp" />
+                </TableRow>
+
+                <TableRow android:layout_marginTop="10dp">
+
+                    <RadioButton
+                        android:id="@+id/rb_tue"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="Tuesday"
+                        android:textAlignment="center"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/st_21"
+                        android:background="@drawable/cell_shape"
+                        android:layout_height="60dp"
+                        android:width="110dp"
+                        android:textAlignment="center"
+                        android:textSize="30sp" />
+
+                    <TextView
+                        android:id="@+id/st_22"
+                        android:background="@drawable/cell_shape"
+                        android:layout_height="60dp"
+                        android:width="110dp"
+                        android:textAlignment="center"
+                        android:textSize="30sp" />
+
+                    <TextView
+                        android:id="@+id/st_23"
+                        android:background="@drawable/cell_shape"
+                        android:layout_height="60dp"
+                        android:width="110dp"
+                        android:textAlignment="center"
+                        android:textSize="30sp" />
+
+                    <TextView
+                        android:id="@+id/st_24"
+                        android:layout_height="60dp"
+                        android:width="110dp"
+                        android:textAlignment="center"
+                        android:background="@drawable/cell_shape"
+                        android:textSize="30sp" />
+                </TableRow>
+
+                <TableRow android:layout_marginTop="10dp">
+
+                    <RadioButton
+                        android:id="@+id/rb_wed"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="Wednesday"
+                        android:textAlignment="center"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/st_31"
+                        android:layout_height="60dp"
+                        android:width="110dp"
+                        android:background="@drawable/cell_shape"
+                        android:textAlignment="center"
+                        android:textSize="30sp" />
+
+                    <TextView
+                        android:id="@+id/st_32"
+                        android:layout_height="60dp"
+                        android:width="110dp"
+                        android:textAlignment="center"
+                        android:background="@drawable/cell_shape"
+                        android:textSize="30sp" />
+
+                    <TextView
+                        android:id="@+id/st_33"
+                        android:layout_height="60dp"
+                        android:width="110dp"
+                        android:background="@drawable/cell_shape"
+                        android:textAlignment="center"
+                        android:textSize="30sp" />
+
+                    <TextView
+                        android:id="@+id/st_34"
+                        android:layout_height="60dp"
+                        android:width="110dp"
+                        android:textAlignment="center"
+                        android:background="@drawable/cell_shape"
+                        android:textSize="30sp" />
+                </TableRow>
+
+                <TableRow android:layout_marginTop="10dp">
+
+                    <RadioButton
+                        android:id="@+id/rb_thu"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="Thursday"
+                        android:textAlignment="center"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/st_41"
+                        android:layout_height="60dp"
+                        android:width="110dp"
+                        android:textAlignment="center"
+                        android:background="@drawable/cell_shape"
+                        android:textSize="30sp" />
+
+                    <TextView
+                        android:id="@+id/st_42"
+                        android:layout_height="60dp"
+                        android:width="110dp"
+                        android:textAlignment="center"
+                        android:background="@drawable/cell_shape"
+                        android:textSize="30sp" />
+
+                    <TextView
+                        android:id="@+id/st_43"
+                        android:layout_height="60dp"
+                        android:width="110dp"
+                        android:background="@drawable/cell_shape"
+                        android:textAlignment="center"
+                        android:textSize="30sp" />
+
+                    <TextView
+                        android:id="@+id/st_44"
+                        android:layout_height="60dp"
+                        android:width="110dp"
+                        android:textAlignment="center"
+                        android:background="@drawable/cell_shape"
+                        android:textSize="30sp" />
+                </TableRow>
+
+
+                <TableRow android:layout_marginTop="10dp">
+
+                    <RadioButton
+                        android:id="@+id/rb_fri"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="Friday"
+                        android:textAlignment="center"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/st_51"
+                        android:layout_height="60dp"
+                        android:width="110dp"
+                        android:background="@drawable/cell_shape"
+                        android:textAlignment="center"
+                        android:textSize="30sp" />
+
+                    <TextView
+                        android:id="@+id/st_52"
+                        android:layout_height="60dp"
+                        android:width="110dp"
+                        android:textAlignment="center"
+                        android:background="@drawable/cell_shape"
+                        android:textSize="30sp" />
+
+                    <TextView
+                        android:id="@+id/st_53"
+                        android:layout_height="60dp"
+                        android:width="110dp"
+                        android:textAlignment="center"
+                        android:background="@drawable/cell_shape"
+                        android:textSize="30sp" />
+
+                    <TextView
+                        android:id="@+id/st_54"
+                        android:layout_height="60dp"
+                        android:width="110dp"
+                        android:background="@drawable/cell_shape"
+                        android:textAlignment="center"
+                        android:textSize="30sp" />
+                </TableRow>
+
+
+            </TableLayout>
+
+
+            <Button
+                android:id="@+id/btn_submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tb_ch"
+                android:layout_marginLeft="480dp"
+                android:layout_marginTop="10dp"
+
+                android:text="Submit" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+
+</RelativeLayout>

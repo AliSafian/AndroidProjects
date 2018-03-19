@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.facefive.meetbook">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_login">
+        </activity>
+        <activity
+            android:name=".SignupActivity"
+            android:label="@string/title_activity_signup" android:screenOrientation="portrait"/>
+        <activity
+            android:name=".VerifyEmailActivity"
+            android:label="@string/title_activity_verify_email" android:screenOrientation="portrait" />
+        <activity
+            android:name=".VerifyCodeActivity"
+            android:label="@string/title_activity_verify_code" android:screenOrientation="portrait" />
+        <activity
+            android:name=".NewPasswordActivity"
+            android:label="@string/title_activity_new_password" android:screenOrientation="portrait"/>
+        <activity
+            android:name=".HomeActivity"
+            android:label="@string/title_activity_home"
+            android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value=".SearchResultActivity" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".SearchResultActivity" android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+        <activity android:name=".ProfileActivity"  android:label="Profile" android:screenOrientation="portrait"/>
+        <activity android:name=".PrivacyActivity" android:label="Change Privacy Settings" android:screenOrientation="portrait"/>
+        <activity android:name=".AddSubscriberActivity" android:label="Add Subscribers" android:screenOrientation="portrait"/>
+        <activity android:name=".SettingsActivity" android:label="Settings" android:screenOrientation="portrait"/>
+        <activity android:name=".ChangePasswordActivity" android:label="Change Password" android:screenOrientation="portrait"/>
+        <activity android:name=".SendUpdateActivity" android:label="Send Update" android:screenOrientation="portrait"/>
+        <activity android:name=".ChangeNameActivity" android:label="Change Name" android:screenOrientation="portrait"/>
+        <activity android:name=".PrintSettingActivity" android:label="Print Settings" android:screenOrientation="portrait" />
+        <activity android:name=".UpdateActivity" />
+        <activity
+            android:name=".MeetingsActivity"
+            android:label="@string/title_activity_meetings"
+            android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait"/>
+        <activity
+            android:name=".SubscriptionsActivity"
+            android:label="@string/title_activity_subscriptions"
+            android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait"></activity>
+
+
+
+        <activity
+            android:name=".request"
+            android:label="Meeting Request" android:screenOrientation="portrait">
+
+
+        </activity>
+        <activity
+            android:name=".response"
+            android:label="Response a meeting" android:screenOrientation="portrait"  />
+
+        <activity android:name=".message_receive" android:screenOrientation="portrait" />
+        <activity android:name=".message_sent" />
+        <activity
+            android:name=".show_all_meetings"
+            android:label="All meeting Requests" android:screenOrientation="portrait" >
+
+        </activity>
+        <activity android:name=".chat_list" android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name=".ConversationBasic"
+            android:label="Conversation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <activity
+            android:name=".NotificationActivity"
+            android:label="Notification Settings"
+            android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name=".SetCounsellingHoursActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".SetLectureHoursActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".SetHoursActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".SetSlotActivity" android:screenOrientation="portrait"/>
+
+        <activity android:name=".TimetableTypeSelectionActivity" android:screenOrientation="portrait">
+
+        </activity>
+    </application>
+
+</manifest>

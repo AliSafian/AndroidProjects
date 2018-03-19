@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:focusable="false"
+    android:focusableInTouchMode="false">
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_user_photo"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:src="@drawable/userpic"/>
+
+
+    <TextView
+        android:id="@+id/tv_user_name"
+        style="@style/h2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tv_time"
+        android:layout_marginStart="23dp"
+        android:layout_toEndOf="@+id/iv_user_photo"
+        android:text="Shahid Kanwal"
+        android:textColor="@color/colorText"
+        android:textSize="20dp" />
+                <ImageView
+                    android:id="@+id/online_indicator"
+                    android:layout_toRightOf="@id/tv_user_name"
+                    android:layout_alignTop="@id/tv_user_name"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="@dimen/space5"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:background="@drawable/bg_online"/>
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tv_last_chat"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="13dp"
+        android:layout_marginEnd="19dp"
+        android:gravity="left"
+        android:text="4:59 pm"
+        android:textColor="@color/colorLink"
+        android:textSize="@dimen/h3" />
+
+
+    <TextView
+        android:id="@+id/tv_last_chat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/iv_user_photo"
+        android:layout_alignStart="@+id/tv_user_name"
+        android:text="Hellow, How are you"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/h2" />
+
+</RelativeLayout>
+
+

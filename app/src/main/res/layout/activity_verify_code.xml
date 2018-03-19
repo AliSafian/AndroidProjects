@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.facefive.meetbook.VerifyCodeActivity">
+
+    <TextView
+        android:id="@+id/tv_infoCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="76dp"
+        android:text="Enter the  4-digit Code We Sent to" />
+
+    <TextView
+        android:id="@+id/tv_emailCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_infoCode"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="example@gmail.com" />
+
+    <EditText
+        android:id="@+id/et_code1"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignBaseline="@+id/et_code2"
+        android:layout_alignBottom="@+id/et_code2"
+        android:layout_marginEnd="10dp"
+        android:layout_toLeftOf="@+id/et_code2"
+        android:inputType="number"
+        android:maxLength="1"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/et_code2"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="10dp"
+        android:layout_above="@+id/btn_submit"
+        android:layout_toStartOf="@+id/et_code3"
+        android:inputType="number"
+        android:maxLength="1"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/et_code3"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignBaseline="@+id/et_code4"
+        android:layout_alignBottom="@+id/et_code4"
+        android:layout_marginEnd="10dp"
+        android:layout_toStartOf="@+id/et_code4"
+        android:ems="10"
+        android:inputType="number"
+        android:maxLength="1"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/et_code4"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignEnd="@+id/tv_infoCode"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="10dp"
+        android:ems="10"
+        android:inputType="number"
+        android:maxLength="1"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/et_code1"
+        android:layout_alignStart="@+id/et_code1"
+        android:layout_marginBottom="14dp"
+        android:text="Enter Code"
+        android:textColor="@color/colorText" />
+
+    <Button
+        android:id="@+id/btn_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+
+        android:layout_alignEnd="@+id/et_code4"
+        android:layout_alignStart="@+id/et_code1"
+        android:layout_below="@+id/et_code3"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/rounded_btn"
+        android:text="Submit"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/tv_link_resend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line1"
+        android:layout_marginTop="30dp"
+        android:layout_toEndOf="@+id/et_code1"
+        android:text="Resend code"
+        android:textColor="@color/colorText" />
+
+    <ImageView
+        android:id="@+id/img_resend"
+        android:layout_width="30dp"
+        android:layout_height="20dp"
+        android:layout_alignBottom="@+id/tv_link_resend"
+        android:layout_alignLeft="@+id/tv_link_resend"
+        android:layout_alignEnd="@+id/et_code1"
+        app:srcCompat="@drawable/ic_resend" />
+
+    <View
+        android:layout_width="220dp"
+        android:layout_height="2dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/btn_submit"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorPrimaryDark"
+        android:id="@+id/line1" />
+    <View
+        android:layout_width="220dp"
+        android:layout_height="2dp"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/textView11"
+        android:layout_marginBottom="20dp"
+        android:background="@color/colorPrimaryDark"
+        android:id="@+id/line2" />
+
+
+</RelativeLayout>

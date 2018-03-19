@@ -1,0 +1,60 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.facefive.meetbook.FragmentPopUp">
+
+    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_pop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Popup notification"
+            android:textSize="18sp"
+            android:layout_marginLeft="20sp"
+            android:textColor="@color/colorPrimaryDark"/>
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_pop"
+            android:layout_marginLeft="10dp">
+
+            <RadioButton
+                android:id="@+id/rb_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No popup" />
+            <RadioButton
+                android:id="@+id/rb_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Only when screen 'on'" />
+            <RadioButton
+                android:id="@+id/rb_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Only when screen 'off'" />
+            <RadioButton
+                android:id="@+id/rb_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Always show popup" />
+            <Button
+                android:id="@+id/btn"
+                android:layout_width="120dp"
+                android:layout_height="30dp"
+                android:background="@drawable/rounded_btn"
+                android:textColor="@android:color/white"
+                android:layout_marginLeft="100dp"
+                android:layout_marginBottom="10dp"
+                android:text="Ok"
+                />
+        </RadioGroup>
+    </RelativeLayout>
+
+</FrameLayout>
