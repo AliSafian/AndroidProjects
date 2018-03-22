@@ -3,19 +3,41 @@ package com.facefive.meetbook;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.app.ProgressDialog;
+import android.widget.Toast;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Request.Method;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class LoginActivity extends AppCompatActivity {
 
-    TextView signup_link;
     TextView forgotPass_link;
     Button login_btn;
     EditText email_et;
     EditText pass_et;
+    String EMAIL="email";
+    String PASSWORD="password";
+
+    private ProgressDialog pDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,66 +46,45 @@ public class LoginActivity extends AppCompatActivity {
 
         email_et= (EditText)findViewById(R.id.et_email);
         pass_et= (EditText)findViewById(R.id.passET);
+        login_btn =(Button) findViewById(R.id.btn_login);
 
-
-        signup_link = findViewById(R.id.signUpLink);
-        forgotPass_link = findViewById(R.id.forgotPassLink);
-        login_btn = findViewById(R.id.btn_login);
-
-        forgotPass_link.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-
-              Intent i = new Intent(getApplicationContext() , VerifyEmailActivity.class);
-              startActivity(i);
-          }
-        }
-
-        );
         login_btn.setOnClickListener(new View.OnClickListener() {
-                                               @Override
-                                               public void onClick(View v) {
+       @Override
+       public void onClick(View v) {
 
-               String email = email_et.getText().toString();
-               String pass = pass_et.getText().toString();
-               boolean flag= true;
-               int redColor =getResources().getColor(R.color.colorError);
+           checkLogin();
 
-               if(!email.toLowerCase().equals("test@meetbook.com"))
-               {
-                   email_et.setText("");
-                   email_et.setHint("Incorrect Email");
-                   email_et.setHintTextColor(redColor);
-                   flag= false;
-               }
-               if(!pass.equals("1234") )
-               {
-                   pass_et.setText("");
-                   pass_et.setHint("Incorrect Pass");
-                   pass_et.setHintTextColor(redColor);
-                   flag= false;
-               }
-
-               if(flag) {
-                   Intent i = new Intent(getApplicationContext() , HomeActivity.class);
-                   startActivity(i);
-               }
-
-           }
-        }
-
-        );
-        signup_link.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-               Intent i = new Intent(getApplicationContext() , SignupActivity.class);
-               startActivity(i);
-           }
-       }
-
-        );
+           }});
 
     }
+    public void checkLogin(){
 
+        RequestQueue requestQueue=Volley.newRequestQueue(this);
+
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, AppConfig.URL_LOGIN, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                Toast.makeText(LoginActivity.this,response,Toast.LENGTH_SHORT).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(LoginActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String, String> params=new HashMap<String, String>();
+                params.put(EMAIL,email_et.getText().toString().trim());
+                params.put(PASSWORD,pass_et.getText().toString().trim());
+
+                return params;
+            }
+        };
+        requestQueue.add(stringRequest);
+
+    }
 }
