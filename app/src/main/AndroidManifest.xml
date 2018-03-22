@@ -13,10 +13,19 @@
             android:name=".LoginActivity"
             android:screenOrientation="portrait"
             android:label="@string/title_activity_login">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
         </activity>
         <activity
             android:name=".SignupActivity"
-            android:label="@string/title_activity_signup" android:screenOrientation="portrait"/>
+            android:label="@string/title_activity_signup"
+            android:screenOrientation="portrait">
+        </activity>
+
         <activity
             android:name=".VerifyEmailActivity"
             android:label="@string/title_activity_verify_email" android:screenOrientation="portrait" />
@@ -33,11 +42,7 @@
             <meta-data
                 android:name="android.app.default_searchable"
                 android:value=".SearchResultActivity" />
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".SearchResultActivity" android:screenOrientation="portrait">
             <intent-filter>

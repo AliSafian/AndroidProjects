@@ -70,4 +70,11 @@
         <item>ashar@meetbook.com</item>
 
     </string-array>
+    <string-array name="uni_array">
+        <item>University of Punjab</item>
+        <item>Punjab University College of Information Technology</item>
+        <item>Government College University</item>
+        <item>Punjab University College of Arts and Design</item>
+        <item>MAO College Lahore</item>
+    </string-array>
 </resources>

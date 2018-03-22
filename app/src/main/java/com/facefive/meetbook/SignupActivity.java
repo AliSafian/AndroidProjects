@@ -12,10 +12,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 public class SignupActivity extends AppCompatActivity {
@@ -38,9 +40,17 @@ public class SignupActivity extends AppCompatActivity {
 
 
         next_btn= (Button)findViewById(R.id.btn_su_next);
-        dp_iv= (ImageView)findViewById(R.id.iv_cdp_img);
+        //dp_iv= (ImageView)findViewById(R.id.iv_cdp_img);
 
+        Spinner spinner = (Spinner) findViewById(R.id.sp_uni);
 
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.uni_array, android.R.layout.simple_spinner_item);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinner.setAdapter(adapter);
         next_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,11 +101,11 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
-        dp_iv.setOnClickListener(btnChoosePhotoPressed);
+       // dp_iv.setOnClickListener(btnChoosePhotoPressed);
 
 
     }
-    public View.OnClickListener btnChoosePhotoPressed = new View.OnClickListener() {
+   /* public View.OnClickListener btnChoosePhotoPressed = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Intent i = new Intent(Intent.ACTION_PICK,
@@ -125,6 +135,6 @@ public class SignupActivity extends AppCompatActivity {
                 }
         }
 
-    };
+    };*/
 
 }
