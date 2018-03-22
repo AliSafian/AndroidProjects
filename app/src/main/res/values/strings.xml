@@ -5,7 +5,7 @@
     <string name="loginBLabel">Login</string>
     <string name="forget_password">Forgot your password?</string>
     <string name="sign_up_link">Sign Up</string>
-    <string name="search_hint">Enter Query</string>
+    <string name="search_hint">Enter To Search</string>
 
 
     <string name="radio_male">Male</string>
@@ -69,5 +69,12 @@
         <item>Ali Safian</item>
         <item>ashar@meetbook.com</item>
 
+    </string-array>
+    <string-array name="uni_array">
+        <item>University of Punjab</item>
+        <item>Punjab University College of Information Technology</item>
+        <item>Government College University</item>
+        <item>Punjab University College of Arts and Design</item>
+        <item>MAO College Lahore</item>
     </string-array>
 </resources>
