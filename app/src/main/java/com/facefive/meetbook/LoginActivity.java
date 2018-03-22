@@ -24,16 +24,19 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 
 public class LoginActivity extends AppCompatActivity {
 
-    TextView forgotPass_link;
+    TextView forgotPass_link,signupLink;
+
     Button login_btn;
     EditText email_et;
     EditText pass_et;
     String EMAIL="email";
     String PASSWORD="password";
+
 
     private ProgressDialog pDialog;
     @Override
@@ -45,6 +48,10 @@ public class LoginActivity extends AppCompatActivity {
         email_et= (EditText)findViewById(R.id.et_email);
         pass_et= (EditText)findViewById(R.id.passET);
         login_btn =(Button) findViewById(R.id.btn_login);
+        signupLink=(TextView)findViewById(R.id.signUpLink);
+
+        forgotPass_link=(TextView)findViewById(R.id.forgotPassLink);
+
 
         login_btn.setOnClickListener(new View.OnClickListener() {
        @Override
@@ -53,6 +60,22 @@ public class LoginActivity extends AppCompatActivity {
            checkLogin();
 
            }});
+        signupLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent=new Intent(LoginActivity.this,SignupActivity.class);
+                startActivity(intent);
+            }
+        });
+        forgotPass_link.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent=new Intent(LoginActivity.this,ChangePasswordActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
     public void checkLogin(){
@@ -64,6 +87,8 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(String response) {
 
                 Toast.makeText(LoginActivity.this,response,Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(LoginActivity.this,HomeActivity.class);
+                startActivity(intent);
             }
         }, new Response.ErrorListener() {
             @Override
