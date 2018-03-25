@@ -10,6 +10,9 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -30,18 +33,20 @@ import com.android.volley.toolbox.Volley;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SignupActivity extends AppCompatActivity {
 
     Button next_btn ;
-    ImageView dp_iv;
     EditText name_et;
     EditText email_et;
     EditText con_pass_et;
     EditText pass_et;
     Spinner uni;
+    boolean flag;
    final String SU_NAME="name",SU_EMAIL="email",SU_PASS="password",SU_UNINAME="uniname";
-    String su_name,su_email,su_pass,su_conpass,su_uniname;
+    String name,email,pass,con_pass,uni_name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,76 +59,166 @@ public class SignupActivity extends AppCompatActivity {
         uni=(Spinner)findViewById(R.id.sp_uni);
 
         next_btn= (Button)findViewById(R.id.btn_su_next);
-        //dp_iv= (ImageView)findViewById(R.id.iv_cdp_img);
-
         Spinner spinner = (Spinner) findViewById(R.id.sp_uni);
-
-        // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.uni_array, android.R.layout.simple_spinner_item);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
+
+
+
         spinner.setAdapter(adapter);
+        isValidForm();
         next_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 su_name = name_et.getText().toString().trim();
-                 su_email = email_et.getText().toString().trim();
-               su_pass = pass_et.getText().toString().trim();
-                 su_conpass = con_pass_et.getText().toString().trim();
-                 su_uniname=uni.getSelectedItem().toString().trim();
+                 name = name_et.getText().toString().trim();
+                 email = email_et.getText().toString().trim();
+                 pass = pass_et.getText().toString().trim();
+                 con_pass = con_pass_et.getText().toString().trim();
+                 uni_name= uni.getSelectedItem().toString().trim();
+                Pattern digit = Pattern.compile("[0-9]");
+                Pattern aplha = Pattern.compile("[A-Za-z]");
+                Matcher hasDigit = digit.matcher(pass);
+                Matcher hasAlpha = aplha.matcher(pass);
 
-                boolean flag= true;
-                int redColor =getResources().getColor(R.color.colorError);
-                if(su_name.equals(""))
-                {
-                    name_et.setHint("Invalid Name");
-                    name_et.setHintTextColor(redColor);
+                String emailPattern = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+
+                flag = true;
+                if(name.equals("")) {
+                    name_et.setError("Empty name is not allowed");
+                    name_et.requestFocus();
                     flag= false;
                 }
-                if(!su_email.toLowerCase().equals("test@mba"))
-                {
-                    email_et.setText("");
-                    email_et.setHint("Invalid Email");
-                    email_et.setHintTextColor(redColor);
+                else if(!email.matches(emailPattern)) {
+                    email_et.setError("Email is not valid");
+                    email_et.requestFocus();
                     flag= false;
                 }
-                if(su_pass.equals("") || su_conpass.length() < 4)
-                {
+                else if(pass.isEmpty() || pass.length() < 8) {
+                    pass_et.setError("Enter atleast 8 alphanumeric characters");
                     pass_et.setText("");
-                    pass_et.setHint("Invalid Pass");
-                    pass_et.setHintTextColor(redColor);
+                    pass_et.requestFocus();
                     flag= false;
+
                 }
-                if(!su_pass.equals(su_conpass))
+                else if(hasDigit.find()==false)
                 {
-                    con_pass_et.setText("");
-                    con_pass_et.setHint("Password Not Match");
-                    con_pass_et.setHintTextColor(redColor);
+                    pass_et.setError("It must contain atleast 1 digit");
+                    pass_et.setText("");
+                    pass_et.requestFocus();
                     flag= false;
                 }
+                else if(hasAlpha.find()==false)
+                {
+                    pass_et.setError("It must contain alphabets");
+                    pass_et.setText("");
+                    pass_et.requestFocus();
+                    flag= false;
+                }
+                else if (!con_pass.equals(pass)) {
+                    con_pass_et.setError("Password does not match");
+                    con_pass_et.setText("");
+                    con_pass_et.requestFocus();
+                    flag =false;
+                }
 
-                if(flag) {
+                if (flag){
                     Intent i = new Intent(getApplicationContext(), VerifyCodeActivity.class);
-                    //i.putExtra("flow", "onSignUp");
-                   // i.putExtra("email_key" , email);
-                    signUP();
-
-                   // startActivity(i);
+                    i.putExtra("Flow", "FromSignUp");
+                    startActivity(i);
 
                 }
-//                Intent i = new Intent(getApplicationContext(), VerifyCodeActivity.class);
-//                i.putExtra("flow", "onSignUp");
-//                startActivity(i);
+            }
+        });
+    }
+
+    public boolean isValidForm()
+    {
+        flag = true;
+        name_et.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    if(name_et.getText().toString().trim().equals("")) {
+                        name_et.setError("Empty name is not allowed");
+                        flag= false;
+                    }
+                }
             }
         });
 
-       // dp_iv.setOnClickListener(btnChoosePhotoPressed);
+        email_et.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
+
+                String email = email_et.getText().toString();
+                String emailPattern = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+
+                if(!email.matches(emailPattern)) {
+                    email_et.setError("Email is not valid");
+                    email_et.requestFocus();
+                    flag= false;
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable arg0) {}
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) { }
 
 
+        });
+
+        pass_et.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    String pass = pass_et.getText().toString();
+
+                    Pattern digit = Pattern.compile("[0-9]");
+                    Pattern aplha = Pattern.compile("[A-Za-z]");
+                    Matcher hasDigit = digit.matcher(pass);
+                    Matcher hasAlpha = aplha.matcher(pass);
+
+
+                    if (pass.isEmpty() || pass.length() < 8) {
+                        pass_et.setError("Enter atleast 8 alphanumeric characters");
+                        flag= false;
+
+                    } else if(hasDigit.find()==false)
+                    {
+                        pass_et.setError("It must contain atleast 1 digit");
+                        flag= false;
+                    }
+                    else if(hasAlpha.find()==false)
+                    {
+                        pass_et.setError("It must contain alphabets");
+                        flag= false;
+                    }
+                }
+            }
+        });
+        con_pass_et.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    String con_pass = con_pass_et.getText().toString();
+                    String pass = pass_et.getText().toString();
+                    if (!con_pass.equals(pass)) {
+                        con_pass_et.setError("Password does not match");
+                        flag =false;
+
+                    }
+                }
+            }
+        });
+
+        return flag?true:false;
     }
-
     public void signUP(){
 
         RequestQueue requestQueue= Volley.newRequestQueue(this);
@@ -147,10 +242,10 @@ public class SignupActivity extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
 
                 Map<String, String> params=new HashMap<String, String>();
-                params.put(SU_NAME,su_name);
-                params.put(SU_EMAIL,su_email);
-                params.put(SU_PASS,su_pass);
-                params.put(SU_UNINAME,su_uniname);
+                params.put(SU_NAME,name);
+                params.put(SU_EMAIL,email);
+                params.put(SU_PASS,pass);
+                params.put(SU_UNINAME,uni_name);
 
                 return params;
             }
