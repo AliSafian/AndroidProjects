@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -127,12 +128,18 @@ public class SignupActivity extends AppCompatActivity {
                 if (flag){
                     Intent i = new Intent(getApplicationContext(), VerifyCodeActivity.class);
                     i.putExtra("Flow", "FromSignUp");
+                    i.putExtra("name", name);
+                    i.putExtra("email", email);
+                    i.putExtra("pass", pass);
+                    i.putExtra("uni_name", uni_name);
                     startActivity(i);
 
                 }
             }
         });
     }
+
+
 
     public boolean isValidForm()
     {
