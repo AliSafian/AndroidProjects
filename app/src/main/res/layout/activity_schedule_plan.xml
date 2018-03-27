@@ -481,7 +481,7 @@
             </RelativeLayout>
 
 
-            <!--<RelativeLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/container4_layout_scheduleplan_xml"
@@ -629,14 +629,13 @@
 
 
             </RelativeLayout>
--->
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
 
                 android:id="@+id/container5_layout_scheduleplan_xml"
-                android:layout_below="@+id/container3_layout_scheduleplan_xml"
+                android:layout_below="@+id/container4_layout_scheduleplan_xml"
                 android:layout_marginTop="15dp">
 
                 <Button
