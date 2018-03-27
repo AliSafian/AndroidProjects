@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.facefive.meetbook.SchedulePlanSetting">
+
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="30dp"
+                android:id="@+id/_1_linearlayout_scheduleplansetting_xml">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Select slotes/Day:"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    />
+                <NumberPicker
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="20dp"
+                    android:id="@+id/sspd_np_scheduleplansetting_xml"
+                    android:background="@drawable/border_style"
+                    android:solidColor="@color/colorAccent"
+                    ></NumberPicker>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/_2_linearlayout_scheduleplansetting_xml"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="30dp"
+                android:layout_below="@+id/_1_linearlayout_scheduleplansetting_xml">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Working hours/Day:"
+                    android:textSize="16dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/_3_linearlayout_scheduleplansetting_xml"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/_2_linearlayout_scheduleplansetting_xml">
+
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/inerlayout_layout_scheduleplan_xml"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+
+
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/timefrom_tv_scheduleplan_xml"
+                        android:text="Time:"
+                        android:layout_marginTop="10dp"
+                        android:textSize="14dp"
+                        android:layout_marginLeft="35dp"
+                        />
+
+                    <EditText
+                        android:layout_width="120dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="5dp"
+                        android:editable="false"
+                        android:clickable="true"
+                        android:layout_toRightOf="@+id/timefrom_tv_scheduleplan_xml"
+                        android:id="@+id/timefrom_et_scheduleplan_xml"/>
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/timefrom_et_scheduleplan_xml"
+                        android:text="to"
+                        android:layout_marginTop="10dp"
+                        android:textSize="14dp"
+                        android:layout_marginLeft="5dp"
+                        android:id="@+id/timeto_tv_scheduleplan_xml"
+                        />
+
+
+                    <EditText
+                        android:layout_width="120dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="220dp"
+                        android:editable="false"
+                        android:clickable="true"
+                        android:id="@+id/timeto_et_scheduleplan_xml">
+                    </EditText>
+                </RelativeLayout>
+
+
+
+
+            </LinearLayout>
+
+
+
+            <RelativeLayout
+                android:layout_width="300dp"
+                android:layout_height="200dp"
+                android:id="@+id/_4_relativelayout_scheduleplansetting_xml"
+                android:layout_below="@+id/_3_linearlayout_scheduleplansetting_xml"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="40dp"
+                android:background="@drawable/border_style">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:text="Select Working Days"
+                    android:textAlignment="center"
+                    android:textSize="16dp"
+                    android:id="@+id/swd_tv_scheduleplansetting_xml"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:background="@drawable/border_style"/>
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/swd_tv_scheduleplansetting_xml"
+                    android:id="@+id/swd_sv_scheduleplansetting_xml">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/monday_cb_scheduleplansetting_xml"
+                            android:text="Monday"
+                            android:textSize="14dp"
+                            />
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tuesday_cb_scheduleplansetting_xml"
+                            android:text="Tuesday"
+                            android:textSize="14dp"
+                            />
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/wednesday_cb_scheduleplansetting_xml"
+                            android:text="Wednesday"
+                            android:textSize="14dp"
+                            />
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/thursday_cb_scheduleplansetting_xml"
+                            android:text="Thursday"
+                            android:textSize="14dp"
+                            />
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/friday_cb_scheduleplansetting_xml"
+                            android:text="Friday"
+                            android:textSize="14dp"
+                            />
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/saturday_cb_scheduleplansetting_xml"
+                            android:text="Saturday"
+                            android:textSize="14dp"
+                            />
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/sunday_cb_scheduleplansetting_xml"
+                            android:text="Sunday"
+                            android:textSize="14dp"
+                            />
+                    </LinearLayout>
+                </ScrollView>
+
+
+            </RelativeLayout>
+
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/next_btn_scheduleplansetting_xml"
+                android:layout_below="@+id/_4_relativelayout_scheduleplansetting_xml"
+                android:layout_marginLeft="280dp"
+                android:layout_marginTop="20dp"
+                android:text="Next"
+                />
+
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

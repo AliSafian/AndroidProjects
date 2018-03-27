@@ -105,18 +105,11 @@
             android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait">
 
         </activity>
-        <activity
-            android:name=".SetCounsellingHoursActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".SetLectureHoursActivity"
-            android:screenOrientation="landscape" />
-        <activity android:name=".SetHoursActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".SetSlotActivity" android:screenOrientation="portrait"/>
 
-        <activity android:name=".TimetableTypeSelectionActivity" android:screenOrientation="portrait">
+        <activity android:name=".SchedulePlan" />
+        <activity android:name=".SchedulePlanSetting" />
+        <activity android:name=".AddHeaderToTimetable"></activity>
 
-        </activity>
     </application>
 
 </manifest>
