@@ -3,9 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://G:\Projects\FYP\Meetbook\AndroidProjects.iml" filepath="G:\Projects\FYP\Meetbook\AndroidProjects.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Meetbook.iml" filepath="$PROJECT_DIR$/Meetbook.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MeetBook.iml" filepath="$PROJECT_DIR$/MeetBook.iml" />
       <module fileurl="file://D:\GIT\AndroidProjects\Meetbook.iml" filepath="D:\GIT\AndroidProjects\Meetbook.iml" />
+      <module fileurl="file://C:\Users\hafiz\Desktop\MeetBook\Meetbook.iml" filepath="C:\Users\hafiz\Desktop\MeetBook\Meetbook.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\hafiz\Desktop\MeetBook\app\app.iml" filepath="C:\Users\hafiz\Desktop\MeetBook\app\app.iml" />
     </modules>
   </component>
 </project>
