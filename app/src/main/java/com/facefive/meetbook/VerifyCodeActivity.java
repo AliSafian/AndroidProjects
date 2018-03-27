@@ -76,7 +76,7 @@ public class VerifyCodeActivity extends AppCompatActivity {
                         Intent i = new Intent(getApplicationContext(), HomeActivity.class);
                         startActivity(i);
                     }
-                    else if(flow.equals("onForgetPassword")){
+                    else if(flow.equals("FromForgetPassword")){
                         Intent i = new Intent(getApplicationContext(), NewPasswordActivity.class);
                         startActivity(i);
                     }
@@ -88,14 +88,17 @@ public class VerifyCodeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(tries <=3)
+                if(tries <3)
                 {
                     sendEmail();
                     tries++;
                 }
                 else
                 {
-                    Toast.makeText(getApplicationContext(),"Tries No More Than 3", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Tries No More Than 3, Please Sign up Again", Toast.LENGTH_SHORT).show();
+                    finish();
+                    Intent i = new Intent(getApplicationContext(), SignupActivity.class);
+                    startActivity(i);
                 }
             }
         });

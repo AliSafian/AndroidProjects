@@ -85,6 +85,8 @@ public class SignupActivity extends AppCompatActivity {
                 Matcher hasAlpha = aplha.matcher(pass);
 
                 String emailPattern = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+               // String passwordPattern = "^(?=.*\\d).{6,15}$";
+                String passwordPattern = "^[A-Za-z0-9-\\+]{6,16}$";
 
                 flag = true;
                 if(name.equals("")) {
@@ -97,27 +99,32 @@ public class SignupActivity extends AppCompatActivity {
                     email_et.requestFocus();
                     flag= false;
                 }
-                else if(pass.isEmpty() || pass.length() < 8) {
-                    pass_et.setError("Enter atleast 8 alphanumeric characters");
-                    pass_et.setText("");
-                    pass_et.requestFocus();
-                    flag= false;
-
-                }
-                else if(hasDigit.find()==false)
-                {
-                    pass_et.setError("It must contain atleast 1 digit");
-                    pass_et.setText("");
+                else if(!pass.matches(passwordPattern)) {
+                    pass_et.setError("Pass is not valid");
                     pass_et.requestFocus();
                     flag= false;
                 }
-                else if(hasAlpha.find()==false)
-                {
-                    pass_et.setError("It must contain alphabets");
-                    pass_et.setText("");
-                    pass_et.requestFocus();
-                    flag= false;
-                }
+//                else if(pass.isEmpty() || pass.length() < 8) {
+//                    pass_et.setError("Enter atleast 8 alphanumeric characters");
+//                    pass_et.setText("");
+//                    pass_et.requestFocus();
+//                    flag= false;
+//
+//                }
+//                else if(hasDigit.find()==false)
+//                {
+//                    pass_et.setError("It must contain atleast 1 digit");
+//                    pass_et.setText("");
+//                    pass_et.requestFocus();
+//                    flag= false;
+//                }
+//                else if(hasAlpha.find()==false)
+//                {
+//                    pass_et.setError("It must contain alphabets");
+//                    pass_et.setText("");
+//                    pass_et.requestFocus();
+//                    flag= false;
+//                }
                 else if (!con_pass.equals(pass)) {
                     con_pass_et.setError("Password does not match");
                     con_pass_et.setText("");
@@ -133,6 +140,7 @@ public class SignupActivity extends AppCompatActivity {
                     i.putExtra("pass", pass);
                     i.putExtra("uni_name", uni_name);
                     startActivity(i);
+                    finish();
 
                 }
             }
@@ -186,7 +194,12 @@ public class SignupActivity extends AppCompatActivity {
                 if (!hasFocus) {
                     String pass = pass_et.getText().toString();
 
-                    Pattern digit = Pattern.compile("[0-9]");
+                    String passwordPattern = "^[_A-Za-z0-9-\\+]{6,16}$";
+                    if(!pass.matches(passwordPattern)) {
+                        pass_et.setError("Pass is not valid");
+                        flag= false;
+                    }
+                    /*Pattern digit = Pattern.compile("[0-9]");
                     Pattern aplha = Pattern.compile("[A-Za-z]");
                     Matcher hasDigit = digit.matcher(pass);
                     Matcher hasAlpha = aplha.matcher(pass);
@@ -205,7 +218,7 @@ public class SignupActivity extends AppCompatActivity {
                     {
                         pass_et.setError("It must contain alphabets");
                         flag= false;
-                    }
+                    }*/
                 }
             }
         });

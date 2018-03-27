@@ -50,7 +50,7 @@
         android:layout_alignEnd="@+id/et_email1"
         android:layout_alignStart="@+id/textView"
         android:layout_marginBottom="32dp"
-        android:text="We'll send you a code you can use to login"
+        android:text="We'll send you a 4-digit verification code on this email address"
         />
 
 </RelativeLayout>

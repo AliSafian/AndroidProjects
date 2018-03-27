@@ -72,8 +72,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent=new Intent(LoginActivity.this,ChangePasswordActivity.class);
-                startActivity(intent);
+                Intent i=new Intent(LoginActivity.this,VerifyEmailActivity.class);
+                i.putExtra("Flow", "FromForgetPassword");
+                startActivity(i);
             }
         });
 
