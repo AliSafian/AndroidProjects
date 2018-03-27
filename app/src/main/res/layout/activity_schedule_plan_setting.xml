@@ -218,7 +218,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/next_btn_scheduleplansetting_xml"
                 android:layout_below="@+id/_4_relativelayout_scheduleplansetting_xml"
-                android:layout_marginLeft="280dp"
+                android:layout_marginLeft="250dp"
                 android:layout_marginTop="20dp"
                 android:text="Next"
                 />
