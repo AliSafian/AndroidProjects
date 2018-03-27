@@ -1,0 +1,669 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.facefive.meetbook.SchedulePlan">
+
+
+
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/container1_layout_scheduleplan_xml">
+
+                <Button
+                    android:layout_width="130dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/editschedule_btn_scheduleplan_xml"
+                    android:text="Edit Schedule"
+                    android:layout_marginLeft="220dp"
+                    android:layout_marginTop="8dp"
+                    />
+
+            </RelativeLayout>
+
+
+
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/container2_layout_scheduleplan_xml"
+                android:layout_below="@+id/container1_layout_scheduleplan_xml"
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    android:id="@+id/sp_tv_scheduleplan_xml"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Schedule Plan:"
+                    android:textSize="16dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_marginLeft="15dp"/>
+
+                <HorizontalScrollView
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginRight="17dp"
+
+                    android:padding="10dp"
+                    android:background="@drawable/border_style"
+                    android:id="@+id/schedule_sv_scheduleplan_xml"
+                    android:layout_below="@id/sp_tv_scheduleplan_xml"
+                    >
+
+
+                    <!--<TableLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:background="@drawable/border_style"-->
+                        <!--android:layout_marginLeft="5dp"-->
+
+                        <!--&gt;-->
+
+                        <!--<TableRow-->
+                            <!--android:id="@+id/row1_tr_scheduleplan">-->
+
+                            <!--<TextView-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:text="Monday:" />-->
+                            <!--<TextView-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:background="@drawable/border_style"-->
+                                <!--android:text="#duration" />-->
+                            <!--<TextView-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_marginLeft="5dp"-->
+                                <!--android:background="@drawable/border_style"-->
+                                <!--android:text="#duration" />-->
+                            <!--<TextView-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_marginLeft="5dp"-->
+                                <!--android:background="@drawable/border_style"-->
+                                <!--android:text="#duration" />-->
+                            <!--<TextView-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_marginLeft="5dp"-->
+                                <!--android:background="@drawable/border_style"-->
+                                <!--android:text="#duration" />-->
+                            <!--<TextView-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_marginLeft="5dp"-->
+                                <!--android:background="@drawable/border_style"-->
+
+                                <!--android:text="#duration" />-->
+
+                        <!--</TableRow>-->
+
+                        <!--<TableRow-->
+                            <!--android:id="@+id/row2_tr_scheduleplan"-->
+                            <!--android:layout_marginTop="5dp"-->
+                            <!--&gt;-->
+
+                            <!--<TextView-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:text="Tuesday:" />-->
+
+                            <!--<TextView-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_marginLeft="5dp"-->
+                                <!--android:background="@drawable/border_style"-->
+                                <!--android:text="#duration" />-->
+                            <!--<TextView-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_marginLeft="5dp"-->
+                                <!--android:background="@drawable/border_style"-->
+                                <!--android:text="#duration" />-->
+                            <!--<TextView-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_marginLeft="5dp"-->
+                                <!--android:background="@drawable/border_style"-->
+                                <!--android:text="#duration" />-->
+                            <!--<TextView-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_marginLeft="5dp"-->
+                                <!--android:background="@drawable/border_style"-->
+                                <!--android:text="#duration" />-->
+                            <!--<TextView-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_marginLeft="5dp"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:background="@drawable/border_style"-->
+                                <!--android:text="#duration" />-->
+                        <!--</TableRow>-->
+
+
+                        <!--<TableRow-->
+                            <!--android:id="@+id/row3_tr_scheduleplan"-->
+                            <!--android:layout_marginTop="5dp"-->
+
+                            <!--&gt;-->
+
+
+                            <!--<TextView-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:text="Wenesday:" />-->
+
+                            <!--<TextView-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_marginLeft="5dp"-->
+                                <!--android:background="@drawable/border_style"-->
+                                <!--android:text="#duration" />-->
+                            <!--<TextView-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:background="@drawable/border_style"-->
+                                <!--android:layout_marginLeft="5dp"-->
+                                <!--android:text="#duration" />-->
+                            <!--<TextView-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_marginLeft="5dp"-->
+                                <!--android:background="@drawable/border_style"-->
+                                <!--android:text="#duration" />-->
+                            <!--<TextView-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_marginLeft="5dp"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:background="@drawable/border_style"-->
+                                <!--android:text="#duration" />-->
+                            <!--<TextView-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_marginLeft="5dp"-->
+                                <!--android:background="@drawable/border_style"-->
+
+                                <!--android:text="#duration" />-->
+                        <!--</TableRow>-->
+
+                        <!--<TableRow-->
+                            <!--android:layout_marginTop="5dp"-->
+
+                            <!--android:id="@+id/row4_tr_scheduleplan">-->
+
+                            <!--<TextView-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:text="Thursday:" />-->
+                            <!--<TextView-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_marginLeft="5dp"-->
+                                <!--android:background="@drawable/border_style"-->
+                                <!--android:text="#duration" />-->
+                            <!--<TextView-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_marginLeft="5dp"-->
+                                <!--android:background="@drawable/border_style"-->
+                                <!--android:text="#duration" />-->
+                            <!--<TextView-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_marginLeft="5dp"-->
+                                <!--android:background="@drawable/border_style"-->
+                                <!--android:text="#duration" />-->
+                            <!--<TextView-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_marginLeft="5dp"-->
+                                <!--android:background="@drawable/border_style"-->
+                                <!--android:text="#duration" />-->
+                            <!--<TextView-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_marginLeft="5dp"-->
+                                <!--android:background="@drawable/border_style"-->
+                                <!--android:text="#duration" />-->
+
+                        <!--</TableRow>-->
+
+                        <!--<TableRow-->
+                            <!--android:layout_marginTop="5dp"-->
+                            <!--android:id="@+id/row5_tr_scheduleplan">-->
+
+                            <!--<TextView-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_width="wrap_content"-->
+
+                                <!--android:text="Friday:" />-->
+                            <!--<TextView-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_marginLeft="5dp"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:background="@drawable/border_style"-->
+                                <!--android:text="#duration" />-->
+                            <!--<TextView-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_marginLeft="5dp"-->
+                                <!--android:background="@drawable/border_style"-->
+                                <!--android:text="#duration" />-->
+                            <!--<TextView-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_marginLeft="5dp"-->
+                                <!--android:background="@drawable/border_style"-->
+                                <!--android:text="#duration" />-->
+                            <!--<TextView-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_marginLeft="5dp"-->
+                                <!--android:background="@drawable/border_style"-->
+                                <!--android:text="#duration" />-->
+                            <!--<TextView-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_marginLeft="5dp"-->
+                                <!--android:background="@drawable/border_style"-->
+
+                                <!--android:text="#duration" />-->
+
+                        <!--</TableRow>-->
+
+                        <!--<TableRow-->
+                            <!--android:id="@+id/row6_tr_scheduleplan"-->
+                            <!--android:layout_marginTop="5dp">-->
+
+                            <!--<TextView-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:text="Saturday:" />-->
+                            <!--<TextView-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_marginLeft="5dp"-->
+                                <!--android:background="@drawable/border_style"-->
+                                <!--android:text="#duration" />-->
+                            <!--<TextView-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_marginLeft="5dp"-->
+                                <!--android:background="@drawable/border_style"-->
+                                <!--android:text="#duration" />-->
+                            <!--<TextView-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_marginLeft="5dp"-->
+                                <!--android:background="@drawable/border_style"-->
+                                <!--android:text="#duration" />-->
+                            <!--<TextView-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_marginLeft="5dp"-->
+                                <!--android:background="@drawable/border_style"-->
+                                <!--android:text="#duration" />-->
+                            <!--<TextView-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_marginLeft="5dp"-->
+                                <!--android:background="@drawable/border_style"-->
+
+                                <!--android:text="#duration" />-->
+
+                        <!--</TableRow>-->
+                    <!--</TableLayout>-->
+
+
+
+                </HorizontalScrollView>
+
+
+            </RelativeLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/container3_layout_scheduleplan_xml"
+                android:layout_below="@+id/container2_layout_scheduleplan_xml"
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Set inavailability:"
+                    android:textSize="16dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_marginLeft="15dp"
+                    android:id="@+id/setinavailability_tv_scheduleplan_xml"
+                    android:layout_marginTop="2dp"/>
+
+
+                <Switch
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/inavailability_swh_scheduleplan_xml"
+                    android:layout_marginLeft="310dp"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/inerlayout1_layout_scheduleplan_xml"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/setinavailability_tv_scheduleplan_xml"
+                    android:layout_marginTop="20dp"
+
+
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/datefrom_tv_scheduleplan_xml"
+                        android:text="Date:"
+                        android:layout_marginTop="10dp"
+                        android:textSize="14dp"
+                        android:layout_marginLeft="35dp"
+                        />
+
+                    <EditText
+                        android:layout_width="120dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toRightOf="@+id/datefrom_tv_scheduleplan_xml"
+                        android:id="@+id/datefrom_et_scheduleplan_xml"
+                        android:focusable="false"
+                        android:clickable="true"/>
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/datefrom_et_scheduleplan_xml"
+                        android:text="to"
+                        android:textSize="14dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/dateto_tv_scheduleplan_xml"
+                        />
+
+
+                    <EditText
+                        android:layout_width="120dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="220dp"
+                        android:focusable="false"
+                        android:clickable="true"
+                        android:id="@+id/dateto_et_scheduleplan_xml">
+                    </EditText>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/inerlayout2_layout_scheduleplan_xml"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/inerlayout1_layout_scheduleplan_xml"
+                    android:layout_marginTop="15dp"
+
+
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/timefrom_tv_scheduleplan_xml"
+                        android:text="Time:"
+                        android:layout_marginTop="10dp"
+                        android:textSize="14dp"
+                        android:layout_marginLeft="35dp"
+                        />
+
+                    <EditText
+                        android:layout_width="120dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="5dp"
+                        android:editable="false"
+                        android:clickable="true"
+                        android:layout_toRightOf="@+id/timefrom_tv_scheduleplan_xml"
+                        android:id="@+id/timefrom_et_scheduleplan_xml"/>
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/timefrom_et_scheduleplan_xml"
+                        android:text="to"
+                        android:layout_marginTop="10dp"
+                        android:textSize="14dp"
+                        android:layout_marginLeft="5dp"
+                        android:id="@+id/timeto_tv_scheduleplan_xml"
+                        />
+
+
+                    <EditText
+                        android:layout_width="120dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="220dp"
+                        android:editable="false"
+                        android:clickable="true"
+                        android:id="@+id/timeto_et_scheduleplan_xml">
+                    </EditText>
+                </RelativeLayout>
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/container4_layout_scheduleplan_xml"
+                android:layout_below="@+id/container3_layout_scheduleplan_xml"
+                android:layout_marginTop="15dp">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Glossary setting:"
+                    android:textSize="16dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_marginLeft="15dp"
+                    android:id="@+id/changeglossary_tv_scheduleplan_xml"
+                    android:layout_marginTop="2dp"/>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/changeglossary_tv_scheduleplan_xml"
+                    android:id="@+id/meetinghourscolor_layout_scheduleplan_xml"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Meeting hours color:"
+                        android:textSize="15dp"
+                        android:id="@+id/meetinghours_tv_scheduleplan_xml"
+                        android:layout_marginTop="9dp"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="50dp"
+                        android:layout_height="40dp"
+
+                        android:background="@drawable/oval_style"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginLeft="53dp"
+                        android:layout_toRightOf="@+id/meetinghours_tv_scheduleplan_xml"
+                        android:id="@+id/meetinghourscolorl_layout_scheduleplan_xml"
+                        android:orientation="horizontal">
+                    </LinearLayout>
+
+                    <Button
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:text="edit"
+                        android:id="@+id/meetinghourspicker_btn_scheduleplan_xml"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="10dp"
+                        android:layout_toRightOf="@+id/meetinghourscolorl_layout_scheduleplan_xml"/>
+
+
+                </RelativeLayout>
+
+
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/meetinghourscolor_layout_scheduleplan_xml"
+                    android:id="@+id/lecturehourscolor_layout_scheduleplan_xml"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Lecture hours color:"
+                        android:textSize="15dp"
+                        android:id="@+id/lecturehours_tv_scheduleplan_xml"
+                        android:layout_marginTop="9dp"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="50dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="57dp"
+                        android:background="@drawable/oval_style"
+                        android:layout_toRightOf="@+id/lecturehours_tv_scheduleplan_xml"
+                        android:layout_marginTop="4dp"
+                        android:id="@+id/lecturehourscolorl_layout_scheduleplan_xml"
+                        android:orientation="horizontal"
+                        >
+
+
+                    </LinearLayout>
+
+
+                    <Button
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:text="edit"
+                        android:id="@+id/lecturehourspicker_btn_scheduleplan_xml"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="10dp"
+                        android:layout_toRightOf="@+id/lecturehourscolorl_layout_scheduleplan_xml"/>
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lecturehourscolor_layout_scheduleplan_xml"
+                    android:id="@+id/notavailablehourscolor_layout_scheduleplan_xml"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Not available hours color:"
+                        android:textSize="15dp"
+                        android:id="@+id/notavailablehours_tv_scheduleplan_xml"
+                        android:layout_marginTop="9dp"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="50dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/oval_style"
+                        android:layout_marginLeft="20dp"
+                        android:layout_toRightOf="@+id/notavailablehours_tv_scheduleplan_xml"
+                        android:id="@+id/notavailablehourscolorl_layout_scheduleplan_xml"
+                        android:layout_marginTop="4dp"
+                        android:orientation="horizontal"></LinearLayout>
+
+
+                    <Button
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:text="edit"
+                        android:id="@+id/notavailablehourspicker_btn_scheduleplan_xml"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="10dp"
+                        android:layout_toRightOf="@+id/notavailablehourscolorl_layout_scheduleplan_xml"/>
+
+
+                </RelativeLayout>
+
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+
+                android:id="@+id/container5_layout_scheduleplan_xml"
+                android:layout_below="@+id/container4_layout_scheduleplan_xml"
+                android:layout_marginTop="15dp">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="135dp"
+                    android:text="Save changes"
+                    android:id="@+id/savechanges_btn_scheduleplan_xml"
+                    />
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_toRightOf="@+id/savechanges_btn_scheduleplan_xml"
+                    android:text="Cancel"
+                    android:id="@+id/cancel_btn_scheduleplan_xml"
+                    />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_below="@+id/container5_layout_scheduleplan_xml"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"></RelativeLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout>

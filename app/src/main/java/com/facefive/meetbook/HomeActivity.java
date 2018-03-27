@@ -139,7 +139,7 @@ public class HomeActivity extends AppCompatActivity
             Intent i = new Intent(getApplicationContext(),SendUpdateActivity.class);
             startActivity(i);
         } else if (id == R.id.nav_timetable) {
-            Intent i = new Intent(getApplicationContext(),TimetableTypeSelectionActivity.class);
+            Intent i = new Intent(getApplicationContext(),SchedulePlan.class);
             startActivity(i);
 
         } else if (id == R.id.nav_print) {
