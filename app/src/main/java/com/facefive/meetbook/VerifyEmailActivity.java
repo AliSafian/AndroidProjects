@@ -27,18 +27,15 @@ public class VerifyEmailActivity extends AppCompatActivity {
                email_et =(EditText) findViewById(R.id.et_email1);
                String email = email_et.getText().toString();
                int redColor =getResources().getColor(R.color.colorError);
-               if(!email.toLowerCase().equals("test@meetbook.com"))
+               if(!email.matches(AppConfig.EMAIL_PATTERN))
                {
-                   email_et.setText("");
-                   email_et.setHint("Invalid Email");
-                   email_et.setHintTextColor(redColor);
-
+                   email_et.setError("Invalid Email Format");
                }
                else
                {
                    Intent i = new Intent(getApplicationContext() , VerifyCodeActivity.class);
-                   i.putExtra("email_key", email );
-                   i.putExtra("flow","onForgetPassword");
+                   i.putExtra("email", email );
+                   i.putExtra("Flow","FromForgetPassword");
                    startActivity(i);
                }
 

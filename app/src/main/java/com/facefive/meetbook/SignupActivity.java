@@ -79,14 +79,6 @@ public class SignupActivity extends AppCompatActivity {
                  pass = pass_et.getText().toString().trim();
                  con_pass = con_pass_et.getText().toString().trim();
                  uni_name= uni.getSelectedItem().toString().trim();
-                Pattern digit = Pattern.compile("[0-9]");
-                Pattern aplha = Pattern.compile("[A-Za-z]");
-                Matcher hasDigit = digit.matcher(pass);
-                Matcher hasAlpha = aplha.matcher(pass);
-
-                String emailPattern = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-               // String passwordPattern = "^(?=.*\\d).{6,15}$";
-                String passwordPattern = "^[A-Za-z0-9-\\+]{6,16}$";
 
                 flag = true;
                 if(name.equals("")) {
@@ -94,37 +86,16 @@ public class SignupActivity extends AppCompatActivity {
                     name_et.requestFocus();
                     flag= false;
                 }
-                else if(!email.matches(emailPattern)) {
+                else if(!email.matches(AppConfig.EMAIL_PATTERN)) {
                     email_et.setError("Email is not valid");
                     email_et.requestFocus();
                     flag= false;
                 }
-                else if(!pass.matches(passwordPattern)) {
-                    pass_et.setError("Pass is not valid");
+                else if(!pass.matches(AppConfig.PASSWORD_PATTERN)) {
+                    pass_et.setError("Password requires \nAtleast 1 uppercase and 1 lower case\nLength from 6 to 15");
                     pass_et.requestFocus();
                     flag= false;
                 }
-//                else if(pass.isEmpty() || pass.length() < 8) {
-//                    pass_et.setError("Enter atleast 8 alphanumeric characters");
-//                    pass_et.setText("");
-//                    pass_et.requestFocus();
-//                    flag= false;
-//
-//                }
-//                else if(hasDigit.find()==false)
-//                {
-//                    pass_et.setError("It must contain atleast 1 digit");
-//                    pass_et.setText("");
-//                    pass_et.requestFocus();
-//                    flag= false;
-//                }
-//                else if(hasAlpha.find()==false)
-//                {
-//                    pass_et.setError("It must contain alphabets");
-//                    pass_et.setText("");
-//                    pass_et.requestFocus();
-//                    flag= false;
-//                }
                 else if (!con_pass.equals(pass)) {
                     con_pass_et.setError("Password does not match");
                     con_pass_et.setText("");
@@ -151,14 +122,12 @@ public class SignupActivity extends AppCompatActivity {
 
     public boolean isValidForm()
     {
-        flag = true;
         name_et.setOnFocusChangeListener(new View.OnFocusChangeListener(){
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     if(name_et.getText().toString().trim().equals("")) {
                         name_et.setError("Empty name is not allowed");
-                        flag= false;
                     }
                 }
             }
@@ -170,12 +139,11 @@ public class SignupActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
 
                 String email = email_et.getText().toString();
-                String emailPattern = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
-                if(!email.matches(emailPattern)) {
+
+                if(!email.matches(AppConfig.EMAIL_PATTERN)) {
                     email_et.setError("Email is not valid");
                     email_et.requestFocus();
-                    flag= false;
                 }
             }
 
@@ -194,31 +162,9 @@ public class SignupActivity extends AppCompatActivity {
                 if (!hasFocus) {
                     String pass = pass_et.getText().toString();
 
-                    String passwordPattern = "^[_A-Za-z0-9-\\+]{6,16}$";
-                    if(!pass.matches(passwordPattern)) {
-                        pass_et.setError("Pass is not valid");
-                        flag= false;
+                    if(!pass.matches(AppConfig.PASSWORD_PATTERN)) {
+                        pass_et.setError("Password requires \nAtleast 1 uppercase and 1 lower case \nAtleast 1 digit \nLength from 6 to 15");
                     }
-                    /*Pattern digit = Pattern.compile("[0-9]");
-                    Pattern aplha = Pattern.compile("[A-Za-z]");
-                    Matcher hasDigit = digit.matcher(pass);
-                    Matcher hasAlpha = aplha.matcher(pass);
-
-
-                    if (pass.isEmpty() || pass.length() < 8) {
-                        pass_et.setError("Enter atleast 8 alphanumeric characters");
-                        flag= false;
-
-                    } else if(hasDigit.find()==false)
-                    {
-                        pass_et.setError("It must contain atleast 1 digit");
-                        flag= false;
-                    }
-                    else if(hasAlpha.find()==false)
-                    {
-                        pass_et.setError("It must contain alphabets");
-                        flag= false;
-                    }*/
                 }
             }
         });
@@ -230,8 +176,6 @@ public class SignupActivity extends AppCompatActivity {
                     String pass = pass_et.getText().toString();
                     if (!con_pass.equals(pass)) {
                         con_pass_et.setError("Password does not match");
-                        flag =false;
-
                     }
                 }
             }
@@ -273,10 +217,6 @@ public class SignupActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
 
     }
-
-
-
-
    /* public View.OnClickListener btnChoosePhotoPressed = new View.OnClickListener() {
         @Override
         public void onClick(View v) {

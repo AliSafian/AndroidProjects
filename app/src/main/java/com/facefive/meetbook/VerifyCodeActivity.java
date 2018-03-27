@@ -37,10 +37,11 @@ public class VerifyCodeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_verify_code);
 
 
-        name =getIntent().getStringExtra("name");
+
+        //name =getIntent().getStringExtra("name");
         email =getIntent().getStringExtra("email");
-        pass=getIntent().getStringExtra("pass");
-        uni_name=getIntent().getStringExtra("name");
+        //pass=getIntent().getStringExtra("pass");
+        //uni_name=getIntent().getStringExtra("uni_name");
 
         email_tv =(TextView) findViewById(R.id.tv_emailCode);
         resend_tv = (TextView)findViewById(R.id.tv_link_resend);
@@ -70,7 +71,7 @@ public class VerifyCodeActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Invalid Code" , Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    String flow=getIntent().getStringExtra("Flow");
+                    String flow =getIntent().getStringExtra("Flow");
                     if(flow.equals("FromSignUp"))
                     {
                         Intent i = new Intent(getApplicationContext(), HomeActivity.class);
