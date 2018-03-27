@@ -27,20 +27,17 @@ public class NewPasswordActivity extends AppCompatActivity {
                 String pass = pass_et.getText().toString();
                 String con_pass = con_pass_et.getText().toString();
                 boolean flag= true;
-                int redColor =getResources().getColor(R.color.colorError);
-
-                if(pass.equals("") || pass.length() < 4)
+                if(!pass.matches(AppConfig.PASSWORD_PATTERN))
                 {
-                    pass_et.setText("");
-                    pass_et.setHint("Invalid Pass");
-                    pass_et.setHintTextColor(redColor);
+
+                    pass_et.setError("Password requires \nAtleast 1 uppercase and 1 lower case\nLength from 6 to 15");
+                    pass_et.requestFocus();
                     flag= false;
                 }
                 if(!pass.equals(con_pass))
                 {
-                    con_pass_et.setText("");
-                    con_pass_et.setHint("Password Not Match");
-                    con_pass_et.setHintTextColor(redColor);
+                    con_pass_et.setError("Password does not match");
+                    con_pass_et.requestFocus();
                     flag= false;
                 }
                 if(flag) {

@@ -9,7 +9,7 @@
     tools:context="com.facefive.meetbook.HomeActivity"
     tools:showIn="@layout/app_bar_home">
 
-    <TextView
+    <!--<TextView
         android:id="@+id/tv1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -155,6 +155,27 @@
             android:layout_marginStart="80dp"
             android:background="@color/colorPrimaryDark"/>
 
-    </RelativeLayout>
+    </RelativeLayout>-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ashar"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:background="@drawable/circle_bg"
+            android:text="Ali Safian"
+            android:textSize="20dp"
+            android:textAlignment="center"/>
+
+    </LinearLayout>
 
 </RelativeLayout>
