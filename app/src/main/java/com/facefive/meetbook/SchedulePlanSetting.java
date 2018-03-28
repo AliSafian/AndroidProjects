@@ -13,6 +13,7 @@ import android.widget.NumberPicker;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.facefive.meetbook.TimetableSession.TimetableDay;
 import com.facefive.meetbook.TimetableSession.TimetableSession;
 
 import java.sql.Time;
@@ -43,7 +44,8 @@ public class SchedulePlanSetting extends AppCompatActivity {
     private Button nextBtn;
 
 
-
+    private Time tempStart;
+    private Time tempEnd;
 
 
     @Override
@@ -60,6 +62,7 @@ public class SchedulePlanSetting extends AppCompatActivity {
         endTime_et = (EditText) findViewById(R.id.timeto_et_scheduleplan_xml);
 
 
+
         startTime_et.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,6 +76,7 @@ public class SchedulePlanSetting extends AppCompatActivity {
                         startTime_et.setText(String.format("%02d:%02d", selectedHour, selectedMinute));
                         TimetableSession.startTime.setHours((Integer) selectedHour);
                         TimetableSession.startTime.setMinutes((Integer) selectedMinute);
+                        tempStart = new Time(selectedHour,selectedMinute,0);
                     }
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("Select Time");
@@ -93,6 +97,7 @@ public class SchedulePlanSetting extends AppCompatActivity {
                         endTime_et.setText(String.format("%02d:%02d", selectedHour, selectedMinute));
                         TimetableSession.endTime.setHours((Integer) selectedHour);
                         TimetableSession.endTime.setMinutes((Integer) selectedMinute);
+                        tempEnd = new Time(selectedHour,selectedMinute,0);
                     }
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("Select Time");
@@ -111,7 +116,7 @@ public class SchedulePlanSetting extends AppCompatActivity {
 
         //Populate NumberPicker values from minimum and maximum value range
         //Set the minimum value of NumberPicker
-        numberPicker.setMinValue(2);
+        numberPicker.setMinValue(1);
         //Specify the maximum value/number of NumberPicker
         numberPicker.setMaxValue(10);
 
@@ -129,7 +134,7 @@ public class SchedulePlanSetting extends AppCompatActivity {
         thursday = (CheckBox) findViewById(R.id.thursday_cb_scheduleplansetting_xml);
         friday= (CheckBox) findViewById(R.id.friday_cb_scheduleplansetting_xml);
         saturday = (CheckBox) findViewById(R.id.saturday_cb_scheduleplansetting_xml);
-        sunday = (CheckBox) findViewById(R.id.monday_cb_scheduleplansetting_xml);
+        sunday = (CheckBox) findViewById(R.id.sunday_cb_scheduleplansetting_xml);
 
 
         //........................................go to next........................
@@ -149,23 +154,41 @@ public class SchedulePlanSetting extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                TimetableSession.Days.clear();
+                //if(TimetableSession.Days.size()!=0)
+                    TimetableSession.Days.clear();
 
-                if(monday.isChecked())
-                    TimetableSession.Days.add("Monday");
-                if(tuesday.isChecked())
-                    TimetableSession.Days.add("Tuesday");
-                if(wednesday.isChecked())
-                    TimetableSession.Days.add("Wednesday");
-                if(thursday.isChecked())
-                    TimetableSession.Days.add("Thursday");
-                if(friday.isChecked())
-                    TimetableSession.Days.add("Friday");
-                if(saturday.isChecked())
-                    TimetableSession.Days.add("Saturday");
-                if(sunday.isChecked())
-                    TimetableSession.Days.add("Sunday");
 
+                if(monday.isChecked()) {
+                    TimetableDay td = new TimetableDay("Monday",TimetableSession.noOfSlots,tempStart,tempEnd);
+                    TimetableSession.Days.add(td);
+                }
+                if(tuesday.isChecked()) {
+                    TimetableDay td = new TimetableDay("Tuesday",TimetableSession.noOfSlots,tempStart,tempEnd);
+                    TimetableSession.Days.add(td);
+                }
+                if(wednesday.isChecked()) {
+                    TimetableDay td = new TimetableDay("Wednesday",TimetableSession.noOfSlots,tempStart,tempEnd);
+                    TimetableSession.Days.add(td);
+                }
+                if(thursday.isChecked()) {
+                    TimetableDay td = new TimetableDay("Thursday",TimetableSession.noOfSlots,tempStart,tempEnd);
+                    TimetableSession.Days.add(td);
+                }
+                if(friday.isChecked()) {
+                    TimetableDay td = new TimetableDay("Friday",TimetableSession.noOfSlots,tempStart,tempEnd);
+                    TimetableSession.Days.add(td);
+                }
+                if(saturday.isChecked()){
+                    TimetableDay td = new TimetableDay("Saturday",TimetableSession.noOfSlots,tempStart,tempEnd);
+                    TimetableSession.Days.add(td);
+                }
+                if(sunday.isChecked()) {
+                    TimetableDay td = new TimetableDay("Sunday",TimetableSession.noOfSlots,tempStart,tempEnd);
+                    TimetableSession.Days.add(td);
+                }
+
+
+                Toast.makeText(getApplicationContext(),"yes",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(), SchedualPlanSlotSetting.class);
                 startActivity(intent);
             }
