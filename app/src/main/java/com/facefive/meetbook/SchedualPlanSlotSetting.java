@@ -3,11 +3,11 @@ package com.facefive.meetbook;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class AddHeaderToTimetable extends AppCompatActivity {
+public class SchedualPlanSlotSetting extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_header_to_timetable);
+        setContentView(R.layout.activity_schedual_plan_slot_setting);
     }
 }

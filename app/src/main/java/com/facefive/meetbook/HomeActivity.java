@@ -48,27 +48,27 @@ public class HomeActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        rl1 = (RelativeLayout) findViewById(R.id.layout1);
+        //rl1 = (RelativeLayout) findViewById(R.id.layout1);
 
-        rl2 = (RelativeLayout) findViewById(R.id.layout2);
+        //rl2 = (RelativeLayout) findViewById(R.id.layout2);
 
 
 
-        rl1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), ConversationBasic.class);
-                startActivity(i);
-            }
-        });
-
-        rl2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), ConversationBasic.class);
-                startActivity(i);
-            }
-        });
+//        rl1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent(getApplicationContext(), ConversationBasic.class);
+//                startActivity(i);
+//            }
+//        });
+//
+//        rl2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent(getApplicationContext(), ConversationBasic.class);
+//                startActivity(i);
+//            }
+//        });
 
     }
 
