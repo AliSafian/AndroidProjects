@@ -1,5 +1,6 @@
 package com.facefive.meetbook;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,7 +9,26 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.facefive.meetbook.TimetableSession.SlotSingleRow;
+import com.facefive.meetbook.TimetableSession.TimetableDay;
 import com.facefive.meetbook.TimetableSession.TimetableSession;
+import com.facefive.meetbook.UserHandling.UserSessionManager;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.sql.Time;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SchedualPlanSlotSetting extends AppCompatActivity {
 
@@ -85,11 +105,25 @@ public class SchedualPlanSlotSetting extends AppCompatActivity {
                 }
                 else
                 {
-                   Toast.makeText(getApplicationContext(),"Data saved!",Toast.LENGTH_SHORT).show();
+                    UserSessionManager userSessionManager=new UserSessionManager(getApplicationContext());
+
+                    StoreTimeTable(TimetableSession.Days.size(),TimetableSession.startTime,TimetableSession.endTime,TimetableSession.noOfSlots,userSessionManager.getUserID());
+
+
+
                 }
 
             }
         });
+
+
+
+
+
+
+
+
+
 
         btn_pre.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,15 +145,115 @@ public class SchedualPlanSlotSetting extends AppCompatActivity {
             }
         });
 
+    }
+
+    public  void SendData(final TimetableDay timetableDay){
+
+        RequestQueue requestQueue= Volley.newRequestQueue(this);
+
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, AppConfig.URL_TIMATABLESLOTS, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_SHORT).show();
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(SchedualPlanSlotSetting.this,error.toString(),Toast.LENGTH_SHORT).show();
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
 
 
 
+                Map<String, String> params = new HashMap<String, String>();
+                JSONArray object=new JSONArray();
+                try {
+                    object.put(timetableDay.getDay());
+                    for (SlotSingleRow singleRow:timetableDay.getSlotList())
+                    {
+                        JSONObject srow=new JSONObject();
+                        srow.put("starttime",singleRow.getStartTime());
+                        srow.put("endtime",singleRow.getEndTime());
+                        srow.put("header",singleRow.getHeader());
+                        srow.put("slottype",singleRow.getSlotType());
+                        srow.put("tid",TimetableSession.timetableID);
+                        object.put(srow);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
-
-
-
-
-
+                    params.put("timetableday",object.toString());
+                return  params;
+            }
+        };
+        requestQueue.add(stringRequest);
 
     }
+
+    public  void StoreTimeTable(final int Days, final Time startTime, final Time endTime, final int noOfSlots, final int UserID){
+
+        RequestQueue requestQueue= Volley.newRequestQueue(this);
+
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, AppConfig.URL_TIMATABLE, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject=new JSONObject(response);
+                   if(! jsonObject.getBoolean("error"))
+                   {
+                     TimetableSession.timetableID= jsonObject.getInt("ttid");
+                       for(TimetableDay object: TimetableSession.Days){
+                           SendData(object);
+                       }
+                   }
+                   else
+                   {
+
+                       Toast.makeText(SchedualPlanSlotSetting.this,jsonObject.getString("error_msg"),Toast.LENGTH_SHORT).show();
+                   }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(SchedualPlanSlotSetting.this,error.toString(),Toast.LENGTH_SHORT).show();
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+
+
+                Map<String, String> params = new HashMap<String, String>();
+                JSONArray object=new JSONArray();
+                try {
+                        JSONObject srow=new JSONObject();
+                        srow.put("noofdays",Days);
+                        srow.put("starttime",startTime);
+                        srow.put("endtime",endTime);
+                        srow.put("userid",UserID);
+                        srow.put("nooofslots",noOfSlots);
+                        object.put(srow);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                params.put("timetable",object.toString());
+                return  params;
+            }
+        };
+        requestQueue.add(stringRequest);
+
+    }
+
 }
