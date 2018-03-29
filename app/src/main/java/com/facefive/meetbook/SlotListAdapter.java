@@ -10,8 +10,10 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facefive.meetbook.TimetableSession.SlotSingleRow;
+import com.facefive.meetbook.TimetableSession.TimetableSession;
 
 import java.util.ArrayList;
 
@@ -57,7 +59,19 @@ public class SlotListAdapter extends BaseAdapter {
         RadioButton free_rb=(RadioButton)row.findViewById(R.id.fh_rb_slotsinglerow_xml);
 
 
-/*
+        if(list.get(position).getSlotType().equals("Lecture"))
+        {
+            lecture_rb.setChecked(true);
+        }
+        else if(list.get(position).getSlotType().equals("Meeting"))
+        {
+            meeting_rb.setChecked(true);
+        }
+        else
+        {
+            free_rb.setChecked(true);
+        }
+
         lecture_rb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -73,6 +87,7 @@ public class SlotListAdapter extends BaseAdapter {
                 if(isChecked)
                 {
                     list.get(position).setSlotType("Meeting");
+                    Toast.makeText(context, list.get(position).getSlotType(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -85,11 +100,10 @@ public class SlotListAdapter extends BaseAdapter {
                 }
             }
         });
-*/
 
 
 
-        duration.setText(list.get(position).getStartTime().toString()+" - "+list.get(position).getEndTime().toString());
+        duration.setText("Timing: "+list.get(position).getStartTime().toString()+" - "+list.get(position).getEndTime().toString());
         return row;
     }
 }

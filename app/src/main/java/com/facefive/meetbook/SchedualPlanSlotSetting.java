@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facefive.meetbook.TimetableSession.TimetableSession;
@@ -13,6 +14,11 @@ public class SchedualPlanSlotSetting extends AppCompatActivity {
 
     private ListView list;
     private Button btn;
+    private TextView tv_day;
+
+
+
+    private int tempDayCout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,32 +44,33 @@ public class SchedualPlanSlotSetting extends AppCompatActivity {
         list = (ListView) findViewById(R.id.slot_lv_scheduleplanslotsetting_xml);
         btn = (Button) findViewById(R.id.next_btn_scheduleplanslotsetting_xml);
 
-
-//        for(int i = 0; i< TimetableSession.Days.get(0).getSlotList().size(); i++)
-//        {
-//            Toast.makeText(getApplicationContext(), TimetableSession.Days.get(0).getSlotList().get(i).getSlotType().toString()+i,Toast.LENGTH_SHORT).show();
-//        }
+        tv_day = (TextView) findViewById(R.id.day_tv_scheduleplanslotsetting_xml);
 
 
-
+        tv_day.setText(TimetableSession.Days.get(0).getDay());
         SlotListAdapter customAdapter = new SlotListAdapter(getApplicationContext(), TimetableSession.Days.get(0).getSlotList());
         list.setAdapter(customAdapter);
 
 
-       /* btn.setOnClickListener(new View.OnClickListener() {
+        tempDayCout = 1;
+        btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String message = "";
-                // get the value of selected answers from custom adapter
-                for (int i = 0; i < SlotListAdapter.size(); i++) {
-                    message = message + "\n" + (i + 1) + " " + CustomAdapter.selectedAnswers.get(i);
+
+                if(tempDayCout<TimetableSession.Days.size()) {
+
+                    tv_day.setText(TimetableSession.Days.get(tempDayCout).getDay());
+                    SlotListAdapter customAdapter = new SlotListAdapter(getApplicationContext(), TimetableSession.Days.get(tempDayCout++).getSlotList());
+                    list.setAdapter(customAdapter);
+
                 }
-                // display the message on screen with the help of Toast.
-                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                else if(tempDayCout == TimetableSession.Days.size())
+                {
+                    btn.setText("Save");
+                }
 
             }
-        });*/
-
+        });
 
 
 
