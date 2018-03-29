@@ -5,63 +5,70 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.facefive.meetbook.SchedualPlanSlotSetting">
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="180dp"
-        android:id="@+id/_1_linearlayout_scheduleplanslotsetting_xml"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/next_btn_scheduleplanslotsetting_xml"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Next"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Save"
-            android:layout_marginLeft="5dp"
-            android:id="@+id/save_btn_scheduleplanslotstting_xml"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="15dp"
-        android:id="@+id/_2_linearlayout_scheduleplanslotsetting_xml"
-        android:layout_below="@id/_1_linearlayout_scheduleplanslotsetting_xml">
-
-        <TextView
-            android:id="@+id/day_tv_scheduleplanslotsetting_xml"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Day"
-            android:padding="5dp"
-            android:textColor="@android:color/black"
-            android:textSize="30dp"/>
-
-    </LinearLayout>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_height="360dp"
+        android:layout_height="wrap_content"
         android:id="@+id/slot_sv_scheduleplanslotsetting_xml"
         android:layout_marginTop="10dp"
-        android:layout_below="@id/_2_linearlayout_scheduleplanslotsetting_xml">
+        >
 
-
-
-        <ListView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/slot_lv_scheduleplanslotsetting_xml">
-        </ListView>
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="280dp"
+                android:id="@+id/_1_linearlayout_scheduleplanslotsetting_xml"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/next_btn_scheduleplanslotsetting_xml"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Next"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="15dp"
+                android:id="@+id/_2_linearlayout_scheduleplanslotsetting_xml"
+                android:layout_below="@id/_1_linearlayout_scheduleplanslotsetting_xml">
+
+                <TextView
+                    android:id="@+id/day_tv_scheduleplanslotsetting_xml"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Day"
+                    android:padding="5dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="30dp"/>
+
+            </LinearLayout>
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="380dp"
+                android:layout_marginTop="20dp"
+                android:layout_below="@id/_2_linearlayout_scheduleplanslotsetting_xml">
+
+                <ListView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/slot_lv_scheduleplanslotsetting_xml">
+                </ListView>
+
+            </RelativeLayout>
+        </RelativeLayout>
     </ScrollView>
 
 
