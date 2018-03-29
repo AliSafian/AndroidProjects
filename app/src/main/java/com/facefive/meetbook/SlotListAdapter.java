@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -42,50 +43,53 @@ public class SlotListAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         if(list.size() == 0)
             return null;
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View row = inflater.inflate(R.layout.slotsinglerow, parent, false);
 
+
         TextView duration = row.findViewById(R.id.duration_tv_slotsinglerow_xml);
-        RadioGroup radioGroup=(RadioGroup)row.findViewById(R.id.slottype_rg_slotsinglerow_xml);
         RadioButton lecture_rb=(RadioButton)row.findViewById(R.id.lh_rb_slotsinglerow_xml);
         RadioButton meeting_rb=(RadioButton)row.findViewById(R.id.mh_rb_slotsinglerow_xml);
         RadioButton free_rb=(RadioButton)row.findViewById(R.id.fh_rb_slotsinglerow_xml);
 
 
+/*
+        lecture_rb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked)
+                {
+                    list.get(position).setSlotType("Lecture");
+                }
+            }
+        });
+        meeting_rb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked)
+                {
+                    list.get(position).setSlotType("Meeting");
+                }
+            }
+        });
+        free_rb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked)
+                {
+                    list.get(position).setSlotType("Free");
+                }
+            }
+        });
+*/
 
 
-        final SlotSingleRow temp = list.get(position);
 
-        String type = temp.getSlotType();
-        if(type.equals("Lecture"))
-        {
-            lecture_rb.setSelected(true);
-        }
-        else if(type.equals("Meeting"))
-        {
-            meeting_rb.setSelected(true);
-        }
-        else
-        {
-            free_rb.setSelected(true);
-        }
-
-//       int selectedId=radioGroup.getCheckedRadioButtonId();
-//       RadioButton radioButton=(RadioButton)row.findViewById(selectedId);
-        duration.setText(temp.getStartTime().toString()+" - "+temp.getEndTime().toString());
-
-//        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                row.get(checkedId);
-//            }
-//        });
-
-
+        duration.setText(list.get(position).getStartTime().toString()+" - "+list.get(position).getEndTime().toString());
         return row;
     }
 }
