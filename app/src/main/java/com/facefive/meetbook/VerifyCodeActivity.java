@@ -15,6 +15,21 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.facefive.meetbook.UserHandling.UserSessionManager;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class VerifyCodeActivity extends AppCompatActivity {
 
     private EditText code1_et;
@@ -30,18 +45,23 @@ public class VerifyCodeActivity extends AppCompatActivity {
     private Button submit_btn;
     private int tries=0;
     private static int pin;
-    private ProgressDialog pDialog;
+    private UserSessionManager session;
+
+    final String KEY_NAME="name",KEY_EMAIL="email",KEY_PASS="password",KEY_PIC_NAME = "picname",KEY_UNI_NAME="uniname";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verify_code);
+        String flow =getIntent().getStringExtra("Flow");
 
-
-
-        //name =getIntent().getStringExtra("name");
+        if(flow.equals("FromSignUp"))
+        {
+            pass=getIntent().getStringExtra("pass");
+            uni_name=getIntent().getStringExtra("uni_name");
+        }
+        name =getIntent().getStringExtra("name");
         email =getIntent().getStringExtra("email");
-        //pass=getIntent().getStringExtra("pass");
-        //uni_name=getIntent().getStringExtra("uni_name");
+
 
         email_tv =(TextView) findViewById(R.id.tv_emailCode);
         resend_tv = (TextView)findViewById(R.id.tv_link_resend);
@@ -51,12 +71,12 @@ public class VerifyCodeActivity extends AppCompatActivity {
         code4_et =(EditText) findViewById(R.id.et_code4);
         submit_btn = (Button) findViewById(R.id.btn_submit);
 
+         session = new UserSessionManager(getApplicationContext());
+
 
         email_tv.setText(email);
         sendEmail();
         onSingleCharacter();
-
-
 
         submit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,8 +94,8 @@ public class VerifyCodeActivity extends AppCompatActivity {
                     String flow =getIntent().getStringExtra("Flow");
                     if(flow.equals("FromSignUp"))
                     {
-                        Intent i = new Intent(getApplicationContext(), HomeActivity.class);
-                        startActivity(i);
+                        signUP();
+                        ;
                     }
                     else if(flow.equals("FromForgetPassword")){
                         Intent i = new Intent(getApplicationContext(), NewPasswordActivity.class);
@@ -204,6 +224,77 @@ public class VerifyCodeActivity extends AppCompatActivity {
 
 
         });
+    }
+
+        public void signUP(){
+
+        RequestQueue requestQueue= Volley.newRequestQueue(this);
+
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, AppConfig.URL_SIGNUP, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    boolean error = jObj.getBoolean("Error");
+
+                    // Check for error node in json
+                    if (!error) {
+                        // user successfully logged in
+                        // Create login session
+                        session.setLogin(true);
+
+                        Toast.makeText(getApplicationContext(),
+                                "YES", Toast.LENGTH_LONG).show();
+
+                        JSONObject user = jObj.getJSONObject("User");
+                        int userID = user.getInt("UserID");
+                        String name = user.getString("Name");
+                        String email = user.getString("Email");
+                        String picName = user.getString("PictureName");
+                        String uniName = user.getString("UniName");
+
+
+
+                        // Inserting row in session
+                        session.setUser(userID, name, email, picName,uniName);
+                        // Launch main activity
+                        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        // Error in login. Get the error message
+                        String errorMsg = jObj.getString("ErrorMsg");
+                        Toast.makeText(getApplicationContext(),
+                                errorMsg, Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    // JSON error
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                }            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String, String> params=new HashMap<String, String>();
+                params.put(KEY_NAME,name);
+                params.put(KEY_EMAIL,email);
+                params.put(KEY_PASS,pass);
+                params.put(KEY_PIC_NAME ,"");
+                params.put(KEY_UNI_NAME,uni_name);
+
+                return params;
+            }
+        };
+        requestQueue.add(stringRequest);
+
     }
 
 }

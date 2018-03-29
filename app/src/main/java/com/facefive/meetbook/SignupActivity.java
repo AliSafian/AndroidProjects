@@ -1,26 +1,15 @@
 package com.facefive.meetbook;
 
-import android.app.DialogFragment;
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -32,20 +21,24 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 public class SignupActivity extends AppCompatActivity {
 
-    Button next_btn ;
-    EditText name_et;
-    EditText email_et;
-    EditText con_pass_et;
-    EditText pass_et;
-    Spinner uni;
-    boolean flag;
+    private Button next_btn ;
+    private EditText name_et;
+    private EditText email_et;
+    private EditText con_pass_et;
+    private EditText pass_et;
+    private Spinner uni;
+    private boolean flag;
+    private ProgressDialog pDialog;
    final String SU_NAME="name",SU_EMAIL="email",SU_PASS="password",SU_UNINAME="uniname";
     String name,email,pass,con_pass,uni_name;
     @Override
@@ -60,16 +53,22 @@ public class SignupActivity extends AppCompatActivity {
         uni=(Spinner)findViewById(R.id.sp_uni);
 
         next_btn= (Button)findViewById(R.id.btn_su_next);
-        Spinner spinner = (Spinner) findViewById(R.id.sp_uni);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.uni_array, android.R.layout.simple_spinner_item);
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 
+        getUniversitiesList(new VolleyCallback() {
+            @Override
+            public void onEmailExist(Boolean result) {
 
+            }
 
-        spinner.setAdapter(adapter);
+            @Override
+            public void onGetUniversities(String[] list) {
+                Spinner spinner = (Spinner) findViewById(R.id.sp_uni);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, list);
+                spinner.setAdapter(adapter);
+            }
+        });
+
         isValidForm();
         next_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,35 +84,60 @@ public class SignupActivity extends AppCompatActivity {
                     name_et.setError("Empty name is not allowed");
                     name_et.requestFocus();
                     flag= false;
+                    return;
                 }
                 else if(!email.matches(AppConfig.EMAIL_PATTERN)) {
                     email_et.setError("Email is not valid");
                     email_et.requestFocus();
                     flag= false;
+                    return;
                 }
                 else if(!pass.matches(AppConfig.PASSWORD_PATTERN)) {
                     pass_et.setError("Password requires \nAtleast 1 uppercase and 1 lower case\nLength from 6 to 15");
                     pass_et.requestFocus();
                     flag= false;
+                    return;
                 }
                 else if (!con_pass.equals(pass)) {
                     con_pass_et.setError("Password does not match");
                     con_pass_et.setText("");
                     con_pass_et.requestFocus();
                     flag =false;
+                    return;
                 }
 
-                if (flag){
-                    Intent i = new Intent(getApplicationContext(), VerifyCodeActivity.class);
-                    i.putExtra("Flow", "FromSignUp");
-                    i.putExtra("name", name);
-                    i.putExtra("email", email);
-                    i.putExtra("pass", pass);
-                    i.putExtra("uni_name", uni_name);
-                    startActivity(i);
-                    finish();
 
-                }
+                isEmailExist(email, new VolleyCallback(){
+                    @Override
+                    public void onEmailExist(Boolean result){
+
+                        if(!result)
+                        {
+                            Intent i = new Intent(getApplicationContext(), VerifyCodeActivity.class);
+
+                            i.putExtra("Flow", "FromSignUp");
+                            i.putExtra("name", name);
+                            i.putExtra("email", email);
+                            i.putExtra("pass", pass);
+                            i.putExtra("uni_name", uni_name);
+                            startActivity(i);
+                            finish();
+                        }
+                        else
+                        {
+                            email_et.setError("Already Taken");
+                            email_et.requestFocus();
+
+                        }
+
+                    }
+                    @Override
+                    public void onGetUniversities(String [] list){
+
+                    }
+                });
+
+
             }
         });
     }
@@ -143,7 +167,6 @@ public class SignupActivity extends AppCompatActivity {
 
                 if(!email.matches(AppConfig.EMAIL_PATTERN)) {
                     email_et.setError("Email is not valid");
-                    email_et.requestFocus();
                 }
             }
 
@@ -183,7 +206,98 @@ public class SignupActivity extends AppCompatActivity {
 
         return flag?true:false;
     }
-    public void signUP(){
+    public  void getUniversitiesList(final VolleyCallback callback ){
+
+        RequestQueue requestQueue= Volley.newRequestQueue(this);
+
+        StringRequest stringRequest=new StringRequest(Request.Method.GET, AppConfig.URL_GET_UNIVERSITIES, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    JSONObject jObj = new JSONObject(response);
+
+                    int size= jObj.getInt("count");
+
+
+                    String []uniList = new String[size];
+
+                    for(int i =0 ; i < size; i++)
+                    {
+                        uniList[i] =jObj.getString(i+"");
+                    }
+
+                    callback.onGetUniversities(uniList);
+
+                } catch (JSONException e) {
+                    // JSON error
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(SignupActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String, String> params=new HashMap<String, String>();
+
+                params.put("email", email);
+                return params;
+            }
+        };
+        requestQueue.add(stringRequest);
+
+    }
+    public  void isEmailExist(final String email, final VolleyCallback callback ){
+
+        RequestQueue requestQueue= Volley.newRequestQueue(this);
+
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, AppConfig.URL_CHECK_EMAIL_EXIST, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    JSONObject jObj = new JSONObject(response);
+
+                    Boolean found= jObj.getBoolean("found");
+
+                        callback.onEmailExist(found);
+
+
+
+
+                } catch (JSONException e) {
+                    // JSON error
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(SignupActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String, String> params=new HashMap<String, String>();
+
+                params.put("email", email);
+                return params;
+            }
+        };
+        requestQueue.add(stringRequest);
+
+    }
+   /* public void signUP(){
 
         RequestQueue requestQueue= Volley.newRequestQueue(this);
 
@@ -216,7 +330,7 @@ public class SignupActivity extends AppCompatActivity {
         };
         requestQueue.add(stringRequest);
 
-    }
+    }*/
    /* public View.OnClickListener btnChoosePhotoPressed = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -249,4 +363,13 @@ public class SignupActivity extends AppCompatActivity {
 
     };*/
 
+   public interface VolleyCallback{
+       void onEmailExist(Boolean result);
+       void onGetUniversities(String [] list);
+
+
+
+   }
+
 }
+
