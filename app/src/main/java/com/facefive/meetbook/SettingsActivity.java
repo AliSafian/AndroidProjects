@@ -78,9 +78,11 @@ public class SettingsActivity extends AppCompatActivity implements Communicator{
             name_tv.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        FragmentManager fm = getFragmentManager();
+                        Intent intent=new Intent(getApplicationContext(),ChangeNameActivity.class);
+                        startActivity(intent);
+                        /*FragmentManager fm = getFragmentManager();
                         ChangeNameDialogFragment frag = new ChangeNameDialogFragment();
-                        frag.show(fm , "frag_change_name");
+                        frag.show(fm , "frag_change_name");*/
                     }
         });
 

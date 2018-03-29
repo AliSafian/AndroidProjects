@@ -41,14 +41,13 @@ public class VerifyEmailActivity extends AppCompatActivity {
                                                @Override
                                                public void onClick(View v) {
                email_et =(EditText) findViewById(R.id.et_email1);
-               String email = email_et.getText().toString();
+               email = email_et.getText().toString();
 
                if(!email.matches(AppConfig.EMAIL_PATTERN))
                {
                    email_et.setError("Invalid Email Format");
                }
-               else
-               {
+
                    isEmailExist(email, new VolleyCallback(){
                        @Override
                        public void onEmailExist(Boolean result){
@@ -57,12 +56,9 @@ public class VerifyEmailActivity extends AppCompatActivity {
                            {
                                Intent i = new Intent(getApplicationContext(), VerifyCodeActivity.class);
 
-                               i.putExtra("Flow", "FromSignUp");
-
-                              //i.putExtra("email");
-
+                               i.putExtra("Flow", "FromForgetPassword");
+                               i.putExtra("email", email);
                                startActivity(i);
-                               finish();
                            }
                            else
                            {
@@ -73,14 +69,7 @@ public class VerifyEmailActivity extends AppCompatActivity {
 
                        }
                    });
-                   Intent i = new Intent(getApplicationContext() , VerifyCodeActivity.class);
-                   i.putExtra("email", email );
-                   i.putExtra("Flow","FromForgetPassword");
-                   startActivity(i);
                }
-
-
-           }
        }
 
         );
