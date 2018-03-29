@@ -168,6 +168,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ashar"/>
         <TextView
+            android:id="@+id/tv_home_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"
@@ -175,6 +176,44 @@
             android:text="Ali Safian"
             android:textSize="20dp"
             android:textAlignment="center"/>
+        <TextView
+            android:id="@+id/tv_home_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:background="@drawable/circle_bg"
+            android:text="Ali Safian"
+            android:textSize="20dp"
+            android:textAlignment="center"/>
+        <TextView
+            android:id="@+id/tv_home_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:background="@drawable/circle_bg"
+            android:text="Ali Safian"
+            android:textSize="20dp"
+            android:textAlignment="center"/>
+        <TextView
+            android:id="@+id/tv_home_picName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:background="@drawable/circle_bg"
+            android:text="Ali Safian"
+            android:textSize="20dp"
+            android:textAlignment="center"/>
+        <TextView
+            android:id="@+id/tv_home_uniName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:background="@drawable/circle_bg"
+            android:text="Ali Safian"
+            android:textSize="20dp"
+            android:textAlignment="center"/>
+
+
 
     </LinearLayout>
 

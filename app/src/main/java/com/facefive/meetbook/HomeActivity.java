@@ -20,7 +20,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.facefive.meetbook.UserHandling.UserSessionManager;
 
 import java.util.ArrayList;
 
@@ -53,6 +56,17 @@ public class HomeActivity extends AppCompatActivity
         //rl2 = (RelativeLayout) findViewById(R.id.layout2);
 
 
+        TextView tv1 = findViewById(R.id.tv_home_id);
+        TextView tv2 = findViewById(R.id.tv_home_name);
+        TextView tv3 = findViewById(R.id.tv_home_email);
+        TextView tv4 = findViewById(R.id.tv_home_picName);
+        TextView tv5 = findViewById(R.id.tv_home_uniName);
+        UserSessionManager s= new UserSessionManager(this);
+        tv1.setText(s.getUserID()+"");
+        tv2.setText(s.getName());
+        tv3.setText(s.getEmail());
+        tv4.setText(s.getPictureName());
+        tv5.setText(s.getUniName());
 
 //        rl1.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -156,6 +170,9 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.nav_logout) {
             finish();
             Intent i = new Intent(getApplicationContext(),LoginActivity.class );
+            UserSessionManager session = new UserSessionManager(this);
+            session.setLogin(false);
+
             startActivity(i);
         }
 

@@ -12,6 +12,5 @@ public  class  TimetableSession {
     public static int noOfSlots;
     public static Time startTime = new Time(0,0,0);
     public static Time  endTime= new Time(0,0,0);
-    public static ArrayList<String> Days = new ArrayList<>();
-
+    public static ArrayList<TimetableDay> Days = new ArrayList<>();
 }
