@@ -56,48 +56,36 @@ public class SchedualPlanSlotSetting extends AppCompatActivity {
         tv_day.setText(TimetableSession.Days.get(tempDayCout).getDay());
         SlotListAdapter customAdapter = new SlotListAdapter(getApplicationContext(), TimetableSession.Days.get(tempDayCout).getSlotList());
         list.setAdapter(customAdapter);
-        tempDayCout++;
+
 
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if(tempDayCout<TimetableSession.Days.size()) {
+                if(tempDayCout <TimetableSession.Days.size()-1) {
 
 
-                    if(tempDayCout>0)
-                    {
-                        btn_pre.setVisibility(View.VISIBLE);
 
-                    }
-                    if(tempDayCout==0)
-                    {
-                        tempDayCout++;
-                    }
+                    tempDayCout++;
                     tv_day.setText(TimetableSession.Days.get(tempDayCout).getDay());
                     SlotListAdapter customAdapter = new SlotListAdapter(getApplicationContext(), TimetableSession.Days.get(tempDayCout).getSlotList());
                     list.setAdapter(customAdapter);
-                    tempDayCout++;
-                    if(tempDayCout == TimetableSession.Days.size())
+                    if(tempDayCout==1)
+                    {
+                        btn_pre.setVisibility(View.VISIBLE);
+                    }
+                    if(tempDayCout == TimetableSession.Days.size()-1)
                     {
                         btn.setText("Save");
 
-                    }
-                    if(tempDayCout<0)
-                    {
-                        tempDayCout=0;
-                    }
-                    if(tempDayCout==TimetableSession.Days.size())
-                    {
-                        tempDayCout=tempDayCout-1;
                     }
 
 
                 }
                 else
                 {
-                   Toast.makeText(getApplicationContext(),"Data saved!",Toast.LENGTH_SHORT);
+                   Toast.makeText(getApplicationContext(),"Data saved!",Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -106,23 +94,17 @@ public class SchedualPlanSlotSetting extends AppCompatActivity {
         btn_pre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(tempDayCout >= 0) {
+                if(tempDayCout >0) {
                     tempDayCout--;
                     tv_day.setText(TimetableSession.Days.get(tempDayCout).getDay());
                     SlotListAdapter customAdapter = new SlotListAdapter(getApplicationContext(), TimetableSession.Days.get(tempDayCout).getSlotList());
                     list.setAdapter(customAdapter);
                     btn.setText("Next");
+
                     if(tempDayCout==0)
                         btn_pre.setVisibility(View.INVISIBLE);
-                    if(tempDayCout<0)
-                    {
-                        tempDayCout=0;
-                    }
-                    if(tempDayCout==TimetableSession.Days.size())
-                    {
-                        tempDayCout=tempDayCout-1;
-                    }
                 }
+
 
 
 
