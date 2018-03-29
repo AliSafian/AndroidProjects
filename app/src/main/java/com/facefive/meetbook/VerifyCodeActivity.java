@@ -95,6 +95,7 @@ public class VerifyCodeActivity extends AppCompatActivity {
                     }
                     else if(flow.equals("FromForgetPassword")){
                         Intent i = new Intent(getApplicationContext(), NewPasswordActivity.class);
+                        i.putExtra("email", email);
                         startActivity(i);
                     }
                 }
