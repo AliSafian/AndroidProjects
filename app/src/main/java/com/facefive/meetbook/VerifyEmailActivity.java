@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class VerifyEmailActivity extends AppCompatActivity {
 
@@ -26,7 +25,7 @@ public class VerifyEmailActivity extends AppCompatActivity {
                                                public void onClick(View v) {
                email_et =(EditText) findViewById(R.id.et_email1);
                String email = email_et.getText().toString();
-               int redColor =getResources().getColor(R.color.colorError);
+
                if(!email.matches(AppConfig.EMAIL_PATTERN))
                {
                    email_et.setError("Invalid Email Format");

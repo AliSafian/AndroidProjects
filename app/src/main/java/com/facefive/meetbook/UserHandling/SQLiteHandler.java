@@ -1,4 +1,4 @@
-package com.facefive.meetbook;
+package com.facefive.meetbook.UserHandling;
 
 /**
  * Created by Shahid on 3/22/2018.
@@ -23,18 +23,19 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
     // Database Name
-    private static final String DATABASE_NAME = "android_api";
+    private static final String DATABASE_NAME = "meetbook_db";
 
     // Login table name
-    private static final String TABLE_USER = "user";
+    private static final String TABLE_USER = "User";
 
     // Login Table Columns names
-    private static final String KEY_ID = "id";
-    private static final String KEY_NAME = "name";
-    private static final String KEY_EMAIL = "email";
-    private static final String KEY_UID = "uid";
-    private static final String KEY_CREATED_AT = "created_at";
+    private static final String KEY_ID = "ID";
 
+    private static final String KEY_USER_ID = "UserID";
+    private static final String KEY_NAME = "Name";
+    private static final String KEY_EMAIL = "Email";
+    private static final String KEY_PICTURE_NAME = "PictureName";
+    private static final String KEY_UNI_NAME = "UniName";
     public SQLiteHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -43,9 +44,12 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_LOGIN_TABLE = "CREATE TABLE " + TABLE_USER + "("
-                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT,"
-                + KEY_EMAIL + " TEXT UNIQUE," + KEY_UID + " TEXT,"
-                + KEY_CREATED_AT + " TEXT" + ")";
+                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL ,"
+                + KEY_USER_ID + " INTEGER ,"
+                + KEY_NAME + " TEXT,"
+                + KEY_EMAIL + " TEXT UNIQUE,"
+                + KEY_PICTURE_NAME + " TEXT ,"
+                + KEY_UNI_NAME + " TEXT" + ")";
         db.execSQL(CREATE_LOGIN_TABLE);
 
         Log.d(TAG, "Database tables created");
@@ -64,14 +68,16 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     /**
      * Storing user details in database
      * */
-    public void addUser(String name, String email, String uid, String created_at) {
+    public void addUser(int userID ,String name, String email, String picName, String uniName) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
+        values.put(KEY_ID,"");
+        values.put(KEY_USER_ID, userID);
         values.put(KEY_NAME, name); // Name
         values.put(KEY_EMAIL, email); // Email
-        values.put(KEY_UID, uid); // Email
-        values.put(KEY_CREATED_AT, created_at); // Created At
+        values.put(KEY_PICTURE_NAME, picName); // Email
+        values.put(KEY_UNI_NAME,uniName);// Created At
 
         // Inserting Row
         long id = db.insert(TABLE_USER, null, values);
@@ -92,10 +98,11 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         // Move to first row
         cursor.moveToFirst();
         if (cursor.getCount() > 0) {
-            user.put("name", cursor.getString(1));
-            user.put("email", cursor.getString(2));
-            user.put("uid", cursor.getString(3));
-            user.put("created_at", cursor.getString(4));
+            user.put("userID", cursor.getString(1));
+            user.put("name", cursor.getString(2));
+            user.put("email", cursor.getString(3));
+            user.put("picName", cursor.getString(4));
+            user.put("uniName", cursor.getString(5));
         }
         cursor.close();
         db.close();
