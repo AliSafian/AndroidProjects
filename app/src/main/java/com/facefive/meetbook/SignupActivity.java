@@ -297,40 +297,7 @@ public class SignupActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
 
     }
-   /* public void signUP(){
 
-        RequestQueue requestQueue= Volley.newRequestQueue(this);
-
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, AppConfig.URL_SIGNUP, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-
-                Toast.makeText(SignupActivity.this,response,Toast.LENGTH_SHORT).show();
-                Intent intent=new Intent(SignupActivity.this,HomeActivity.class);
-                startActivity(intent);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(SignupActivity.this,error.toString(),Toast.LENGTH_SHORT).show();
-
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-
-                Map<String, String> params=new HashMap<String, String>();
-                params.put(SU_NAME,name);
-                params.put(SU_EMAIL,email);
-                params.put(SU_PASS,pass);
-                params.put(SU_UNINAME,uni_name);
-
-                return params;
-            }
-        };
-        requestQueue.add(stringRequest);
-
-    }*/
    /* public View.OnClickListener btnChoosePhotoPressed = new View.OnClickListener() {
         @Override
         public void onClick(View v) {

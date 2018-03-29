@@ -54,8 +54,9 @@ public class VerifyCodeActivity extends AppCompatActivity {
         {
             pass=getIntent().getStringExtra("pass");
             uni_name=getIntent().getStringExtra("uni_name");
+            name =getIntent().getStringExtra("name");
         }
-        name =getIntent().getStringExtra("name");
+
         email =getIntent().getStringExtra("email");
 
 
@@ -141,7 +142,7 @@ public class VerifyCodeActivity extends AppCompatActivity {
                     pin = generatePIN();
                     MailSender sender = new MailSender( senderEmail ,password);
                     // sender.addAttachment(Environment.getExternalStorageDirectory().getPath()+"/image.jpg");
-                    String body = "Dear "+name+ ", Thank You For Registration. \nYou Registration code is "+pin;
+                    String body = "Dear Sir/Madam, Thank You For Registration. \nYou Registration code is "+pin;
                     String subject ="MeetBook: Verification Code ";
                     sender.sendMail(subject ,body , senderEmail,email );
 
