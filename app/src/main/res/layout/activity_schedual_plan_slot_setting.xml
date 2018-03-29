@@ -22,10 +22,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:layout_marginLeft="280dp"
+                android:layout_marginLeft="180dp"
                 android:id="@+id/_1_linearlayout_scheduleplanslotsetting_xml"
                 android:orientation="horizontal">
 
+                <Button
+                    android:id="@+id/pre_btn_scheduleplanslotsetting_xml"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Previous"/>
                 <Button
                     android:id="@+id/next_btn_scheduleplanslotsetting_xml"
                     android:layout_width="wrap_content"

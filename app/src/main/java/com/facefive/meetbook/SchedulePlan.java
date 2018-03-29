@@ -55,7 +55,15 @@ public class SchedulePlan extends AppCompatActivity {
         setContentView(R.layout.activity_schedule_plan);
 
 
+        dateTo = (EditText) findViewById(R.id.dateto_et_scheduleplan_xml);
+        dateFrom = (EditText) findViewById(R.id.datefrom_et_scheduleplan_xml);
+        time1 = (EditText) findViewById(R.id.timeto_et_scheduleplan_xml);
+        time2 = (EditText) findViewById(R.id.timefrom_et_scheduleplan_xml);
 
+        dateTo.setEnabled(false);
+        dateFrom.setEnabled(false);
+        time1.setEnabled(false);
+        time2.setEnabled(false);
         //................................Date picker
 
         dateView1 = (EditText) findViewById(R.id.datefrom_et_scheduleplan_xml);
@@ -171,10 +179,6 @@ public class SchedulePlan extends AppCompatActivity {
 
         //.........................Switch
 
-        dateTo = (EditText) findViewById(R.id.dateto_et_scheduleplan_xml);
-        dateFrom = (EditText) findViewById(R.id.datefrom_et_scheduleplan_xml);
-        time1 = (EditText) findViewById(R.id.timeto_et_scheduleplan_xml);
-        time2 = (EditText) findViewById(R.id.timefrom_et_scheduleplan_xml);
 
         s = (Switch)findViewById(R.id.inavailability_swh_scheduleplan_xml);
 

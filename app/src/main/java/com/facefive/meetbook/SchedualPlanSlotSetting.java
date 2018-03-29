@@ -14,6 +14,7 @@ public class SchedualPlanSlotSetting extends AppCompatActivity {
 
     private ListView list;
     private Button btn;
+    private Button btn_pre;
     private TextView tv_day;
 
 
@@ -43,31 +44,87 @@ public class SchedualPlanSlotSetting extends AppCompatActivity {
 
         list = (ListView) findViewById(R.id.slot_lv_scheduleplanslotsetting_xml);
         btn = (Button) findViewById(R.id.next_btn_scheduleplanslotsetting_xml);
+        btn_pre = (Button) findViewById(R.id.pre_btn_scheduleplanslotsetting_xml);
+
+        btn_pre.setVisibility(View.INVISIBLE);
 
         tv_day = (TextView) findViewById(R.id.day_tv_scheduleplanslotsetting_xml);
 
 
-        tv_day.setText(TimetableSession.Days.get(0).getDay());
-        SlotListAdapter customAdapter = new SlotListAdapter(getApplicationContext(), TimetableSession.Days.get(0).getSlotList());
+        tempDayCout = 0;
+
+        tv_day.setText(TimetableSession.Days.get(tempDayCout).getDay());
+        SlotListAdapter customAdapter = new SlotListAdapter(getApplicationContext(), TimetableSession.Days.get(tempDayCout).getSlotList());
         list.setAdapter(customAdapter);
+        tempDayCout++;
 
 
-        tempDayCout = 1;
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 if(tempDayCout<TimetableSession.Days.size()) {
 
+
+                    if(tempDayCout>0)
+                    {
+                        btn_pre.setVisibility(View.VISIBLE);
+
+                    }
+                    if(tempDayCout==0)
+                    {
+                        tempDayCout++;
+                    }
                     tv_day.setText(TimetableSession.Days.get(tempDayCout).getDay());
-                    SlotListAdapter customAdapter = new SlotListAdapter(getApplicationContext(), TimetableSession.Days.get(tempDayCout++).getSlotList());
+                    SlotListAdapter customAdapter = new SlotListAdapter(getApplicationContext(), TimetableSession.Days.get(tempDayCout).getSlotList());
                     list.setAdapter(customAdapter);
+                    tempDayCout++;
+                    if(tempDayCout == TimetableSession.Days.size())
+                    {
+                        btn.setText("Save");
+
+                    }
+                    if(tempDayCout<0)
+                    {
+                        tempDayCout=0;
+                    }
+                    if(tempDayCout==TimetableSession.Days.size())
+                    {
+                        tempDayCout=tempDayCout-1;
+                    }
+
 
                 }
-                else if(tempDayCout == TimetableSession.Days.size())
+                else
                 {
-                    btn.setText("Save");
+                   Toast.makeText(getApplicationContext(),"Data saved!",Toast.LENGTH_SHORT);
                 }
+
+            }
+        });
+
+        btn_pre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(tempDayCout >= 0) {
+                    tempDayCout--;
+                    tv_day.setText(TimetableSession.Days.get(tempDayCout).getDay());
+                    SlotListAdapter customAdapter = new SlotListAdapter(getApplicationContext(), TimetableSession.Days.get(tempDayCout).getSlotList());
+                    list.setAdapter(customAdapter);
+                    btn.setText("Next");
+                    if(tempDayCout==0)
+                        btn_pre.setVisibility(View.INVISIBLE);
+                    if(tempDayCout<0)
+                    {
+                        tempDayCout=0;
+                    }
+                    if(tempDayCout==TimetableSession.Days.size())
+                    {
+                        tempDayCout=tempDayCout-1;
+                    }
+                }
+
+
 
             }
         });
