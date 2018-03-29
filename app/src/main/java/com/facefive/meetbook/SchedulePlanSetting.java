@@ -46,7 +46,7 @@ public class SchedulePlanSetting extends AppCompatActivity {
 
     private Time tempStart;
     private Time tempEnd;
-
+    private int numOfSlot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +57,11 @@ public class SchedulePlanSetting extends AppCompatActivity {
 
 
         //...................................Time Picker
+        tempStart = new Time(0,0,0);
+        tempEnd = new Time(0,0,0);
 
         startTime_et = (EditText) findViewById(R.id.timefrom_et_scheduleplan_xml);
         endTime_et = (EditText) findViewById(R.id.timeto_et_scheduleplan_xml);
-
-
 
         startTime_et.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,14 +73,21 @@ public class SchedulePlanSetting extends AppCompatActivity {
                 mTimePicker = new TimePickerDialog(SchedulePlanSetting.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        startTime_et.setText(String.format("%02d:%02d", selectedHour, selectedMinute));
-                        TimetableSession.startTime.setHours((Integer) selectedHour);
-                        TimetableSession.startTime.setMinutes((Integer) selectedMinute);
-                        tempStart = new Time(selectedHour,selectedMinute,0);
+
+                        tempStart.setHours(selectedHour);
+                        tempStart.setMinutes(selectedMinute);
+
+                            startTime_et.setText(String.format("%02d:%02d", selectedHour, selectedMinute));
+                            TimetableSession.startTime.setHours((Integer) selectedHour);
+                            TimetableSession.startTime.setMinutes((Integer) selectedMinute);
+
+
+
                     }
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("Select Time");
                 mTimePicker.show();
+
             }
         });
 
@@ -94,10 +101,22 @@ public class SchedulePlanSetting extends AppCompatActivity {
                 mTimePicker = new TimePickerDialog(SchedulePlanSetting.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        endTime_et.setText(String.format("%02d:%02d", selectedHour, selectedMinute));
-                        TimetableSession.endTime.setHours((Integer) selectedHour);
-                        TimetableSession.endTime.setMinutes((Integer) selectedMinute);
-                        tempEnd = new Time(selectedHour,selectedMinute,0);
+
+                        tempEnd.setHours(selectedHour);
+                        tempEnd.setMinutes(selectedMinute);
+
+                       if(calMinutes(tempStart) < calMinutes(tempEnd))
+                        {
+
+                            endTime_et.setError(null);
+                            endTime_et.setText(String.format("%02d:%02d", selectedHour, selectedMinute));
+                            TimetableSession.endTime.setHours((Integer) selectedHour);
+                            TimetableSession.endTime.setMinutes((Integer) selectedMinute);
+
+                        }
+                        else{
+                            endTime_et.setError("End time should be greater than start time.");
+                        }
                     }
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("Select Time");
@@ -123,7 +142,14 @@ public class SchedulePlanSetting extends AppCompatActivity {
         //Gets whether the selector wheel wraps when reaching the min/max value.
          numberPicker.setWrapSelectorWheel(true);
 
-
+        numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal){
+                //Display the newly selected number from picker
+                TimetableSession.noOfSlots = newVal;
+                numOfSlot = newVal;
+            }
+        });
 
         //............................ getting data for next activity
 
@@ -141,13 +167,7 @@ public class SchedulePlanSetting extends AppCompatActivity {
 
 
         nextBtn = (Button) findViewById(R.id.next_btn_scheduleplansetting_xml);
-        numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal){
-                //Display the newly selected number from picker
-                TimetableSession.noOfSlots = newVal;
-            }
-        });
+
 
 
         nextBtn.setOnClickListener(new View.OnClickListener() {
@@ -155,45 +175,83 @@ public class SchedulePlanSetting extends AppCompatActivity {
             public void onClick(View v) {
 
                 //if(TimetableSession.Days.size()!=0)
+                if(numOfSlot <= 0)
+                {
+                    Toast.makeText(getApplicationContext(),"Please! select number of slots per day.",Toast.LENGTH_SHORT).show();
+                }
+                else if(startTime_et.getText().toString().contains("") && endTime_et.getText().toString().equals(""))
+                {
+                    Toast.makeText(getApplicationContext(),"Please! select start time and end time both.",Toast.LENGTH_SHORT).show();
+
+                }
+                else if((calMinutes(TimetableSession.endTime)-calMinutes(TimetableSession.startTime))/numOfSlot < 30)
+                {
+                    endTime_et.setError("Please! select the valid end working time");
+                    Toast.makeText(getApplicationContext(),"Slot duration should be greater than or equal to 30 minutes.",Toast.LENGTH_SHORT).show();
+                }
+                else if((monday.isChecked() == false)&&(tuesday.isChecked() == false)&&(wednesday.isChecked() == false)&&(thursday.isChecked() == false)&&(friday.isChecked() == false)&&(saturday.isChecked() == false)&&(sunday.isChecked() == false))
+                {
+                    Toast.makeText(getApplicationContext(),"Please! select working day(s).",Toast.LENGTH_SHORT).show();
+                }
+                else {
                     TimetableSession.Days.clear();
 
 
-                if(monday.isChecked()) {
-                    TimetableDay td = new TimetableDay("Monday",TimetableSession.noOfSlots,tempStart,tempEnd);
-                    TimetableSession.Days.add(td);
-                }
-                if(tuesday.isChecked()) {
-                    TimetableDay td = new TimetableDay("Tuesday",TimetableSession.noOfSlots,tempStart,tempEnd);
-                    TimetableSession.Days.add(td);
-                }
-                if(wednesday.isChecked()) {
-                    TimetableDay td = new TimetableDay("Wednesday",TimetableSession.noOfSlots,tempStart,tempEnd);
-                    TimetableSession.Days.add(td);
-                }
-                if(thursday.isChecked()) {
-                    TimetableDay td = new TimetableDay("Thursday",TimetableSession.noOfSlots,tempStart,tempEnd);
-                    TimetableSession.Days.add(td);
-                }
-                if(friday.isChecked()) {
-                    TimetableDay td = new TimetableDay("Friday",TimetableSession.noOfSlots,tempStart,tempEnd);
-                    TimetableSession.Days.add(td);
-                }
-                if(saturday.isChecked()){
-                    TimetableDay td = new TimetableDay("Saturday",TimetableSession.noOfSlots,tempStart,tempEnd);
-                    TimetableSession.Days.add(td);
-                }
-                if(sunday.isChecked()) {
-                    TimetableDay td = new TimetableDay("Sunday",TimetableSession.noOfSlots,tempStart,tempEnd);
-                    TimetableSession.Days.add(td);
+                    if(monday.isChecked()) {
+                        TimetableDay td = new TimetableDay("Monday",TimetableSession.noOfSlots,tempStart,tempEnd);
+                        TimetableSession.Days.add(td);
+                    }
+                    if(tuesday.isChecked()) {
+                        TimetableDay td = new TimetableDay("Tuesday",TimetableSession.noOfSlots,tempStart,tempEnd);
+                        TimetableSession.Days.add(td);
+                    }
+                    if(wednesday.isChecked()) {
+                        TimetableDay td = new TimetableDay("Wednesday",TimetableSession.noOfSlots,tempStart,tempEnd);
+                        TimetableSession.Days.add(td);
+                    }
+                    if(thursday.isChecked()) {
+                        TimetableDay td = new TimetableDay("Thursday",TimetableSession.noOfSlots,tempStart,tempEnd);
+                        TimetableSession.Days.add(td);
+                    }
+                    if(friday.isChecked()) {
+                        TimetableDay td = new TimetableDay("Friday",TimetableSession.noOfSlots,tempStart,tempEnd);
+                        TimetableSession.Days.add(td);
+                    }
+                    if(saturday.isChecked()){
+                        TimetableDay td = new TimetableDay("Saturday",TimetableSession.noOfSlots,tempStart,tempEnd);
+                        TimetableSession.Days.add(td);
+                    }
+                    if(sunday.isChecked()) {
+                        TimetableDay td = new TimetableDay("Sunday",TimetableSession.noOfSlots,tempStart,tempEnd);
+                        TimetableSession.Days.add(td);
+                    }
+
+
+                    Intent intent = new Intent(getApplicationContext(), SchedualPlanSlotSetting.class);
+                    startActivity(intent);
+
                 }
 
 
-                Toast.makeText(getApplicationContext(),"yes",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getApplicationContext(), SchedualPlanSlotSetting.class);
-                startActivity(intent);
             }
         });
 
 
+    }
+
+
+
+    private  Time getTime(int m)
+    {
+        Time t = new Time(0,0,0);
+        t.setHours(m/60);
+        t.setMinutes(m%60);
+        return t;
+    }
+    private int calMinutes(Time t)
+    {
+        int m=0;
+        m = t.getHours()*60+t.getMinutes();
+        return m;
     }
 }

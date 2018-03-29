@@ -78,6 +78,8 @@ public class SlotListAdapter extends BaseAdapter {
                 if(isChecked)
                 {
                     list.get(position).setSlotType("Lecture");
+                    Toast.makeText(context, list.get(position).getSlotType(), Toast.LENGTH_SHORT).show();
+
                 }
             }
         });
@@ -96,6 +98,7 @@ public class SlotListAdapter extends BaseAdapter {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked)
                 {
+                    Toast.makeText(context, list.get(position).getSlotType(), Toast.LENGTH_SHORT).show();
                     list.get(position).setSlotType("Free");
                 }
             }

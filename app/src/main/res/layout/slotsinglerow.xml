@@ -16,10 +16,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
+            android:layout_marginLeft="30dp"
             android:text="Timing: 01:00 - 03:00"
             android:id="@+id/duration_tv_slotsinglerow_xml"
-            android:textSize="25dp"
+            android:textSize="18dp"
             android:layout_marginTop="10dp"/>
     </LinearLayout>
     <RadioGroup
