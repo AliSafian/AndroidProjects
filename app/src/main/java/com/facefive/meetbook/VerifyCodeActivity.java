@@ -1,14 +1,10 @@
 package com.facefive.meetbook;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.Selection;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -63,13 +59,13 @@ public class VerifyCodeActivity extends AppCompatActivity {
         email =getIntent().getStringExtra("email");
 
 
-        email_tv =(TextView) findViewById(R.id.tv_emailCode);
-        resend_tv = (TextView)findViewById(R.id.tv_link_resend);
-        code1_et = (EditText) findViewById(R.id.et_code1);
-        code2_et = (EditText)findViewById(R.id.et_code2);
-        code3_et =(EditText) findViewById(R.id.et_code3);
-        code4_et =(EditText) findViewById(R.id.et_code4);
-        submit_btn = (Button) findViewById(R.id.btn_submit);
+        email_tv = findViewById(R.id.tv_emailCode);
+        resend_tv = findViewById(R.id.tv_link_resend);
+        code1_et =  findViewById(R.id.et_code1);
+        code2_et = findViewById(R.id.et_code2);
+        code3_et = findViewById(R.id.et_code3);
+        code4_et = findViewById(R.id.et_code4);
+        submit_btn =  findViewById(R.id.btn_submit);
 
          session = new UserSessionManager(getApplicationContext());
 
@@ -95,7 +91,6 @@ public class VerifyCodeActivity extends AppCompatActivity {
                     if(flow.equals("FromSignUp"))
                     {
                         signUP();
-                        ;
                     }
                     else if(flow.equals("FromForgetPassword")){
                         Intent i = new Intent(getApplicationContext(), NewPasswordActivity.class);
