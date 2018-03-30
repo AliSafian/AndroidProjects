@@ -174,6 +174,7 @@ public class SchedualPlanSlotSetting extends AppCompatActivity {
                 JSONArray object=new JSONArray();
                 try {
                     object.put(timetableDay.getDay());
+                    object.put(timetableDay.getSlotList().size());
                     for (SlotSingleRow singleRow:timetableDay.getSlotList())
                     {
                         JSONObject srow=new JSONObject();
@@ -208,6 +209,8 @@ public class SchedualPlanSlotSetting extends AppCompatActivity {
                    if(! jsonObject.getBoolean("error"))
                    {
                      TimetableSession.timetableID= jsonObject.getInt("ttid");
+
+                       Toast.makeText(getApplicationContext(),"agya",Toast.LENGTH_SHORT).show();
                        for(TimetableDay object: TimetableSession.Days){
                            SendData(object);
                        }
