@@ -90,8 +90,12 @@ public class ChangeNameActivity extends AppCompatActivity {
                         String name = jObj.getString("Name");
                         session.setName(name);
                         Toast.makeText(getApplicationContext(),"Name Changed Succesfully", Toast.LENGTH_SHORT).show();
-                        // Launch home activity
+                        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
                         finish();
+
+                        // Launch home activity
                     } else {
                         // Error in login. Get the error message
                         String errorMsg = jObj.getString("ErrorMsg");
@@ -104,8 +108,8 @@ public class ChangeNameActivity extends AppCompatActivity {
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                     finish();
-                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                    startActivity(intent);
+                   /* Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    startActivity(intent);*/
                 }
             }
         }, new Response.ErrorListener() {

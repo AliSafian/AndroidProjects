@@ -194,9 +194,10 @@ public class ChangePasswordActivity extends AppCompatActivity  {
 
                         Toast.makeText(getApplicationContext(),"Please Login Again", Toast.LENGTH_SHORT).show();
                         // Launch home activity
-                        finish();
                         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
+                        finish();
 
                     } else {
                         // Error in login. Get the error message

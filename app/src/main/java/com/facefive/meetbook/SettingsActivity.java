@@ -22,6 +22,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facefive.meetbook.UserHandling.UserSessionManager;
+
 import org.w3c.dom.Text;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -32,6 +34,7 @@ import static android.view.KeyEvent.KEYCODE_ENTER;
 public class SettingsActivity extends AppCompatActivity implements Communicator{
 
     private TextView name_tv;
+    private TextView email_tv;
     private ImageView image;
     RelativeLayout notification;
     RelativeLayout privacy;
@@ -44,7 +47,12 @@ public class SettingsActivity extends AppCompatActivity implements Communicator{
 
             image=(ImageView)findViewById(R.id.circleImageView);
 
-            name_tv= (TextView)findViewById(R.id.name);
+            name_tv= findViewById(R.id.name);
+            email_tv= findViewById(R.id.email);
+            UserSessionManager session =new UserSessionManager(getApplicationContext());
+            name_tv.setText(session.getName());
+            email_tv.setText(session.getEmail());
+
             notification = (RelativeLayout)findViewById(R.id.layout_notification) ;
             privacy = (RelativeLayout)findViewById(R.id.layout_privacy) ;
             change_pass = (RelativeLayout)findViewById(R.id.layout_change_pass) ;
@@ -98,6 +106,8 @@ public class SettingsActivity extends AppCompatActivity implements Communicator{
             startActivityForResult(i, ACTIVITY_SELECT_IMAGE);
         }
     };
+
+
     public void onPrivacyActivity(){
 
 
