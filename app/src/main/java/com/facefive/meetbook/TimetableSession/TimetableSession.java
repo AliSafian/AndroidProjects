@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public  class  TimetableSession {
     public static int noOfSlots;
     public static int timetableID;
+    public  static Time duration;
     public static Time startTime = new Time(0,0,0);
     public static Time  endTime= new Time(0,0,0);
     public static ArrayList<TimetableDay> Days = new ArrayList<>();

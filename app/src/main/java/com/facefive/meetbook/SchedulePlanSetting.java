@@ -196,6 +196,10 @@ public class SchedulePlanSetting extends AppCompatActivity {
                 else {
                     TimetableSession.Days.clear();
 
+                    int dur=(calMinutes(TimetableSession.endTime)-calMinutes(TimetableSession.startTime))/numOfSlot;
+
+                    TimetableSession.duration = new Time(dur/60, dur%60,0);
+
 
                     if(monday.isChecked()) {
                         TimetableDay td = new TimetableDay("Monday",TimetableSession.noOfSlots,tempStart,tempEnd);
