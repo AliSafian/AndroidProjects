@@ -100,16 +100,12 @@ public class SchedualPlanSlotSetting extends AppCompatActivity {
                         btn.setText("Save");
 
                     }
-
-
                 }
                 else
                 {
                     UserSessionManager userSessionManager=new UserSessionManager(getApplicationContext());
 
                     StoreTimeTable(TimetableSession.Days.size(),TimetableSession.startTime,TimetableSession.endTime,TimetableSession.noOfSlots,userSessionManager.getUserID(),TimetableSession.duration);
-
-
 
                 }
 
@@ -129,10 +125,6 @@ public class SchedualPlanSlotSetting extends AppCompatActivity {
                     if(tempDayCout==0)
                         btn_pre.setVisibility(View.INVISIBLE);
                 }
-
-
-
-
             }
         });
 
@@ -193,8 +185,6 @@ public class SchedualPlanSlotSetting extends AppCompatActivity {
                     for(TimetableDay object: TimetableSession.Days){
                         JSONArray jsonArray=new JSONArray();
                         jsonArray.put(object.getDay());
-                        /*jarray.put();
-                        jarray.put();*/
                         for (SlotSingleRow singleRow:object.getSlotList())
                         {
                             JSONObject slots=new JSONObject();

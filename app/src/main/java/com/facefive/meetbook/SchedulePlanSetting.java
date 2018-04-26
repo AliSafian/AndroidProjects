@@ -2,6 +2,7 @@ package com.facefive.meetbook;
 
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.media.MediaCas;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -13,11 +14,26 @@ import android.widget.NumberPicker;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.facefive.meetbook.TimetableSession.SlotSingleRow;
 import com.facefive.meetbook.TimetableSession.TimetableDay;
 import com.facefive.meetbook.TimetableSession.TimetableSession;
+import com.facefive.meetbook.UserHandling.UserSessionManager;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.sql.Time;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SchedulePlanSetting extends AppCompatActivity {
 
@@ -28,7 +44,7 @@ public class SchedulePlanSetting extends AppCompatActivity {
 
 
 
-    private NumberPicker numberPickerp;
+    private NumberPicker numberPicker;
 
     private EditText startTime_et;
     private EditText endTime_et;
@@ -52,6 +68,12 @@ public class SchedulePlanSetting extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule_plan_setting);
+
+
+        UserSessionManager userSessionManager=new UserSessionManager(getApplicationContext());
+
+        getTimeTable(userSessionManager.getUserID());
+
 
 
 
@@ -131,7 +153,7 @@ public class SchedulePlanSetting extends AppCompatActivity {
 
         //.........................slot number picker..............................
 
-        final NumberPicker numberPicker = (NumberPicker) findViewById(R.id.sspd_np_scheduleplansetting_xml);
+        numberPicker = (NumberPicker) findViewById(R.id.sspd_np_scheduleplansetting_xml);
 
         //Populate NumberPicker values from minimum and maximum value range
         //Set the minimum value of NumberPicker
@@ -240,6 +262,60 @@ public class SchedulePlanSetting extends AppCompatActivity {
             }
         });
 
+
+    }
+
+
+    public  void getTimeTable(final int userid){
+
+
+
+        RequestQueue requestQueue= Volley.newRequestQueue(this);
+
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, AppConfig.URL_GETTIMETABLE, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    JSONObject jsonObject=new JSONObject(response);
+                    if(! jsonObject.getBoolean("error"))
+                    {
+                        startTime_et.setText(jsonObject.getJSONObject("item").get("StartTime").toString());
+                        endTime_et.setText(jsonObject.getJSONObject("item").get("EndTime").toString());
+                        numberPicker.setValue(jsonObject.getJSONObject("item").getInt("SlotsPerDay"));
+
+                        Toast.makeText(getApplicationContext()," successfull"+jsonObject.getJSONObject("item").get("TID"),Toast.LENGTH_SHORT).show();
+
+                    }
+                    else
+                    {
+
+                        Toast.makeText(getApplicationContext(),jsonObject.getString("error_msg"),Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+
+
+                Map<String, String> params = new HashMap<String, String>();
+                    params.put("userID",""+userid);
+                // Toast.makeText(getApplicationContext(),jarray.toString(),Toast.LENGTH_SHORT).show();
+                return  params;
+            }
+        };
+        requestQueue.add(stringRequest);
 
     }
 
