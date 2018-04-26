@@ -70,9 +70,7 @@ public class SchedulePlanSetting extends AppCompatActivity {
         setContentView(R.layout.activity_schedule_plan_setting);
 
 
-        UserSessionManager userSessionManager=new UserSessionManager(getApplicationContext());
 
-        getTimeTable(userSessionManager.getUserID());
 
 
 
@@ -163,6 +161,12 @@ public class SchedulePlanSetting extends AppCompatActivity {
 
         //Gets whether the selector wheel wraps when reaching the min/max value.
          numberPicker.setWrapSelectorWheel(true);
+        TimetableSession.noOfSlots = numberPicker.getValue();
+        numOfSlot = numberPicker.getValue();
+
+        UserSessionManager userSessionManager=new UserSessionManager(getApplicationContext());
+
+        getTimeTable(userSessionManager.getUserID());
 
         numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
@@ -197,11 +201,11 @@ public class SchedulePlanSetting extends AppCompatActivity {
             public void onClick(View v) {
 
                 //if(TimetableSession.Days.size()!=0)
-                if(numOfSlot <= 0)
+                /*if(numOfSlot <= 0)
                 {
                     Toast.makeText(getApplicationContext(),"Please! select number of slots per day.",Toast.LENGTH_SHORT).show();
-                }
-                else if(startTime_et.getText().toString().contains("") && endTime_et.getText().toString().equals(""))
+                }*/
+               if(startTime_et.getText().toString().contains("") && endTime_et.getText().toString().equals(""))
                 {
                     Toast.makeText(getApplicationContext(),"Please! select start time and end time both.",Toast.LENGTH_SHORT).show();
 
@@ -280,11 +284,54 @@ public class SchedulePlanSetting extends AppCompatActivity {
                     JSONObject jsonObject=new JSONObject(response);
                     if(! jsonObject.getBoolean("error"))
                     {
-                        startTime_et.setText(jsonObject.getJSONObject("item").get("StartTime").toString());
-                        endTime_et.setText(jsonObject.getJSONObject("item").get("EndTime").toString());
-                        numberPicker.setValue(jsonObject.getJSONObject("item").getInt("SlotsPerDay"));
+                       JSONArray jsonArray= jsonObject.getJSONArray("item");
 
-                        Toast.makeText(getApplicationContext()," successfull"+jsonObject.getJSONObject("item").get("TID"),Toast.LENGTH_SHORT).show();
+                        numberPicker.setValue(jsonArray.getInt(0));
+
+                        TimetableSession.noOfSlots = jsonArray.getInt(0);
+                        numOfSlot = jsonArray.getInt(0);
+
+                        startTime_et.setText(jsonArray.getString(1).substring(0,5));
+                        TimetableSession.startTime.setHours(Integer.parseInt(jsonArray.getString(1).substring(0,2)));
+                        TimetableSession.startTime.setMinutes(Integer.parseInt(jsonArray.getString(1).substring(3,5)));
+
+                        TimetableSession.endTime.setHours(Integer.parseInt(jsonArray.getString(2).substring(0,2)));
+                        TimetableSession.endTime.setMinutes(Integer.parseInt(jsonArray.getString(2).substring(3,5)));
+                        endTime_et.setText(jsonArray.getString(2).substring(0,5));
+
+                        for (int i=3;i<jsonArray.length();i++)
+                        {
+                            if(jsonArray.get(i).equals("Monday"))
+                            {
+                                monday.setChecked(true);
+                            }
+                            if(jsonArray.get(i).equals("Tuesday"))
+                            {
+                                tuesday.setChecked(true);
+                            }
+                            if(jsonArray.get(i).equals("Wednesday"))
+                            {
+                                wednesday.setChecked(true);
+                            }
+                            if(jsonArray.get(i).equals("Thursday"))
+                            {
+                                thursday.setChecked(true);
+                            }
+                            if(jsonArray.get(i).equals("Friday"))
+                            {
+                                friday.setChecked(true);
+                            }
+                            if(jsonArray.get(i).equals("Saturday"))
+                            {
+                                saturday.setChecked(true);
+                            }
+                            if(jsonArray.get(i).equals("Sunday"))
+                            {
+                                sunday.setChecked(true);
+                            }
+
+                        }
+                        Toast.makeText(getApplicationContext(),jsonArray.toString(),Toast.LENGTH_SHORT).show();
 
                     }
                     else
