@@ -100,30 +100,17 @@ public class SchedualPlanSlotSetting extends AppCompatActivity {
                         btn.setText("Save");
 
                     }
-
-
                 }
                 else
                 {
                     UserSessionManager userSessionManager=new UserSessionManager(getApplicationContext());
 
-                    StoreTimeTable(TimetableSession.Days.size(),TimetableSession.startTime,TimetableSession.endTime,TimetableSession.noOfSlots,userSessionManager.getUserID());
-
-
+                    StoreTimeTable(TimetableSession.Days.size(),TimetableSession.startTime,TimetableSession.endTime,TimetableSession.noOfSlots,userSessionManager.getUserID(),TimetableSession.duration);
 
                 }
 
             }
         });
-
-
-
-
-
-
-
-
-
 
         btn_pre.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,82 +125,28 @@ public class SchedualPlanSlotSetting extends AppCompatActivity {
                     if(tempDayCout==0)
                         btn_pre.setVisibility(View.INVISIBLE);
                 }
-
-
-
-
             }
         });
 
     }
 
-    public  void SendData(final TimetableDay timetableDay){
-
-        RequestQueue requestQueue= Volley.newRequestQueue(this);
-
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, AppConfig.URL_TIMATABLESLOTS, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-
-                Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_SHORT).show();
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(SchedualPlanSlotSetting.this,error.toString(),Toast.LENGTH_SHORT).show();
-
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+    public  void StoreTimeTable(final int Days, final Time startTime, final Time endTime, final int noOfSlots, final int UserID,final  Time duration){
 
 
-
-                Map<String, String> params = new HashMap<String, String>();
-                JSONArray object=new JSONArray();
-                try {
-                    object.put(timetableDay.getDay());
-                    object.put(timetableDay.getSlotList().size());
-                    for (SlotSingleRow singleRow:timetableDay.getSlotList())
-                    {
-                        JSONObject srow=new JSONObject();
-                        srow.put("starttime",singleRow.getStartTime());
-                        srow.put("endtime",singleRow.getEndTime());
-                        srow.put("header",singleRow.getHeader());
-                        srow.put("slottype",singleRow.getSlotType());
-                        srow.put("tid",TimetableSession.timetableID);
-                        object.put(srow);
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                    params.put("timetableday",object.toString());
-                return  params;
-            }
-        };
-        requestQueue.add(stringRequest);
-
-    }
-
-    public  void StoreTimeTable(final int Days, final Time startTime, final Time endTime, final int noOfSlots, final int UserID){
 
         RequestQueue requestQueue= Volley.newRequestQueue(this);
 
         StringRequest stringRequest=new StringRequest(Request.Method.POST, AppConfig.URL_TIMATABLE, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+
                 try {
                     JSONObject jsonObject=new JSONObject(response);
                    if(! jsonObject.getBoolean("error"))
                    {
-                     TimetableSession.timetableID= jsonObject.getInt("ttid");
 
-                       Toast.makeText(getApplicationContext(),"agya",Toast.LENGTH_SHORT).show();
-                       for(TimetableDay object: TimetableSession.Days){
-                           SendData(object);
-                       }
+                       Toast.makeText(getApplicationContext()," successfull"+ jsonObject.get("json"),Toast.LENGTH_SHORT).show();
+
                    }
                    else
                    {
@@ -238,20 +171,37 @@ public class SchedualPlanSlotSetting extends AppCompatActivity {
 
 
                 Map<String, String> params = new HashMap<String, String>();
-                JSONArray object=new JSONArray();
+                JSONArray jarray=new JSONArray();
                 try {
                         JSONObject srow=new JSONObject();
                         srow.put("noofdays",Days);
                         srow.put("starttime",startTime);
                         srow.put("endtime",endTime);
                         srow.put("userid",UserID);
+                        srow.put("duration",duration);
                         srow.put("nooofslots",noOfSlots);
-                        object.put(srow);
+                        jarray.put(srow);
+
+                    for(TimetableDay object: TimetableSession.Days){
+                        JSONArray jsonArray=new JSONArray();
+                        jsonArray.put(object.getDay());
+                        for (SlotSingleRow singleRow:object.getSlotList())
+                        {
+                            JSONObject slots=new JSONObject();
+                            slots.put("starttime",singleRow.getStartTime());
+                            slots.put("endtime",singleRow.getEndTime());
+                            slots.put("header",singleRow.getHeader());
+                            slots.put("slottype",singleRow.getSlotType());
+                            jsonArray.put(slots);
+                        }
+                        jarray.put(jsonArray);
+                    }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-                params.put("timetable",object.toString());
+               // Toast.makeText(getApplicationContext(),jarray.toString(),Toast.LENGTH_SHORT).show();
+                params.put("timetable",jarray.toString());
                 return  params;
             }
         };
