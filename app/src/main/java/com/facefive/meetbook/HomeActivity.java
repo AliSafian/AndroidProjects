@@ -1,11 +1,14 @@
 package com.facefive.meetbook;
 
+import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.SearchView;
 import android.view.MenuInflater;
 import android.support.design.widget.NavigationView;
@@ -34,6 +37,13 @@ public class HomeActivity extends AppCompatActivity
     RelativeLayout rl2;
 
 
+    private TextView name_tv ;
+    private TextView email_tv;
+
+
+
+    private boolean doubleBackToExitPressedOnce = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,12 +71,18 @@ public class HomeActivity extends AppCompatActivity
         TextView tv3 = findViewById(R.id.tv_home_email);
         TextView tv4 = findViewById(R.id.tv_home_picName);
         TextView tv5 = findViewById(R.id.tv_home_uniName);
-        UserSessionManager s= new UserSessionManager(this);
-        tv1.setText(s.getUserID()+"");
-        tv2.setText(s.getName());
-        tv3.setText(s.getEmail());
-        tv4.setText(s.getPictureName());
-        tv5.setText(s.getUniName());
+        UserSessionManager session =new UserSessionManager(getApplicationContext());
+        View header=navigationView.getHeaderView(0);
+        name_tv = (TextView)header.findViewById(R.id.tv_nav_name);
+        email_tv = (TextView)header.findViewById(R.id.tv_nav_email);
+        name_tv.setText(session.getName());
+        email_tv.setText(session.getEmail());
+
+        tv1.setText(session.getUserID()+"");
+        tv2.setText(session.getName());
+        tv3.setText(session.getEmail());
+        tv4.setText(session.getPictureName());
+        tv5.setText(session.getUniName());
 
 //        rl1.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -93,7 +109,21 @@ public class HomeActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed();
+                return;
+            }
+
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce=false;
+                }
+            }, 2000);
         }
     }
 
@@ -125,6 +155,7 @@ public class HomeActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             Intent i = new Intent(getApplicationContext(), SettingsActivity.class);
             startActivity(i);
+
             return true;
         }
         else if (id == R.id.action_privacy) {
@@ -172,7 +203,6 @@ public class HomeActivity extends AppCompatActivity
             Intent i = new Intent(getApplicationContext(),LoginActivity.class );
             UserSessionManager session = new UserSessionManager(this);
             session.setLogin(false);
-
             startActivity(i);
         }
 
