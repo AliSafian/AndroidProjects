@@ -228,31 +228,31 @@ public class SchedulePlanSetting extends AppCompatActivity {
 
 
                     if(monday.isChecked()) {
-                        TimetableDay td = new TimetableDay("Monday",TimetableSession.noOfSlots,tempStart,tempEnd);
+                        TimetableDay td = new TimetableDay("Monday",TimetableSession.noOfSlots,TimetableSession.startTime,TimetableSession.endTime);
                         TimetableSession.Days.add(td);
                     }
                     if(tuesday.isChecked()) {
-                        TimetableDay td = new TimetableDay("Tuesday",TimetableSession.noOfSlots,tempStart,tempEnd);
+                        TimetableDay td = new TimetableDay("Tuesday",TimetableSession.noOfSlots,TimetableSession.startTime,TimetableSession.endTime);
                         TimetableSession.Days.add(td);
                     }
                     if(wednesday.isChecked()) {
-                        TimetableDay td = new TimetableDay("Wednesday",TimetableSession.noOfSlots,tempStart,tempEnd);
+                        TimetableDay td = new TimetableDay("Wednesday",TimetableSession.noOfSlots,TimetableSession.startTime,TimetableSession.endTime);
                         TimetableSession.Days.add(td);
                     }
                     if(thursday.isChecked()) {
-                        TimetableDay td = new TimetableDay("Thursday",TimetableSession.noOfSlots,tempStart,tempEnd);
+                        TimetableDay td = new TimetableDay("Thursday",TimetableSession.noOfSlots,TimetableSession.startTime,TimetableSession.endTime);
                         TimetableSession.Days.add(td);
                     }
                     if(friday.isChecked()) {
-                        TimetableDay td = new TimetableDay("Friday",TimetableSession.noOfSlots,tempStart,tempEnd);
+                        TimetableDay td = new TimetableDay("Friday",TimetableSession.noOfSlots,TimetableSession.startTime,TimetableSession.endTime);
                         TimetableSession.Days.add(td);
                     }
                     if(saturday.isChecked()){
-                        TimetableDay td = new TimetableDay("Saturday",TimetableSession.noOfSlots,tempStart,tempEnd);
+                        TimetableDay td = new TimetableDay("Saturday",TimetableSession.noOfSlots,TimetableSession.startTime,TimetableSession.endTime);
                         TimetableSession.Days.add(td);
                     }
                     if(sunday.isChecked()) {
-                        TimetableDay td = new TimetableDay("Sunday",TimetableSession.noOfSlots,tempStart,tempEnd);
+                        TimetableDay td = new TimetableDay("Sunday",TimetableSession.noOfSlots,TimetableSession.startTime,TimetableSession.endTime);
                         TimetableSession.Days.add(td);
                     }
 
@@ -341,6 +341,7 @@ public class SchedulePlanSetting extends AppCompatActivity {
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
+
                 }
 
             }
@@ -348,6 +349,8 @@ public class SchedulePlanSetting extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"yha aya h",Toast.LENGTH_SHORT).show();
+
 
             }
         }){
