@@ -1,6 +1,9 @@
 package com.facefive.meetbook;
 
 import android.content.Intent;
+import android.os.Handler;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -42,6 +45,8 @@ public class LoginActivity extends AppCompatActivity {
     private String EMAIL="email";
     private String PASSWORD="password";
     private UserSessionManager session;
+    private boolean doubleBackToExitPressedOnce = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -181,5 +186,24 @@ public class LoginActivity extends AppCompatActivity {
         };
         requestQueue.add(strReq);
     }
+    public void onBackPressed() {
+
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed();
+                return;
+            }
+
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce=false;
+                }
+            }, 2000);
+        }
+
 
 }

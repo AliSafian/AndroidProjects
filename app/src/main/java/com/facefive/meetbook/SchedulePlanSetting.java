@@ -2,6 +2,7 @@ package com.facefive.meetbook;
 
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.media.MediaCas;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -13,11 +14,26 @@ import android.widget.NumberPicker;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.facefive.meetbook.TimetableSession.SlotSingleRow;
 import com.facefive.meetbook.TimetableSession.TimetableDay;
 import com.facefive.meetbook.TimetableSession.TimetableSession;
+import com.facefive.meetbook.UserHandling.UserSessionManager;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.sql.Time;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SchedulePlanSetting extends AppCompatActivity {
 
@@ -28,7 +44,7 @@ public class SchedulePlanSetting extends AppCompatActivity {
 
 
 
-    private NumberPicker numberPickerp;
+    private NumberPicker numberPicker;
 
     private EditText startTime_et;
     private EditText endTime_et;
@@ -42,6 +58,7 @@ public class SchedulePlanSetting extends AppCompatActivity {
     private CheckBox sunday;
 
     private Button nextBtn;
+    private Button update;
 
 
     private Time tempStart;
@@ -52,6 +69,18 @@ public class SchedulePlanSetting extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule_plan_setting);
+
+
+
+
+        update = (Button) findViewById(R.id.btn_updatemessage);
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(),UpdateMessage.class);
+                startActivity(intent);
+            }
+        });
 
 
 
@@ -131,7 +160,7 @@ public class SchedulePlanSetting extends AppCompatActivity {
 
         //.........................slot number picker..............................
 
-        final NumberPicker numberPicker = (NumberPicker) findViewById(R.id.sspd_np_scheduleplansetting_xml);
+        numberPicker = (NumberPicker) findViewById(R.id.sspd_np_scheduleplansetting_xml);
 
         //Populate NumberPicker values from minimum and maximum value range
         //Set the minimum value of NumberPicker
@@ -141,6 +170,12 @@ public class SchedulePlanSetting extends AppCompatActivity {
 
         //Gets whether the selector wheel wraps when reaching the min/max value.
          numberPicker.setWrapSelectorWheel(true);
+        TimetableSession.noOfSlots = numberPicker.getValue();
+        numOfSlot = numberPicker.getValue();
+
+        UserSessionManager userSessionManager=new UserSessionManager(getApplicationContext());
+
+        getTimeTable(userSessionManager.getUserID());
 
         numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
@@ -175,11 +210,11 @@ public class SchedulePlanSetting extends AppCompatActivity {
             public void onClick(View v) {
 
                 //if(TimetableSession.Days.size()!=0)
-                if(numOfSlot <= 0)
+                /*if(numOfSlot <= 0)
                 {
                     Toast.makeText(getApplicationContext(),"Please! select number of slots per day.",Toast.LENGTH_SHORT).show();
-                }
-                else if(startTime_et.getText().toString().contains("") && endTime_et.getText().toString().equals(""))
+                }*/
+               if(startTime_et.getText().toString().contains("") && endTime_et.getText().toString().equals(""))
                 {
                     Toast.makeText(getApplicationContext(),"Please! select start time and end time both.",Toast.LENGTH_SHORT).show();
 
@@ -196,33 +231,37 @@ public class SchedulePlanSetting extends AppCompatActivity {
                 else {
                     TimetableSession.Days.clear();
 
+                    int dur=(calMinutes(TimetableSession.endTime)-calMinutes(TimetableSession.startTime))/numOfSlot;
+
+                    TimetableSession.duration = new Time(dur/60, dur%60,0);
+
 
                     if(monday.isChecked()) {
-                        TimetableDay td = new TimetableDay("Monday",TimetableSession.noOfSlots,tempStart,tempEnd);
+                        TimetableDay td = new TimetableDay("Monday",TimetableSession.noOfSlots,TimetableSession.startTime,TimetableSession.endTime);
                         TimetableSession.Days.add(td);
                     }
                     if(tuesday.isChecked()) {
-                        TimetableDay td = new TimetableDay("Tuesday",TimetableSession.noOfSlots,tempStart,tempEnd);
+                        TimetableDay td = new TimetableDay("Tuesday",TimetableSession.noOfSlots,TimetableSession.startTime,TimetableSession.endTime);
                         TimetableSession.Days.add(td);
                     }
                     if(wednesday.isChecked()) {
-                        TimetableDay td = new TimetableDay("Wednesday",TimetableSession.noOfSlots,tempStart,tempEnd);
+                        TimetableDay td = new TimetableDay("Wednesday",TimetableSession.noOfSlots,TimetableSession.startTime,TimetableSession.endTime);
                         TimetableSession.Days.add(td);
                     }
                     if(thursday.isChecked()) {
-                        TimetableDay td = new TimetableDay("Thursday",TimetableSession.noOfSlots,tempStart,tempEnd);
+                        TimetableDay td = new TimetableDay("Thursday",TimetableSession.noOfSlots,TimetableSession.startTime,TimetableSession.endTime);
                         TimetableSession.Days.add(td);
                     }
                     if(friday.isChecked()) {
-                        TimetableDay td = new TimetableDay("Friday",TimetableSession.noOfSlots,tempStart,tempEnd);
+                        TimetableDay td = new TimetableDay("Friday",TimetableSession.noOfSlots,TimetableSession.startTime,TimetableSession.endTime);
                         TimetableSession.Days.add(td);
                     }
                     if(saturday.isChecked()){
-                        TimetableDay td = new TimetableDay("Saturday",TimetableSession.noOfSlots,tempStart,tempEnd);
+                        TimetableDay td = new TimetableDay("Saturday",TimetableSession.noOfSlots,TimetableSession.startTime,TimetableSession.endTime);
                         TimetableSession.Days.add(td);
                     }
                     if(sunday.isChecked()) {
-                        TimetableDay td = new TimetableDay("Sunday",TimetableSession.noOfSlots,tempStart,tempEnd);
+                        TimetableDay td = new TimetableDay("Sunday",TimetableSession.noOfSlots,TimetableSession.startTime,TimetableSession.endTime);
                         TimetableSession.Days.add(td);
                     }
 
@@ -236,6 +275,106 @@ public class SchedulePlanSetting extends AppCompatActivity {
             }
         });
 
+
+    }
+
+
+    public  void getTimeTable(final int userid){
+
+
+
+        RequestQueue requestQueue= Volley.newRequestQueue(this);
+
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, AppConfig.URL_GETTIMETABLE, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    JSONObject jsonObject=new JSONObject(response);
+                    if(! jsonObject.getBoolean("error"))
+                    {
+                       JSONArray jsonArray= jsonObject.getJSONArray("item");
+
+                        numberPicker.setValue(jsonArray.getInt(0));
+
+                        TimetableSession.noOfSlots = jsonArray.getInt(0);
+                        numOfSlot = jsonArray.getInt(0);
+
+                        startTime_et.setText(jsonArray.getString(1).substring(0,5));
+                        TimetableSession.startTime.setHours(Integer.parseInt(jsonArray.getString(1).substring(0,2)));
+                        TimetableSession.startTime.setMinutes(Integer.parseInt(jsonArray.getString(1).substring(3,5)));
+
+                        TimetableSession.endTime.setHours(Integer.parseInt(jsonArray.getString(2).substring(0,2)));
+                        TimetableSession.endTime.setMinutes(Integer.parseInt(jsonArray.getString(2).substring(3,5)));
+                        endTime_et.setText(jsonArray.getString(2).substring(0,5));
+
+                        for (int i=3;i<jsonArray.length();i++)
+                        {
+                            if(jsonArray.get(i).equals("Monday"))
+                            {
+                                monday.setChecked(true);
+                            }
+                            if(jsonArray.get(i).equals("Tuesday"))
+                            {
+                                tuesday.setChecked(true);
+                            }
+                            if(jsonArray.get(i).equals("Wednesday"))
+                            {
+                                wednesday.setChecked(true);
+                            }
+                            if(jsonArray.get(i).equals("Thursday"))
+                            {
+                                thursday.setChecked(true);
+                            }
+                            if(jsonArray.get(i).equals("Friday"))
+                            {
+                                friday.setChecked(true);
+                            }
+                            if(jsonArray.get(i).equals("Saturday"))
+                            {
+                                saturday.setChecked(true);
+                            }
+                            if(jsonArray.get(i).equals("Sunday"))
+                            {
+                                sunday.setChecked(true);
+                            }
+
+                        }
+                        Toast.makeText(getApplicationContext(),jsonArray.toString(),Toast.LENGTH_SHORT).show();
+
+                    }
+                    else
+                    {
+
+                        Toast.makeText(getApplicationContext(),jsonObject.getString("error_msg"),Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"yha aya h",Toast.LENGTH_SHORT).show();
+
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+
+
+                Map<String, String> params = new HashMap<String, String>();
+                    params.put("userID",""+userid);
+                // Toast.makeText(getApplicationContext(),jarray.toString(),Toast.LENGTH_SHORT).show();
+                return  params;
+            }
+        };
+        requestQueue.add(stringRequest);
 
     }
 
