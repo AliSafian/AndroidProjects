@@ -32,7 +32,7 @@
         <activity
             android:name=".VerifyCodeActivity"
             android:label="@string/title_activity_verify_code"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".NewPasswordActivity"
             android:label="@string/title_activity_new_password"
@@ -104,7 +104,7 @@
             android:name=".request"
             android:label="Meeting Request"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".response"
             android:label="Response a meeting"
@@ -116,24 +116,25 @@
         <activity
             android:name=".show_all_meetings"
             android:label="All meeting Requests"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".chat_list"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ConversationBasic"
             android:label="Conversation"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".NotificationActivity"
             android:label="Notification Settings"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".SchedulePlan" />
         <activity android:name=".SchedulePlanSetting" />
         <activity android:name=".SchedualPlanSlotSetting" />
-        <activity android:name=".UpdateMessage"></activity>
+        <activity android:name=".UpdateMessage" />
+        <activity android:name=".NewUpdateMessage"></activity>
     </application>
 
 </manifest>

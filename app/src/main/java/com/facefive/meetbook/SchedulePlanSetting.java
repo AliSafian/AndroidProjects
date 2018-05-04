@@ -81,10 +81,6 @@ public class SchedulePlanSetting extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-
-
         //...................................Time Picker
         tempStart = new Time(0,0,0);
         tempEnd = new Time(0,0,0);
