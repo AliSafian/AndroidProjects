@@ -10,6 +10,7 @@ public class AppConfig {
     public static final String URL_TIMATABLE = "http://meetbookapp.com/APIs/timetable_request.php";
     public static final String URL_GETTIMETABLE = "http://meetbookapp.com/APIs/getTimetable_request.php";
 
+    public static final String URL_SAVEUPDATEMESSAGE = "http://meetbookapp.com/APIs/saveUpdateMessage.php";
     public static final String URL_GETUPDATEMESSAGES = "http://meetbookapp.com/APIs/getUpdateMessages_request.php";
     public static final String URL_SIGNUP = "http://meetbookapp.com/APIs/register_user.php";
     public static final String URL_GET_UNIVERSITIES= "http://www.meetbookapp.com/APIs/getUniversities.php";

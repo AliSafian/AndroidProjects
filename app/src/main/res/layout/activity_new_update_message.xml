@@ -19,38 +19,39 @@
         android:maxLength="300"
         android:hint="new message here.... "
         />
+
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/layout1_newupdatemsg"
-        android:layout_marginLeft="10dp"
-        android:layout_below="@+id/et_newupdatemessage"
-        android:orientation="vertical"
-
-        >
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_updmsgseldate"
-        android:text="Select Date  "
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:textSize="25sp"
-        />
-    <EditText
-        android:id="@+id/update_message_seldate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:drawableRight="@android:drawable/arrow_down_float"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:layout_marginTop="10dp"
+        android:layout_alignParentStart="true"
 
-        android:textColorHighlight="@color/colorAccent"
-        android:textColor="@color/colorAccent"
-        android:textSize="25sp"
-        />
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="86dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_updmsgseldate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Select Date  "
+            android:textSize="25sp" />
+
+        <EditText
+            android:id="@+id/update_message_seldate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:clickable="true"
+            android:drawableRight="@android:drawable/arrow_down_float"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+
+            android:textColor="@color/colorAccent"
+            android:textColorHighlight="@color/colorAccent"
+            android:textSize="25sp" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
