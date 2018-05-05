@@ -13,8 +13,8 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView name_tv;
     private TextView email_tv;
     private ImageView image;
-    private Button btn_req;
-    private  Button btn_sub;
+    private TextView btn_req;
+    private  TextView btn_sub;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,9 +29,9 @@ public class ProfileActivity extends AppCompatActivity {
 
         name_tv= findViewById(R.id.name);
         email_tv= findViewById(R.id.email);
-        image= findViewById(R.id.iv_dp);
-        btn_req= findViewById(R.id.meet_req);
-        btn_sub= findViewById(R.id.subs);
+        image= findViewById(R.id.dp_iv_profileactivity_xml);
+        btn_req= findViewById(R.id.meetingreq_tv_profileactivity_xml);
+        btn_sub= findViewById(R.id.followreq_tv_profileactivity_xml);
 
         name_tv.setText(name);
         email_tv.setText(email);

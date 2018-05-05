@@ -26,8 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
 
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="86dp"
+        android:layout_below="@+id/et_newupdatemessage"
         android:orientation="vertical">
 
         <TextView

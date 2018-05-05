@@ -22,6 +22,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.facefive.meetbook.TimetableSession.TimetableSession;
+import com.facefive.meetbook.UserHandling.UserSessionManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,7 +36,7 @@ import java.util.Map;
 
 public class NewUpdateMessage extends AppCompatActivity {
 
-    EditText datetext,timetext;
+    EditText datetext,timetext,updatemessage;
     Button saveandupdate;
 
     @Override
@@ -45,6 +46,7 @@ public class NewUpdateMessage extends AppCompatActivity {
         datetext = findViewById(R.id.update_message_seldate);
         timetext = findViewById(R.id.update_message_seltime);
         saveandupdate = findViewById(R.id.btn_updatemsgpublish);
+        updatemessage=findViewById(R.id.et_newupdatemessage);
         timetext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,11 +99,12 @@ public class NewUpdateMessage extends AppCompatActivity {
         saveandupdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                UserSessionManager manager=new UserSessionManager(getApplicationContext());
+                saveNewUpdateMessage(manager.getUserID());
             }
         });
-        saveNewUpdateMessage(18);
     }
+
 
     public  void saveNewUpdateMessage( final int UserID){
 
@@ -117,9 +120,8 @@ Toast.makeText(getApplicationContext(),datetext.getText().toString()+" "+timetex
                     JSONObject jsonObject=new JSONObject(response);
                     if(! jsonObject.getBoolean("error"))
                     {
-                        JSONArray array=jsonObject.getJSONArray("messages");
-                        //Toast.makeText(getApplicationContext()," successfull"+ array.get(2),Toast.LENGTH_SHORT).show();
-
+                        //JSONObject array=jsonObject.getJSONObject("response");
+                        Toast.makeText(getApplicationContext(),jsonObject.toString(),Toast.LENGTH_SHORT).show();
 
                     }
                     else
@@ -141,25 +143,27 @@ Toast.makeText(getApplicationContext(),datetext.getText().toString()+" "+timetex
         }){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                final Calendar c = Calendar.getInstance();
+
+     final Calendar c = Calendar.getInstance();
                 int mYear = c.get(Calendar.YEAR);
                 int mMonth = c.get(Calendar.MONTH);
                 int mDay = c.get(Calendar.DAY_OF_MONTH);
                String endtime=datetext.getText().toString()+" "+timetext.getText().toString()+":00";
-               String starttime=mYear + "-" + (mMonth + 1) + "-" + mDay+ " "+c.get(Calendar.HOUR)+c.get(Calendar.MINUTE)+":00";
-
+               String starttime=mYear + "-" + (mMonth + 1) + "-" + mDay+ " "+c.get(Calendar.HOUR_OF_DAY)+":"+c.get(Calendar.MINUTE)+":00";
+               // JSONArray array=new JSONArray();
                 JSONObject object=new JSONObject();
                 try {
                     object.put("UserID",UserID);
                     object.put("endtime",endtime);
                     object.put("starttime",starttime);
+                    object.put("message",updatemessage.getText().toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
                 Map<String, String> params = new HashMap<String, String>();
-                // Toast.makeText(getApplicationContext(),jarray.toString(),Toast.LENGTH_SHORT).show();
-                params.put("params",""+object.toString());
+                params.put("params",""+object);
+
                 return  params;
             }
         };

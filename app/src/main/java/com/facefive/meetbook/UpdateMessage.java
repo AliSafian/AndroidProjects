@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Layout;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -20,6 +22,7 @@ import com.android.volley.toolbox.Volley;
 import com.facefive.meetbook.TimetableSession.SlotSingleRow;
 import com.facefive.meetbook.TimetableSession.TimetableDay;
 import com.facefive.meetbook.TimetableSession.TimetableSession;
+import com.facefive.meetbook.UserHandling.UserSessionManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,9 +52,18 @@ public class UpdateMessage extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        UserSessionManager manager=new UserSessionManager(getApplicationContext());
+        getUpdateMessages(manager.getUserID());
 
-        getUpdateMessages(18);
 
+
+        lv_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            LayoutInflater layout =(LayoutInflater) parent.getItemAtPosition(position);
+
+            }
+        });
 
 
     }
