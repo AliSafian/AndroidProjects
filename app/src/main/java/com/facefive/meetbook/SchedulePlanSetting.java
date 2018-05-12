@@ -58,6 +58,7 @@ public class SchedulePlanSetting extends AppCompatActivity {
     private CheckBox sunday;
 
     private Button nextBtn;
+    private Button update;
 
 
     private Time tempStart;
@@ -72,10 +73,15 @@ public class SchedulePlanSetting extends AppCompatActivity {
 
 
 
-
-
-
-
+        update = (Button) findViewById(R.id.btn_updatemessage);
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(),UpdateMessage.class);
+                startActivity(intent);
+               // Toast.makeText(getApplicationContext(),"Agya",Toast.LENGTH_SHORT).show();
+            }
+        });
         //...................................Time Picker
         tempStart = new Time(0,0,0);
         tempEnd = new Time(0,0,0);

@@ -41,6 +41,13 @@
                     android:layout_marginLeft="20dp"
                     android:background="@drawable/border_style"
                     android:solidColor="@color/colorAccent"></NumberPicker>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_updatemessage"
+                android:text="Update"
+
+                />
             </LinearLayout>
 
 
@@ -83,7 +90,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="35dp"
                         android:layout_marginTop="10dp"
-                        android:text="Time:"
+                        android:text="From:"
                         android:textSize="14dp" />
 
                     <EditText
@@ -211,9 +218,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/_4_relativelayout_scheduleplansetting_xml"
+                android:layout_marginBottom="20dp"
                 android:layout_marginLeft="250dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
                 android:text="Next" />
 
         </RelativeLayout>

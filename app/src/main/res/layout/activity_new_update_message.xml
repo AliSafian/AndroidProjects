@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.facefive.meetbook.NewUpdateMessage">
+
+
+
+
+    <EditText
+        android:id="@+id/et_newupdatemessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:minLines="1"
+        android:maxLines="3"
+        android:maxLength="300"
+        android:hint="new message here.... "
+        />
+
+    <LinearLayout
+        android:id="@+id/layout1_newupdatemsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+
+        android:layout_below="@+id/et_newupdatemessage"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_updmsgseldate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Ending Date  "
+            android:textSize="25sp" />
+
+        <EditText
+            android:id="@+id/update_message_seldate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:clickable="true"
+            android:drawableRight="@android:drawable/arrow_down_float"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+
+            android:textColor="@color/colorAccent"
+            android:textColorHighlight="@color/colorAccent"
+            android:textSize="25sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/layout1_newupdatemsg"
+        android:layout_below="@+id/et_newupdatemessage"
+        android:id="@+id/layout2_newupdatemsg"
+        android:layout_marginLeft="70dp"
+        android:orientation="vertical"
+
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_updmsgseltime"
+            android:text="Ending Time"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="25sp"
+            />
+        <EditText
+            android:id="@+id/update_message_seltime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:clickable="true"
+            android:drawableRight="@android:drawable/arrow_down_float"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:textColorHighlight="@color/colorAccent"
+            android:textColor="@color/colorAccent"
+            android:textSize="25sp"
+            />
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/update_messagenote"
+        android:layout_below="@+id/layout2_newupdatemsg"
+        android:text="Note: If you do not choose date or time message will be deleted after one day"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="18sp"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/update_messagenote"
+        android:id="@+id/btn_updatemsgpublish"
+        android:text="Save And Publish"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="100dp"
+        />
+</RelativeLayout>
