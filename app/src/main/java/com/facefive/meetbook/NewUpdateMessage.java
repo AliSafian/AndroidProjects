@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -28,16 +29,21 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class NewUpdateMessage extends AppCompatActivity {
 
     EditText datetext,timetext,updatemessage;
     Button saveandupdate;
+    String datecheck,endtime,starttime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +106,66 @@ public class NewUpdateMessage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 UserSessionManager manager=new UserSessionManager(getApplicationContext());
-                saveNewUpdateMessage(manager.getUserID());
+               // String valid_until = "1/1/2019";
+
+
+
+                if(updatemessage.getText().toString().equals(""))
+                {
+                    updatemessage.setHintTextColor(Color.RED);
+                }
+
+                else
+                {
+                    final Calendar c = Calendar.getInstance();
+                    int mYear = c.get(Calendar.YEAR);
+                    int mMonth = c.get(Calendar.MONTH);
+                    int mDay = c.get(Calendar.DAY_OF_MONTH);
+                    starttime=mYear + "-" + (mMonth + 1) + "-" + mDay+ " "+c.get(Calendar.HOUR_OF_DAY)+":"+c.get(Calendar.MINUTE)+":00";
+                    if (!datetext.getText().toString().equals(""))
+                    {
+
+                        String s=datetext.getText().toString();
+                       mYear= Integer.parseInt(s.substring(0,4));
+                        mMonth= Integer.parseInt(s.substring(5,6));
+                        mDay= Integer.parseInt(s.substring(7,9));
+                       // Toast.makeText(getApplicationContext(),""+mYear+mMonth+mDay,Toast.LENGTH_SHORT).show();
+
+                        datecheck=mDay+"/"+(mMonth)+"/"+mYear;
+
+                      SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+                        Date strDate = null;
+                        try {
+                            strDate = sdf.parse(datecheck);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        if(new Date().after(strDate)) {
+                            Toast.makeText(getApplicationContext(),"Please select a valid Date",Toast.LENGTH_SHORT).show();
+                        } else
+                        {
+                            endtime=datetext.getText().toString()+" "+timetext.getText().toString()+":00";
+                            Toast.makeText(getApplicationContext(), endtime, Toast.LENGTH_SHORT).show();
+                           saveNewUpdateMessage(manager.getUserID());
+                            Intent i=new Intent(getApplicationContext(),UpdateMessage.class);
+                            startActivity(i);
+                        }
+                    }
+                    else
+                    {
+
+                        endtime=mYear + "-" + (mMonth + 1) + "-" + (mDay+1)+ " "+c.get(Calendar.HOUR_OF_DAY)+":"+c.get(Calendar.MINUTE)+":00";
+                        Toast.makeText(getApplicationContext(), endtime, Toast.LENGTH_SHORT).show();
+
+                         saveNewUpdateMessage(manager.getUserID());
+                        Intent i=new Intent(getApplicationContext(),UpdateMessage.class);
+                        startActivity(i);
+                    }
+
+
+
+                }
             }
         });
     }
@@ -144,12 +209,9 @@ Toast.makeText(getApplicationContext(),datetext.getText().toString()+" "+timetex
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
 
-     final Calendar c = Calendar.getInstance();
-                int mYear = c.get(Calendar.YEAR);
-                int mMonth = c.get(Calendar.MONTH);
-                int mDay = c.get(Calendar.DAY_OF_MONTH);
-               String endtime=datetext.getText().toString()+" "+timetext.getText().toString()+":00";
-               String starttime=mYear + "-" + (mMonth + 1) + "-" + mDay+ " "+c.get(Calendar.HOUR_OF_DAY)+":"+c.get(Calendar.MINUTE)+":00";
+
+
+
                // JSONArray array=new JSONArray();
                 JSONObject object=new JSONObject();
                 try {

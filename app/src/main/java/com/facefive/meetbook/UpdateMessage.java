@@ -1,7 +1,10 @@
 package com.facefive.meetbook;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Layout;
@@ -9,7 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -31,11 +36,13 @@ import org.json.JSONObject;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class UpdateMessage extends AppCompatActivity {
 
-    ListView lv_list;
+    ListView lv_listUpdatemessage;
+    ArrayList<Integer> mylist;
     android.support.design.widget.FloatingActionButton plus;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +50,7 @@ public class UpdateMessage extends AppCompatActivity {
         setContentView(R.layout.activity_update_message);
 
 
-        lv_list = (ListView) findViewById(R.id.lv_updatemessages);
+        lv_listUpdatemessage = (ListView) findViewById(R.id.lv_updatemessages);
         plus=findViewById(R.id.update_message_plusbtn);
         plus.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,16 +64,89 @@ public class UpdateMessage extends AppCompatActivity {
 
 
 
-        lv_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+      lv_listUpdatemessage.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            LayoutInflater layout =(LayoutInflater) parent.getItemAtPosition(position);
+            public boolean onItemLongClick(AdapterView<?> parent, View view,final int position, long id) {
+                TextView v = (TextView) view.findViewById(R.id.update_message);
+                new AlertDialog.Builder(UpdateMessage.this)
+                        .setTitle(v.getText().toString())
+                        .setMessage("Do you really want to delete?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                               deleteUpdateMessage(mylist.get(position));
+
+                                Toast.makeText(getApplicationContext(), "Deleted", Toast.LENGTH_SHORT).show();
+                            }})
+                        .setNegativeButton(android.R.string.no, null).show();
+
+
+                // Toast.makeText(getApplicationContext(), "selected Item Name is " + v.getText()+position, Toast.LENGTH_SHORT).show();
+               //
+
+                return false;
             }
         });
 
 
+
     }
+
+    public  void deleteUpdateMessage(final int messageID){
+
+
+
+        RequestQueue requestQueue= Volley.newRequestQueue(this);
+
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, AppConfig.URL_DELUPDATEMESSAGE, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    JSONObject jsonObject=new JSONObject(response);
+                    if(! jsonObject.getBoolean("error"))
+                    {
+                         Toast.makeText(getApplicationContext()," successfull"+jsonObject,Toast.LENGTH_SHORT).show();
+                         UserSessionManager manager=new UserSessionManager(getApplicationContext());
+                         getUpdateMessages(manager.getUserID());
+
+
+                    }
+                    else
+                    {
+
+                        Toast.makeText(getApplicationContext(),jsonObject.getString("error_msg"),Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+
+
+                Map<String, String> params = new HashMap<String, String>();
+
+                // Toast.makeText(getApplicationContext(),jarray.toString(),Toast.LENGTH_SHORT).show();
+                params.put("messageID",""+messageID);
+                return  params;
+            }
+        };
+        requestQueue.add(stringRequest);
+
+    }
+
+
+
 
     public  void getUpdateMessages( final int UserID){
 
@@ -83,35 +163,22 @@ public class UpdateMessage extends AppCompatActivity {
                     if(! jsonObject.getBoolean("error"))
                     {
                         JSONArray array=jsonObject.getJSONArray("messages");
-                        //Toast.makeText(getApplicationContext()," successfull"+ array.get(2),Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(getApplicationContext()," successfull"+ array,Toast.LENGTH_SHORT).show();
 
                         ArrayList<String> list = new ArrayList<String>();
-                        for (int i =1; i<array.length() ; i++)
+                        mylist=new ArrayList<>();
+                        for (int i =2; i<array.length() ; i=i+2)
                         {
+
+                            mylist.add(array.getInt(i-1));
+                           // Toast.makeText(getApplicationContext(),""+mylist.get(0),Toast.LENGTH_SHORT).show();
 
                             list.add(""+array.get(i));
 
                         }
 
                         UpdatemessageListAdapter adapter = new UpdatemessageListAdapter(getApplicationContext(), list);
-                        lv_list.setAdapter(adapter);
-                        lv_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                            }
-                        });
-
-                        lv_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-
-                                Intent i = new Intent(getApplicationContext() , request.class );
-                                startActivity(i);
-                            }
-                        });
+                        lv_listUpdatemessage.setAdapter(adapter);
 
                     }
                     else

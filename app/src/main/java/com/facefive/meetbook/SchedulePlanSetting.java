@@ -79,6 +79,7 @@ public class SchedulePlanSetting extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(getApplicationContext(),UpdateMessage.class);
                 startActivity(intent);
+               // Toast.makeText(getApplicationContext(),"Agya",Toast.LENGTH_SHORT).show();
             }
         });
         //...................................Time Picker
