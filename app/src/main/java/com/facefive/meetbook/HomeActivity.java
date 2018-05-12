@@ -84,21 +84,7 @@ public class HomeActivity extends AppCompatActivity
         tv4.setText(session.getPicturePath());
         tv5.setText(session.getUniName());
 
-//        rl1.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent i = new Intent(getApplicationContext(), ConversationBasic.class);
-//                startActivity(i);
-//            }
-//        });
-//
-//        rl2.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent i = new Intent(getApplicationContext(), ConversationBasic.class);
-//                startActivity(i);
-//            }
-//        });
+
 
     }
 
