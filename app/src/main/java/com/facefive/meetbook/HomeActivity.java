@@ -81,7 +81,7 @@ public class HomeActivity extends AppCompatActivity
         tv1.setText(session.getUserID()+"");
         tv2.setText(session.getName());
         tv3.setText(session.getEmail());
-        tv4.setText(session.getPictureName());
+        tv4.setText(session.getPicturePath());
         tv5.setText(session.getUniName());
 
 //        rl1.setOnClickListener(new View.OnClickListener() {

@@ -30,7 +30,7 @@ public class UserSessionManager {
     private static final String KEY_USER_ID = "UserID";
     private static final String KEY_NAME = "Name";
     private static final String KEY_EMAIL = "Email";
-    private static final String KEY_PICTURE_NAME = "PictureName";
+    private static final String KEY_PICTURE_PATH = "PicturePath";
     private static final String KEY_UNI_NAME = "UniName";
 
     public UserSessionManager(Context context) {
@@ -53,12 +53,12 @@ public class UserSessionManager {
         return pref.getBoolean(KEY_IS_LOGGEDIN, false);
     }
 
-    public void setUser(int userID ,String name, String email, String picName, String uniName)
+    public void setUser(int userID ,String name, String email, String picPath, String uniName)
     {
         editor.putInt(KEY_USER_ID, userID);
         editor.putString(KEY_NAME, name);
         editor.putString(KEY_EMAIL, email);
-        editor.putString(KEY_PICTURE_NAME, picName);
+        editor.putString(KEY_PICTURE_PATH, picPath);
         editor.putString(KEY_UNI_NAME, uniName);
 
         editor.commit();
@@ -78,7 +78,7 @@ public class UserSessionManager {
     }
     public String getPicturePath()
     {
-        return pref.getString(KEY_PICTURE_NAME, null);
+        return pref.getString(KEY_PICTURE_PATH, null);
     }
     public String getUniName()
     {
@@ -100,10 +100,10 @@ public class UserSessionManager {
 
         editor.commit();
     }
-    public void setKeyPicturePath(String picName)
+    public void setPicturePath(String picName)
     {
 
-        editor.putString(KEY_PICTURE_NAME, picName);
+        editor.putString(KEY_PICTURE_PATH, picName);
 
         editor.commit();
     }
