@@ -1,22 +1,13 @@
 package com.facefive.meetbook;
-
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.InputType;
-import android.view.KeyEvent;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -24,12 +15,6 @@ import android.widget.Toast;
 
 import com.facefive.meetbook.UserHandling.UserSessionManager;
 
-import org.w3c.dom.Text;
-
-import de.hdodenhof.circleimageview.CircleImageView;
-
-import static android.view.KeyEvent.KEYCODE_BACK;
-import static android.view.KeyEvent.KEYCODE_ENTER;
 
 public class SettingsActivity extends AppCompatActivity implements Communicator{
 
@@ -100,10 +85,13 @@ public class SettingsActivity extends AppCompatActivity implements Communicator{
     public View.OnClickListener btnChoosePhotoPressed = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent i = new Intent(Intent.ACTION_PICK,
+          /*  Intent i = new Intent(Intent.ACTION_PICK,
                     android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
             final int ACTIVITY_SELECT_IMAGE = 1234;
-            startActivityForResult(i, ACTIVITY_SELECT_IMAGE);
+            startActivityForResult(i, ACTIVITY_SELECT_IMAGE);*/
+
+          Intent intent = new Intent(getApplicationContext(), ChangePictureActivity.class);
+          startActivity(intent);
         }
     };
 
@@ -131,6 +119,7 @@ public class SettingsActivity extends AppCompatActivity implements Communicator{
 
 
                     Bitmap yourSelectedImage = BitmapFactory.decodeFile(filePath);
+                    //image.setImageURI(selectedImage);
                     Toast.makeText(getApplicationContext(), "ImageChanged", Toast.LENGTH_SHORT).show();
                 }
         }

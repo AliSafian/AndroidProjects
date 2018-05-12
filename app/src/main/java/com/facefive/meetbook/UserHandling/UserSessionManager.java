@@ -8,6 +8,7 @@ package com.facefive.meetbook.UserHandling;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.net.Uri;
 import android.util.Log;
 
 public class UserSessionManager {
@@ -74,14 +75,15 @@ public class UserSessionManager {
     public String getEmail()
     {
         return pref.getString(KEY_EMAIL, null);
-    }public String getPictureName()
+    }
+    public String getPicturePath()
     {
         return pref.getString(KEY_PICTURE_NAME, null);
-    }public String getUniName()
+    }
+    public String getUniName()
     {
         return pref.getString(KEY_UNI_NAME, null);
     }
-
 
     public void setName(String name)
     {
@@ -98,7 +100,7 @@ public class UserSessionManager {
 
         editor.commit();
     }
-    public void setPictureName(String picName)
+    public void setKeyPicturePath(String picName)
     {
 
         editor.putString(KEY_PICTURE_NAME, picName);
