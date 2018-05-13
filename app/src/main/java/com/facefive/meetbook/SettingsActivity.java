@@ -26,6 +26,7 @@ public class SettingsActivity extends AppCompatActivity implements Communicator{
     private RelativeLayout notification;
     private RelativeLayout privacy;
     private RelativeLayout change_pass;
+    private RelativeLayout logout;
     private UserSessionManager session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,9 +51,17 @@ public class SettingsActivity extends AppCompatActivity implements Communicator{
             {
                 image.setImageURI(Uri.parse(new File(path).toString()));
             }
+            else
+            {
+                image.setImageResource(R.drawable.dp_demo);
+            }
+
             notification = (RelativeLayout)findViewById(R.id.layout_notification) ;
             privacy = (RelativeLayout)findViewById(R.id.layout_privacy) ;
             change_pass = (RelativeLayout)findViewById(R.id.layout_change_pass) ;
+            logout = (RelativeLayout)findViewById(R.id.layout_logout) ;
+
+
 
 
 
@@ -73,13 +82,26 @@ public class SettingsActivity extends AppCompatActivity implements Communicator{
                 }
             });
 
-            change_pass.setOnClickListener(new View.OnClickListener() {
+            logout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent=new Intent(getApplicationContext(),ChangePasswordActivity.class);
-                    startActivity(intent);
+
+                    finish();
+                    Intent i = new Intent(getApplicationContext(),LoginActivity.class );
+                    UserSessionManager session = new UserSessionManager(getApplicationContext());
+                    session.setLogin(false);
+                    startActivity(i);
                 }
             });
+
+        notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent=new Intent(getApplicationContext(),NotificationActivity.class);
+                startActivity(intent);
+            }
+        });
             name_tv.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

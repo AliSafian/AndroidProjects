@@ -3,26 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <item android:title="Features">
+    <item android:title="Extra Features">
         <menu>
-
-            <item
-                android:id="@+id/nav_meetings"
-                android:icon="@drawable/ic_menu_meetings"
-                android:title="Meetings" />
-
-            <item
-                android:id="@+id/nav_subscriptions"
-                android:icon="@drawable/ic_menu_subscriptions"
-                android:title="Subscriptions" />
-            <item
-                android:id="@+id/nav_send_updates"
-                android:icon="@drawable/ic_send_updates"
-                android:title="Send Updates" />
-            <item
-                android:id="@+id/nav_timetable"
-                android:icon="@drawable/ic_menu_timetable"
-                android:title="Time Table" />
 
             <item
                 android:id="@+id/nav_print"
@@ -36,10 +18,6 @@
                 android:id="@+id/nav_setting"
                 android:icon="@drawable/ic_menu_settings"
                 android:title="Settings" />
-            <item
-                android:id="@+id/nav_logout"
-                android:icon="@drawable/ic_menu_logout"
-                android:title="Logout" />
 
 
         </menu>

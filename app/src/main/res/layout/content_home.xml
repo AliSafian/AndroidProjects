@@ -7,68 +7,206 @@
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.facefive.meetbook.HomeActivity"
-    tools:showIn="@layout/app_bar_home">
+    tools:showIn="@layout/app_bar_home"
+    android:background="#fcfcfcfc">
 
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ashar"/>
-        <TextView
-            android:id="@+id/tv_home_id"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:background="@drawable/circle_bg"
-            android:text="Ali Safian"
-            android:textSize="20dp"
-            android:textAlignment="center"/>
-        <TextView
-            android:id="@+id/tv_home_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:background="@drawable/circle_bg"
-            android:text="Ali Safian"
-            android:textSize="20dp"
-            android:textAlignment="center"/>
-        <TextView
-            android:id="@+id/tv_home_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:background="@drawable/circle_bg"
-            android:text="Ali Safian"
-            android:textSize="20dp"
-            android:textAlignment="center"/>
-        <TextView
-            android:id="@+id/tv_home_picName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:background="@drawable/circle_bg"
-            android:text="Ali Safian"
-            android:textSize="20dp"
-            android:textAlignment="center"/>
-        <TextView
-            android:id="@+id/tv_home_uniName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:background="@drawable/circle_bg"
-            android:text="Ali Safian"
-            android:textSize="20dp"
-            android:textAlignment="center"/>
+            <LinearLayout
+                android:id="@+id/ll_features"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_centerHorizontal="true"
+                android:background="@android:color/white"
+                android:layout_margin="5dp"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Features"
+                    android:layout_margin="5dp"
+                    android:textStyle="bold"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/black"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginHorizontal="2dp"
+                    android:background="@color/colorPrimary"
+
+                    />
+                <HorizontalScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="10dp">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:orientation="horizontal"
+                        android:layout_margin="5dp">
 
 
 
-    </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/ll_chats_home_activity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_margin="5dp"
+                            android:background="@android:color/white"
+                            >
+
+                            <ImageView
+                                android:layout_width="65dp"
+                                android:layout_height="55dp"
+                                android:layout_margin="5dp"
+                                android:src="@drawable/message_color" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="Messages"
+                                android:textAlignment="center"
+                                android:fontFamily="@string/font_family_regular"
+                                android:textStyle="italic"
+                                android:textColor="@android:color/black"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/ll_timetable_home_activity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:background="@android:color/white"
+                            android:layout_margin="5dp"
+                            >
+
+                            <ImageView
+                                android:layout_width="65dp"
+                                android:layout_height="55dp"
+
+                                android:layout_margin="5dp"
+                                android:src="@drawable/timetable_color" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="TimeTable"
+                                android:textAlignment="center"
+                                android:fontFamily="@string/font_family_regular"
+                                android:textStyle="italic"
+                                android:textColor="@android:color/black"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/ll_meeting_home_activity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:background="@android:color/white"
+                            android:layout_margin="5dp"
+                            >
+
+                            <ImageView
+                                android:layout_width="65dp"
+                                android:layout_height="55dp"
+                                android:layout_margin="5dp"
+                                android:src="@drawable/meeting_color" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="Meetings"
+                                android:textAlignment="center"
+                                android:fontFamily="@string/font_family_regular"
+                                android:textStyle="italic"
+                                android:textColor="@android:color/black"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/ll_more_home_activity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:background="@android:color/white"
+                            android:layout_margin="5dp"
+
+                            >
+
+                            <ImageView
+                                android:layout_width="65dp"
+                                android:layout_height="55dp"
+                                android:layout_margin="5dp"
+                                android:src="@drawable/more_color" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="More"
+                                android:textAlignment="center"
+                                android:fontFamily="@string/font_family_regular"
+                                android:textStyle="italic"
+                                android:textColor="@android:color/black"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_upcoming_meeting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_centerHorizontal="true"
+                android:background="@android:color/white"
+                android:layout_margin="5dp"
+
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Upcoming Meetings"
+                    android:layout_margin="5dp"
+                    android:textStyle="bold"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorPrimaryDark"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginHorizontal="2dp"
+                    android:background="@color/colorPrimary"
+                    />
+                
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+
+
 
 </RelativeLayout>

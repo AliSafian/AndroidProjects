@@ -21,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -33,9 +34,6 @@ import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    RelativeLayout rl1;
-    RelativeLayout rl2;
-
 
     private TextView name_tv ;
     private TextView email_tv;
@@ -61,28 +59,19 @@ public class HomeActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        //rl1 = (RelativeLayout) findViewById(R.id.layout1);
+        LinearLayout ll_more = findViewById(R.id.ll_more_home_activity);
 
-        //rl2 = (RelativeLayout) findViewById(R.id.layout2);
+        ll_more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), FeaturesActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
-        TextView tv1 = findViewById(R.id.tv_home_id);
-        TextView tv2 = findViewById(R.id.tv_home_name);
-        TextView tv3 = findViewById(R.id.tv_home_email);
-        TextView tv4 = findViewById(R.id.tv_home_picName);
-        TextView tv5 = findViewById(R.id.tv_home_uniName);
-        UserSessionManager session =new UserSessionManager(getApplicationContext());
-        View header=navigationView.getHeaderView(0);
-        name_tv = (TextView)header.findViewById(R.id.tv_nav_name);
-        email_tv = (TextView)header.findViewById(R.id.tv_nav_email);
-        name_tv.setText(session.getName());
-        email_tv.setText(session.getEmail());
 
-        tv1.setText(session.getUserID()+"");
-        tv2.setText(session.getName());
-        tv3.setText(session.getEmail());
-        tv4.setText(session.getPicturePath());
-        tv5.setText(session.getUniName());
+
 
 
 
@@ -160,36 +149,17 @@ public class HomeActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-       if (id == R.id.nav_meetings) {
-            Intent i = new Intent(getApplicationContext(),MeetingsActivity.class);
-            startActivity(i);
-        } else if (id == R.id.nav_subscriptions) {
-            Intent i = new Intent(getApplicationContext(),SubscriptionsActivity.class);
-            startActivity(i);
-        } else if (id == R.id.nav_send_updates) {
-            Intent i = new Intent(getApplicationContext(),SendUpdateActivity.class);
-            startActivity(i);
-        } else if (id == R.id.nav_timetable) {
-            Intent i = new Intent(getApplicationContext(),SchedulePlan.class);
-            startActivity(i);
-
-        } else if (id == R.id.nav_print) {
+        if (id == R.id.nav_print) {
 
                 Intent i = new Intent(getApplicationContext(),PrintSettingActivity.class);
                 startActivity(i);
 
         } else if (id == R.id.nav_conn_to_rpi) {
-            Toast.makeText(getApplicationContext(), "Successfully Connected To Rpi", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Under Development", Toast.LENGTH_SHORT).show();
 
         } else if (id == R.id.nav_setting) {
                 Intent i = new Intent(getApplicationContext(),SettingsActivity.class );
                 startActivity(i);
-        } else if (id == R.id.nav_logout) {
-            finish();
-            Intent i = new Intent(getApplicationContext(),LoginActivity.class );
-            UserSessionManager session = new UserSessionManager(this);
-            session.setLogin(false);
-            startActivity(i);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
