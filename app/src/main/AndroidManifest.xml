@@ -4,11 +4,12 @@
 
 
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="18"></uses-permission>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
     <uses-permission android:name="android.permission.CAMERA"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
 
-    <uses-feature android:name="android.hardware.camera" android:required="false"/>
+    <uses-feature android:name="android.hardware.camera"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -115,11 +116,14 @@
 
         </activity>
 
+
+
+
+        <activity android:name=".UpdateMessage" />
+        <activity android:name=".NewUpdateMessage" />
         <activity android:name=".SchedulePlan" />
         <activity android:name=".SchedulePlanSetting" />
         <activity android:name=".SchedualPlanSlotSetting"></activity>
-
-
         <activity android:name=".ChangePictureActivity"></activity>
 
         <provider
@@ -131,6 +135,8 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths"></meta-data>
         </provider>
+
+
 
     </application>
 

@@ -15,15 +15,18 @@ import android.widget.Toast;
 
 import com.facefive.meetbook.UserHandling.UserSessionManager;
 
+import java.io.File;
+
 
 public class SettingsActivity extends AppCompatActivity implements Communicator{
 
     private TextView name_tv;
     private TextView email_tv;
     private ImageView image;
-    RelativeLayout notification;
-    RelativeLayout privacy;
-    RelativeLayout change_pass;
+    private RelativeLayout notification;
+    private RelativeLayout privacy;
+    private RelativeLayout change_pass;
+    private UserSessionManager session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,12 +35,21 @@ public class SettingsActivity extends AppCompatActivity implements Communicator{
 
             image=(ImageView)findViewById(R.id.circleImageView);
 
+
+
+
+
             name_tv= findViewById(R.id.name);
             email_tv= findViewById(R.id.email);
-            UserSessionManager session =new UserSessionManager(getApplicationContext());
+           session=new UserSessionManager(getApplicationContext());
             name_tv.setText(session.getName());
             email_tv.setText(session.getEmail());
 
+            String path =session.getPicturePath();
+            if(path!=null)
+            {
+                image.setImageURI(Uri.parse(new File(path).toString()));
+            }
             notification = (RelativeLayout)findViewById(R.id.layout_notification) ;
             privacy = (RelativeLayout)findViewById(R.id.layout_privacy) ;
             change_pass = (RelativeLayout)findViewById(R.id.layout_change_pass) ;
@@ -96,10 +108,7 @@ public class SettingsActivity extends AppCompatActivity implements Communicator{
     };
 
 
-    public void onPrivacyActivity(){
 
-
-    }
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
@@ -125,6 +134,19 @@ public class SettingsActivity extends AppCompatActivity implements Communicator{
         }
 
     };
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        session=new UserSessionManager(getApplicationContext());
+        name_tv.setText(session.getName());
+        String path =session.getPicturePath();
+        if(path!=null)
+        {
+            image.setImageURI(Uri.parse(new File(path).toString()));
+        }
+
+    }
 
     @Override
     public void onDialogName(String name) {

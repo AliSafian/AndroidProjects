@@ -72,9 +72,13 @@ public class ChangePictureActivity extends AppCompatActivity {
 
         UserSessionManager session = new UserSessionManager(getApplicationContext());
 
-            mCurrentPhotoPath =  session.getPicturePath();
-            if(mCurrentPhotoPath != null)
+        mCurrentPhotoPath =  session.getPicturePath();
+        if(mCurrentPhotoPath != null)
+        {
             picUri =  Uri.parse(new File(mCurrentPhotoPath).toString());
+            iv_profile_photo.setImageURI(picUri);
+        }
+
 
         btn_crop_photo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -222,8 +226,9 @@ public class ChangePictureActivity extends AppCompatActivity {
         switch (requestCode) {
 
             case CAMERA:
-                setPic();
-              // session.setPicturePath(mCurrentPhotoPath);
+                iv_profile_photo.setImageURI(picUri);
+
+                session.setPicturePath(mCurrentPhotoPath);
 
                 break;
 
@@ -234,8 +239,8 @@ public class ChangePictureActivity extends AppCompatActivity {
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), picUri);
                         mCurrentPhotoPath = saveImage(bitmap);
                         picUri =  Uri.parse(new File(mCurrentPhotoPath).toString());
-                        setPic();
-                        //session.setPicturePath(mCurrentPhotoPath);
+                        iv_profile_photo.setImageURI(picUri);
+                        session.setPicturePath(mCurrentPhotoPath);
 
                     } catch (IOException e) {
                         Toast.makeText(ChangePictureActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
