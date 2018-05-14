@@ -38,8 +38,8 @@ public class MeetingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meetings);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);*/
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -52,7 +52,6 @@ public class MeetingsActivity extends AppCompatActivity {
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
-//
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -138,9 +137,12 @@ public class MeetingsActivity extends AppCompatActivity {
             switch (position)
             {
                 case 0:
+                    FixedMeetingFragment fmfrag = new FixedMeetingFragment();
+                    return fmfrag;
+                case 1:
                     SentMeetingFragment smfrag = new SentMeetingFragment();
                     return smfrag;
-                case 1:
+                case 2:
                     ReceiveMeetingFragment rmfrag = new ReceiveMeetingFragment();
                     return rmfrag;
             }
@@ -150,7 +152,7 @@ public class MeetingsActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 2;
+            return 3;
         }
     }
 }

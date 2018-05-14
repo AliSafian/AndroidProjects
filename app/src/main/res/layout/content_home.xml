@@ -8,7 +8,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.facefive.meetbook.HomeActivity"
     tools:showIn="@layout/app_bar_home"
-    android:background="#fcfcfcfc">
+    android:background="#f2f2f2">
 
 
     <ScrollView
@@ -30,6 +30,13 @@
                 android:layout_margin="5dp"
                 >
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginHorizontal="2dp"
+                    android:background="@color/colorPrimary"
+
+                    />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -49,6 +56,7 @@
                 <HorizontalScrollView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+
                     android:paddingEnd="10dp">
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -61,7 +69,7 @@
 
 
                         <LinearLayout
-                            android:id="@+id/ll_chats_home_activity"
+                            android:id="@+id/ll_messages_home_activity"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
@@ -173,7 +181,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/ll_upcoming_meeting"
+                android:id="@+id/ll_fixed_meeting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -183,6 +191,12 @@
 
                 >
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginHorizontal="2dp"
+                    android:background="@color/colorPrimary"
+                    />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -198,10 +212,22 @@
                     android:layout_marginHorizontal="2dp"
                     android:background="@color/colorPrimary"
                     />
-                
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_fixed_meetings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp"
+                    android:background="#f2f2f2">
+
+                </android.support.v7.widget.RecyclerView>
+
+
 
 
             </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 

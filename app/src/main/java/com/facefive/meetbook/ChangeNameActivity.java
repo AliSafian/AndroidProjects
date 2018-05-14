@@ -90,9 +90,6 @@ public class ChangeNameActivity extends AppCompatActivity {
                         String name = jObj.getString("Name");
                         session.setName(name);
                         Toast.makeText(getApplicationContext(),"Name Changed Succesfully", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
                         finish();
 
                         // Launch home activity

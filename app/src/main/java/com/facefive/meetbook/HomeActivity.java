@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.MenuInflater;
 import android.support.design.widget.NavigationView;
@@ -40,6 +42,7 @@ public class HomeActivity extends AppCompatActivity
 
 
 
+
     private boolean doubleBackToExitPressedOnce = false;
 
     @Override
@@ -60,11 +63,40 @@ public class HomeActivity extends AppCompatActivity
 
 
         LinearLayout ll_more = findViewById(R.id.ll_more_home_activity);
+        LinearLayout ll_messages = findViewById(R.id.ll_messages_home_activity);
+        LinearLayout ll_timetable = findViewById(R.id.ll_timetable_home_activity);
+        LinearLayout ll_meetings = findViewById(R.id.ll_meeting_home_activity);
+
+
+
+        inItFixedMeetingRecyclerView();
+
+
 
         ll_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), FeaturesActivity.class);
+                startActivity(intent);
+            }
+        });
+        ll_messages.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Under Development", Toast.LENGTH_SHORT).show();
+            }
+        });
+        ll_timetable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SchedulePlan.class);
+                startActivity(intent);
+            }
+        });
+        ll_meetings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MeetingsActivity.class);
                 startActivity(intent);
             }
         });
@@ -75,8 +107,34 @@ public class HomeActivity extends AppCompatActivity
 
 
 
+
     }
 
+    private void inItFixedMeetingRecyclerView()
+    {
+        Resources res = this.getResources();
+        String[] names = res.getStringArray(R.array.names);
+        String[] descrip =res.getStringArray(R.array.descriptions);
+        int [] images ={R.drawable.fareed,R.drawable.usama,R.drawable.shahid,R.drawable.amina,R.drawable.saira,R.drawable.ali,R.drawable.ashar};
+
+        ArrayList<Integer> mImageIDs = new ArrayList<>();
+        ArrayList<String> mNames = new ArrayList<>();
+        ArrayList<String> mDescriptions= new ArrayList<>();
+        for(int i =0; i< names.length ; i++)
+        {
+            mNames.add(names[i]);
+            mImageIDs.add(images[i]);
+            mDescriptions.add(descrip[i]);
+        }
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL ,false);
+        RecyclerView recyclerView = findViewById(R.id.rv_fixed_meetings);
+        recyclerView.setLayoutManager(layoutManager);
+        FixedMeetingRecyclerViewAdapter adapter = new FixedMeetingRecyclerViewAdapter(getApplicationContext(), mImageIDs, mNames, mDescriptions);
+        recyclerView.setAdapter(adapter);
+
+
+    }
 
     @Override
     public void onBackPressed() {
