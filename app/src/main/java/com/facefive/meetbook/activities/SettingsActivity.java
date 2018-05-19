@@ -13,14 +13,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facefive.meetbook.Communicator;
 import com.facefive.meetbook.R;
 import com.facefive.meetbook.UserHandling.SessionManager;
 
 import java.io.File;
 
 
-public class SettingsActivity extends AppCompatActivity implements Communicator {
+public class SettingsActivity extends AppCompatActivity {
 
     private TextView name_tv;
     private TextView email_tv;
@@ -172,10 +171,6 @@ public class SettingsActivity extends AppCompatActivity implements Communicator 
 
     }
 
-    @Override
-    public void onDialogName(String name) {
 
-        name_tv.setText(name);
-    }
 
 }

@@ -15,6 +15,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.facefive.meetbook.UserHandling.SessionManager;
+import com.facefive.meetbook.app.AppConfig;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -58,7 +60,10 @@ public class response extends AppCompatActivity {
         accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"Request has been accepted"+senderID,Toast.LENGTH_SHORT).show();
+                SessionManager manager=new SessionManager(getApplicationContext());
+
+                ChangeMeetingStatus(manager.getUserID(),senderID,1);
+               // Toast.makeText(getApplicationContext(),"Request has been accepted"+senderID,Toast.LENGTH_SHORT).show();
             }
         });
         reject.setOnClickListener(new View.OnClickListener() {
@@ -77,12 +82,9 @@ public class response extends AppCompatActivity {
     }
     public  void ChangeMeetingStatus(final int ReceiverID,final int SenderID,final int Status)
     {
-
-
-
         RequestQueue requestQueue= Volley.newRequestQueue(response.this);
 
-        final StringRequest stringRequest=new StringRequest(Request.Method.POST, AppConfig.URL_GETALLSENTMEETINGS, new Response.Listener<String>() {
+        final StringRequest stringRequest=new StringRequest(Request.Method.POST, AppConfig.URL_CHANGEMEETINGSTATUS, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
@@ -93,7 +95,7 @@ public class response extends AppCompatActivity {
                     if(! jsonObject.getBoolean("Error"))
                     {
                         JSONArray object=jsonObject.getJSONArray("result");
-                        Toast.makeText(response.this,"Successfull",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(response.this,object.toString(),Toast.LENGTH_SHORT).show();
 
 
                     }
@@ -123,7 +125,7 @@ public class response extends AppCompatActivity {
 
                 params.put("ReceiverID",""+ReceiverID);
                 params.put("SenderID",""+SenderID);
-                params.put("Status",""+1);
+                params.put("Status",Status+"");
                 return  params;
             }
         };

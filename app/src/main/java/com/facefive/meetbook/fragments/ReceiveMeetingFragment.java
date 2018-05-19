@@ -25,8 +25,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.facefive.meetbook.ListAdapter;
+import com.facefive.meetbook.MeetingListAdapter;
+import com.facefive.meetbook.MeetingSingleRow;
 import com.facefive.meetbook.R;
 import com.facefive.meetbook.SingleRow;
+import com.facefive.meetbook.app.AppConfig;
 import com.facefive.meetbook.response;
 
 import java.util.ArrayList;
@@ -40,7 +43,7 @@ import java.util.Map;
 
 public class ReceiveMeetingFragment extends Fragment {
     ListView lv_list;
-    ArrayList<SingleRow> list;
+    ArrayList<MeetingSingleRow> list;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -110,7 +113,7 @@ public class ReceiveMeetingFragment extends Fragment {
                         calendar.get(Calendar.DAY_OF_WEEK);
                         int [] images ={R.drawable.fareed,R.drawable.usama,R.drawable.shahid,R.drawable.amina,R.drawable.saira,R.drawable.ali,R.drawable.ashar};
 
-                        list = new ArrayList<SingleRow>();
+                        list = new ArrayList<MeetingSingleRow>();
                         for (int i =1; i< object.length(); i++)
                         {
 
@@ -140,12 +143,12 @@ public class ReceiveMeetingFragment extends Fragment {
                             String strattime=array.get(5).toString().substring(11,16);
                             String endttime=array.get(6).toString().substring(11,16);
                             int senderID=Integer.parseInt(array.get(7).toString());
-                            SingleRow row = new SingleRow(array.get(0).toString() , "You Received meeting "+showday+" at "+time.substring(11,16), images[i],array.get(4).toString(),date,strattime,endttime,senderID);
+                            MeetingSingleRow row = new MeetingSingleRow(array.get(0).toString() , "You Received meeting "+showday+" at "+time.substring(11,16), images[i],array.get(4).toString(),date,strattime,endttime,senderID);
                             list.add(row);
 
                         }
 
-                        ListAdapter adapter = new ListAdapter(getActivity(), list);
+                        MeetingListAdapter adapter = new MeetingListAdapter(getActivity(), list);
                         lv_list.setAdapter(adapter);
 
                     }

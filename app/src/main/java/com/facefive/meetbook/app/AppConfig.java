@@ -12,7 +12,7 @@ public class AppConfig {
 
     public static final String URL_GETALLSENTMEETINGS = "http://meetbookapp.com/APIs/getSentMeetRequests.php";
 
-    public static final String URL_CHANGEMEETINGSTATUS = "http://meetbookapp.com/APIs/getSentMeetRequests.php";
+    public static final String URL_CHANGEMEETINGSTATUS = "http://meetbookapp.com/APIs/ChangeMeetingStatus.php";
 
     public static final String URL_SAVEUPDATEMESSAGE = "http://meetbookapp.com/APIs/saveUpdateMessage.php";
     public static final String URL_GETUPDATEMESSAGES = "http://meetbookapp.com/APIs/getUpdateMessages_request.php";

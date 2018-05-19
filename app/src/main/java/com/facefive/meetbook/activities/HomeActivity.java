@@ -36,6 +36,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.facefive.meetbook.MeetingSingleRow;
 import com.facefive.meetbook.SingleRow;
 import com.facefive.meetbook.UserHandling.SessionManager;
 import com.facefive.meetbook.FixedMeetingRecyclerViewAdapter;
@@ -64,7 +65,7 @@ public class HomeActivity extends AppCompatActivity
     private static final String TAG = HomeActivity.class.getSimpleName();
     private BroadcastReceiver mRegistrationBroadcastReceiver;
     private TextView txtRegId, txtMessage;
-    private ArrayList<SingleRow> list;
+    private ArrayList<MeetingSingleRow> list;
 
 
 
@@ -244,7 +245,7 @@ public class HomeActivity extends AppCompatActivity
                         calendar.get(Calendar.DAY_OF_WEEK);
                         int [] images ={R.drawable.fareed,R.drawable.usama,R.drawable.shahid,R.drawable.amina,R.drawable.saira,R.drawable.ali,R.drawable.ashar};
 
-                        list = new ArrayList<SingleRow>();
+                        list = new ArrayList<MeetingSingleRow>();
                         for (int i =1; i< object.length(); i++)
                         {
 
@@ -270,7 +271,7 @@ public class HomeActivity extends AppCompatActivity
                             {
                                 showday=time.substring(0,10);
                             }
-                            SingleRow row = new SingleRow(array.get(0).toString() , ""+showday+" at "+time.substring(11,16), images[i],array.get(4).toString());
+                            MeetingSingleRow row = new MeetingSingleRow(array.get(0).toString() , ""+showday+" at "+time.substring(11,16), images[i],array.get(4).toString());
                             list.add(row);
 
                         }

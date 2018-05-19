@@ -14,11 +14,11 @@ public class FixedMeetingRecyclerViewAdapter  extends RecyclerView.Adapter<Fixed
 
 
     private Context mContext;
-    private ArrayList<SingleRow> mylist;
+    private ArrayList<MeetingSingleRow> mylist;
    /* private ArrayList<String> mNames;
     private ArrayList<String> mDescriptions;*/
 
-    public FixedMeetingRecyclerViewAdapter(Context mContext,ArrayList<SingleRow> list) {
+    public FixedMeetingRecyclerViewAdapter(Context mContext,ArrayList<MeetingSingleRow> list) {
         this.mContext = mContext;
         this.mylist = list;
       /*  this.mNames = mNames;
@@ -35,7 +35,7 @@ public class FixedMeetingRecyclerViewAdapter  extends RecyclerView.Adapter<Fixed
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final SingleRow temp = mylist.get(position);
+        final MeetingSingleRow temp = mylist.get(position);
         holder.image.setImageResource(temp.image);
         holder.name.setText(temp.name);
         holder.description.setText(temp.description);
