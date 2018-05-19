@@ -130,7 +130,8 @@ public class SchedualPlanSlotSetting extends AppCompatActivity {
 
     }
 
-    public  void StoreTimeTable(final int Days, final Time startTime, final Time endTime, final int noOfSlots, final int UserID,final  Time duration){
+    public  void StoreTimeTable(final int Days, final Time startTime, final Time endTime, final int noOfSlots, final int UserID,final  Time duration)
+    {
 
 
 
