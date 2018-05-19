@@ -62,6 +62,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
+                android:id="@+id/tv_resp_name"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-thin"
                 android:textColor="@color/colorPrimaryDark"
@@ -102,6 +103,7 @@
                 android:text="Date"
                 android:textSize="22sp" />
             <TextView
+                android:id="@+id/tv_resp_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-thin"
@@ -131,9 +133,10 @@
                 android:textStyle="bold"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="30dp"
-                android:text="To"
+                android:text="From"
                 android:textSize="22sp" />
             <TextView
+                android:id="@+id/tv_resp_starttime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-thin"
@@ -164,9 +167,11 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="30dp"
                 android:textStyle="bold"
-                android:text="From"
+                android:text="To"
                 android:textSize="22sp" />
             <TextView
+
+                android:id="@+id/tv_resp_endtime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-thin"

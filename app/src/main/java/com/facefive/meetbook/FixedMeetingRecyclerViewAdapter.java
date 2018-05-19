@@ -14,15 +14,15 @@ public class FixedMeetingRecyclerViewAdapter  extends RecyclerView.Adapter<Fixed
 
 
     private Context mContext;
-    private ArrayList<Integer> mImageIDs;
-    private ArrayList<String> mNames;
-    private ArrayList<String> mDescriptions;
+    private ArrayList<SingleRow> mylist;
+   /* private ArrayList<String> mNames;
+    private ArrayList<String> mDescriptions;*/
 
-    public FixedMeetingRecyclerViewAdapter(Context mContext, ArrayList<Integer> mImageIDs, ArrayList<String> mNames, ArrayList<String> mDescriptions) {
+    public FixedMeetingRecyclerViewAdapter(Context mContext,ArrayList<SingleRow> list) {
         this.mContext = mContext;
-        this.mImageIDs = mImageIDs;
-        this.mNames = mNames;
-        this.mDescriptions = mDescriptions;
+        this.mylist = list;
+      /*  this.mNames = mNames;
+        this.mDescriptions = mDescriptions;*/
     }
 
     @Override
@@ -35,16 +35,17 @@ public class FixedMeetingRecyclerViewAdapter  extends RecyclerView.Adapter<Fixed
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
-        holder.image.setImageResource(mImageIDs.get(position));
-        holder.name.setText(mNames.get(position));
-        holder.description.setText(mDescriptions.get(position));
+        final SingleRow temp = mylist.get(position);
+        holder.image.setImageResource(temp.image);
+        holder.name.setText(temp.name);
+        holder.description.setText(temp.description);
+        holder.purpose.setText(temp.purpose);
 
     }
 
     @Override
     public int getItemCount() {
-        return mNames.size();
+        return mylist.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -52,6 +53,7 @@ public class FixedMeetingRecyclerViewAdapter  extends RecyclerView.Adapter<Fixed
         ImageView image;
         TextView name;
         TextView description;
+        TextView purpose;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -59,6 +61,7 @@ public class FixedMeetingRecyclerViewAdapter  extends RecyclerView.Adapter<Fixed
             image = itemView.findViewById(R.id.image_rv);
             name = itemView.findViewById(R.id.name_rv);
             description = itemView.findViewById(R.id.descrotion_rv);
+            purpose = itemView.findViewById(R.id.purpose_rv);
 
 
 
