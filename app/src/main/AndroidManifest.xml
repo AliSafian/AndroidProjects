@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".LoginActivity"
+            android:name=".activities.LoginActivity"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -29,23 +29,23 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SignupActivity"
+            android:name=".activities.SignupActivity"
             android:label="@string/title_activity_signup"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".VerifyEmailActivity"
+            android:name=".activities.VerifyEmailActivity"
             android:label="@string/title_activity_verify_email"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".VerifyCodeActivity"
+            android:name=".activities.VerifyCodeActivity"
             android:label="@string/title_activity_verify_code"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".NewPasswordActivity"
+            android:name=".activities.NewPasswordActivity"
             android:label="@string/title_activity_new_password"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".HomeActivity"
+            android:name=".activities.HomeActivity"
             android:label="@string/title_activity_home"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
@@ -54,7 +54,7 @@
                 android:value=".SearchResultActivity" />
         </activity>
         <activity
-            android:name=".SearchResultActivity"
+            android:name=".activities.SearchResultActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
@@ -65,45 +65,45 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity
-            android:name=".ProfileActivity"
+            android:name=".activities.ProfileActivity"
             android:label="Profile"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".PrivacyActivity"
+            android:name=".activities.PrivacyActivity"
             android:label="Change Privacy Settings"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AddSubscriberActivity"
+            android:name=".activities.AddSubscriberActivity"
             android:label="Add Subscribers"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SettingsActivity"
+            android:name=".activities.SettingsActivity"
             android:label="Settings"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ChangePasswordActivity"
+            android:name=".activities.ChangePasswordActivity"
             android:label="Change Password"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SendUpdateActivity"
+            android:name=".activities.SendUpdateActivity"
             android:label="Send Update"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ChangeNameActivity"
+            android:name=".activities.ChangeNameActivity"
             android:label="Change Name"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".PrintSettingActivity"
+            android:name=".activities.PrintSettingActivity"
             android:label="Print Settings"
             android:screenOrientation="portrait" />
         <activity android:name=".UpdateActivity" />
         <activity
-            android:name=".MeetingsActivity"
+            android:name=".activities.MeetingsActivity"
             android:label="@string/title_activity_meetings"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".SubscriptionsActivity"
+            android:name=".activities.SubscriptionsActivity"
             android:label="@string/title_activity_subscriptions"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -132,16 +132,16 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".NotificationActivity"
+            android:name=".activities.NotificationActivity"
             android:label="Notification Settings"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".UpdateMessage" />
-        <activity android:name=".NewUpdateMessage" />
+        <activity android:name=".activities.NewUpdateMessage" />
         <activity android:name=".SchedulePlan" />
         <activity android:name=".SchedulePlanSetting" />
         <activity android:name=".SchedualPlanSlotSetting" />
-        <activity android:name=".ChangePictureActivity" />
+        <activity android:name=".activities.ChangePictureActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -153,9 +153,23 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity android:name=".FeaturesActivity"
+        <activity android:name=".activities.FeaturesActivity"
             android:label="Features"
             android:screenOrientation="portrait"></activity>
+
+
+        <service android:name=".services.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <service android:name=".services.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>

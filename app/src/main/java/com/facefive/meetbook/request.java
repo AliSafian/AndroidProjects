@@ -1,21 +1,19 @@
 package com.facefive.meetbook;
 
 import android.app.DialogFragment;
-import android.content.Intent;
-import android.media.Ringtone;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewDebug;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
-import com.github.badoualy.datepicker.DatePickerTimeline;
+
+import com.facefive.meetbook.fragments.EndTimePickerFragment;
+import com.facefive.meetbook.fragments.TimePickerFragment;
 import com.github.badoualy.datepicker.MonthView;
 
 import java.util.Calendar;

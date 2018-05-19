@@ -1,6 +1,5 @@
 package com.facefive.meetbook;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -19,14 +18,14 @@ import com.android.volley.toolbox.Volley;
 import com.facefive.meetbook.TimetableSession.SlotSingleRow;
 import com.facefive.meetbook.TimetableSession.TimetableDay;
 import com.facefive.meetbook.TimetableSession.TimetableSession;
-import com.facefive.meetbook.UserHandling.UserSessionManager;
+import com.facefive.meetbook.UserHandling.SessionManager;
+import com.facefive.meetbook.app.AppConfig;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.sql.Time;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -103,9 +102,9 @@ public class SchedualPlanSlotSetting extends AppCompatActivity {
                 }
                 else
                 {
-                    UserSessionManager userSessionManager=new UserSessionManager(getApplicationContext());
+                    SessionManager sessionManager =new SessionManager(getApplicationContext());
 
-                    StoreTimeTable(TimetableSession.Days.size(),TimetableSession.startTime,TimetableSession.endTime,TimetableSession.noOfSlots,userSessionManager.getUserID(),TimetableSession.duration);
+                    StoreTimeTable(TimetableSession.Days.size(),TimetableSession.startTime,TimetableSession.endTime,TimetableSession.noOfSlots, sessionManager.getUserID(),TimetableSession.duration);
 
                 }
 

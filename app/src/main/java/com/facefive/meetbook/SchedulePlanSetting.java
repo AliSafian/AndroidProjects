@@ -2,13 +2,11 @@ package com.facefive.meetbook;
 
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.media.MediaCas;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.Checkable;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.TimePicker;
@@ -21,10 +19,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.facefive.meetbook.TimetableSession.SlotSingleRow;
 import com.facefive.meetbook.TimetableSession.TimetableDay;
 import com.facefive.meetbook.TimetableSession.TimetableSession;
-import com.facefive.meetbook.UserHandling.UserSessionManager;
+import com.facefive.meetbook.UserHandling.SessionManager;
+import com.facefive.meetbook.app.AppConfig;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -170,9 +168,9 @@ public class SchedulePlanSetting extends AppCompatActivity {
         TimetableSession.noOfSlots = numberPicker.getValue();
         numOfSlot = numberPicker.getValue();
 
-        UserSessionManager userSessionManager=new UserSessionManager(getApplicationContext());
+        SessionManager sessionManager =new SessionManager(getApplicationContext());
 
-        getTimeTable(userSessionManager.getUserID());
+        getTimeTable(sessionManager.getUserID());
 
         numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override

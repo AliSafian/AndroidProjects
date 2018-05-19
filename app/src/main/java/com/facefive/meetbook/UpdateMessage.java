@@ -1,18 +1,12 @@
 package com.facefive.meetbook;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Layout;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,19 +18,16 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.facefive.meetbook.TimetableSession.SlotSingleRow;
-import com.facefive.meetbook.TimetableSession.TimetableDay;
-import com.facefive.meetbook.TimetableSession.TimetableSession;
-import com.facefive.meetbook.UserHandling.UserSessionManager;
+import com.facefive.meetbook.UserHandling.SessionManager;
+import com.facefive.meetbook.activities.NewUpdateMessage;
+import com.facefive.meetbook.app.AppConfig;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class UpdateMessage extends AppCompatActivity {
@@ -59,7 +50,7 @@ public class UpdateMessage extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        UserSessionManager manager=new UserSessionManager(getApplicationContext());
+        SessionManager manager=new SessionManager(getApplicationContext());
         getUpdateMessages(manager.getUserID());
 
 
@@ -107,7 +98,7 @@ public class UpdateMessage extends AppCompatActivity {
                     if(! jsonObject.getBoolean("error"))
                     {
                          Toast.makeText(getApplicationContext()," successfull"+jsonObject,Toast.LENGTH_SHORT).show();
-                         UserSessionManager manager=new UserSessionManager(getApplicationContext());
+                         SessionManager manager=new SessionManager(getApplicationContext());
                          getUpdateMessages(manager.getUserID());
 
 
