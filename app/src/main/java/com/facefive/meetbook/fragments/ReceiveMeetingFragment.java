@@ -77,10 +77,9 @@ public class ReceiveMeetingFragment extends Fragment {
                 Intent i = new Intent(getActivity() , response.class );
                 i.putExtra("subject" , list.get(position).purpose);
                 i.putExtra("name",list.get(position).name);
-                i.putExtra("date",list.get(position).date);
                 i.putExtra("starttime",list.get(position).starttime);
                 i.putExtra("endtime",list.get(position).endtime);
-                i.putExtra("senderID",list.get(position).senderID);
+                i.putExtra("MeetID",list.get(position).MeetID);
                 startActivity(i);
             }
         });
@@ -139,11 +138,13 @@ public class ReceiveMeetingFragment extends Fragment {
                             {
                                 showday=time.substring(0,10);
                             }
-                            String date=array.get(5).toString().substring(0,10);
-                            String strattime=array.get(5).toString().substring(11,16);
-                            String endttime=array.get(6).toString().substring(11,16);
-                            int senderID=Integer.parseInt(array.get(7).toString());
-                            MeetingSingleRow row = new MeetingSingleRow(array.get(0).toString() , "You Received meeting "+showday+" at "+time.substring(11,16), images[i],array.get(4).toString(),date,strattime,endttime,senderID);
+                            String purpose=array.get(4).toString();
+                            String starttime=array.get(5).toString();
+                            String endtime=array.get(6).toString();
+                            int meetID=Integer.parseInt(array.get(7).toString());
+                            int SenderID=Integer.parseInt(array.get(8).toString());
+                            int ReceiverID=Integer.parseInt(array.get(9).toString());
+                            MeetingSingleRow row = new MeetingSingleRow(array.get(0).toString() , "You Received meeting "+showday+" at "+time.substring(11,16), images[i],meetID,purpose,starttime,endtime,SenderID,ReceiverID);
                             list.add(row);
 
                         }

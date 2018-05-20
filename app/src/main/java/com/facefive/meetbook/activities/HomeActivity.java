@@ -271,7 +271,13 @@ public class HomeActivity extends AppCompatActivity
                             {
                                 showday=time.substring(0,10);
                             }
-                            MeetingSingleRow row = new MeetingSingleRow(array.get(0).toString() , ""+showday+" at "+time.substring(11,16), images[i],array.get(4).toString());
+                            String purpose=array.get(4).toString();
+                            String starttime=array.get(5).toString();
+                            String endtime=array.get(6).toString();
+                            int meetID=Integer.parseInt(array.get(7).toString());
+                            int SenderID=Integer.parseInt(array.get(8).toString());
+                            int ReceiverID=Integer.parseInt(array.get(9).toString());
+                            MeetingSingleRow row = new MeetingSingleRow(array.get(0).toString() , starttime.substring(11,16)+" to "+endtime.substring(11,16), images[i],meetID,purpose,starttime,endtime,SenderID,ReceiverID);
                             list.add(row);
 
                         }
