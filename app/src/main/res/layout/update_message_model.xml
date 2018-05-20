@@ -42,7 +42,7 @@
                 android:src="@drawable/more_vert_black"
                 android:layout_marginTop="25dp"
                 android:id="@+id/update_message_more_vert"
-                />-
+                />
 
         </RelativeLayout>
 

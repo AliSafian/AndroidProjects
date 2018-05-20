@@ -251,8 +251,8 @@ public class HomeActivity extends AppCompatActivity
 
                             JSONArray array=object.getJSONArray(i);
 
-                            String time=array.get(2).toString();
-                            int day=Integer.parseInt( time.substring(8,10));
+                            String Reqtime=array.get(2).toString();
+                            int day=Integer.parseInt( Reqtime.substring(8,10));
                             int sysday= calendar.get(Calendar.DAY_OF_MONTH);
                             String showday=null;
                             if(day - sysday==0)
@@ -269,7 +269,7 @@ public class HomeActivity extends AppCompatActivity
                             }
                             else
                             {
-                                showday=time.substring(0,10);
+                                showday=Reqtime.substring(0,10);
                             }
                             String purpose=array.get(4).toString();
                             String starttime=array.get(5).toString();
@@ -277,7 +277,7 @@ public class HomeActivity extends AppCompatActivity
                             int meetID=Integer.parseInt(array.get(7).toString());
                             int SenderID=Integer.parseInt(array.get(8).toString());
                             int ReceiverID=Integer.parseInt(array.get(9).toString());
-                            MeetingSingleRow row = new MeetingSingleRow(array.get(0).toString() , starttime.substring(11,16)+" to "+endtime.substring(11,16), images[i],meetID,purpose,starttime,endtime,SenderID,ReceiverID);
+                            MeetingSingleRow row = new MeetingSingleRow(array.get(0).toString() , starttime.substring(11,16)+" to "+endtime.substring(11,16), images[i],meetID,purpose,starttime,endtime,SenderID,ReceiverID,Reqtime);
                             list.add(row);
 
                         }

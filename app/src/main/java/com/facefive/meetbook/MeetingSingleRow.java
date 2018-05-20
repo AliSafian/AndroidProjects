@@ -10,13 +10,14 @@ public class MeetingSingleRow{
     public String description;
     public int image;
     public String purpose;
-    public String date,starttime,endtime;
+    public String starttime,endtime;
     public int senderID,receiverID;
+    public String reqTime;
 
 
 
 
-    public MeetingSingleRow(String name , String description , int image,int meetID, String purpose,String starttime,String endtime,int SenderID,int ReceiverID)
+    public MeetingSingleRow(String name , String description , int image,int meetID, String purpose,String starttime,String endtime,int SenderID,int ReceiverID,String reqTime)
     {
         this.name = name;
         this.description=description;
@@ -27,5 +28,6 @@ public class MeetingSingleRow{
         this.MeetID=meetID;
         this.senderID=SenderID;
         this.receiverID=ReceiverID;
+        this.reqTime=reqTime;
     }
 }
