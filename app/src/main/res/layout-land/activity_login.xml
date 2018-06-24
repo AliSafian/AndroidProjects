@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clickable="true"
-    tools:context="com.facefive.meetbook.LoginActivity">
+    tools:context="com.facefive.meetbook.activities.LoginActivity">
 
 
     <EditText

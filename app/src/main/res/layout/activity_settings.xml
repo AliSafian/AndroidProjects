@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.facefive.meetbook.SettingsActivity">
+    tools:context="com.facefive.meetbook.activities.SettingsActivity">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -26,7 +26,8 @@
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:layout_centerHorizontal="true"
-
+                        app:civ_border_color="@android:color/black"
+                        app:civ_border_width="3dp"
                         android:layout_alignParentTop="true"
                         android:layout_marginTop="11dp"
                         android:src="@drawable/ic_dp_demo" />
@@ -158,6 +159,40 @@
                         android:text="Change Password"
                         android:textSize="20dp" />
                 </RelativeLayout>
+
+                <RelativeLayout
+                android:id="@+id/layout_logout"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/layout_change_pass"
+                android:background="@android:color/white"
+                android:orientation="horizontal"
+
+                android:layout_marginBottom="8dp"
+                >
+
+                <ImageView
+                    android:id="@+id/imageView6"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="38dp"
+                    android:layout_marginTop="26dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/ic_menu_logout" />
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/imageView6"
+                    android:layout_marginStart="12dp"
+                    android:layout_toEndOf="@+id/imageView6"
+                    android:text="Logout"
+                    android:textSize="20dp" />
+            </RelativeLayout>
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>

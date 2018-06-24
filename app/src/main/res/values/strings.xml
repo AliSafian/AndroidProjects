@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">MeetBook</string>
+
     <string name="emailLabel">Email</string>
     <string name="passLabel">Password</string>
     <string name="loginBLabel">Login</string>
@@ -30,7 +31,7 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-    <string name="title_activity_meetings">MeetingsActivity</string>
+    <string name="title_activity_meetings">Meetings</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
     <string name="tab_text_3">Tab 3</string>
@@ -47,6 +48,17 @@
         <item>Saira Rehan</item>
         <item>Ali Safian</item>
         <item>Ashar Ahmad</item>
+
+    </string-array>
+
+    <string-array name="descriptions">
+        <item>Monday at 14:00 to 15:00</item>
+        <item>Monday at 15:00 to 16:00</item>
+        <item>Monday at 16:00 to 17:00</item>
+        <item>Tuesday at 14:00 to 15:00</item>
+        <item>Tuesday at 15:00 to 16:00</item>
+        <item>Tuesday at 16:00 to 17:00</item>
+        <item>Tuesday at 17:00 to 18:00</item>
 
     </string-array>
 
@@ -77,4 +89,8 @@
         <item>Punjab University College of Arts and Design</item>
         <item>MAO College Lahore</item>
     </string-array>
+
+    <string name="title_activity_set_image">SetImageActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

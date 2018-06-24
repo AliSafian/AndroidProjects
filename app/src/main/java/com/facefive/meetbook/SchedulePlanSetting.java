@@ -2,13 +2,11 @@ package com.facefive.meetbook;
 
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.media.MediaCas;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.Checkable;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.TimePicker;
@@ -21,10 +19,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.facefive.meetbook.TimetableSession.SlotSingleRow;
 import com.facefive.meetbook.TimetableSession.TimetableDay;
 import com.facefive.meetbook.TimetableSession.TimetableSession;
-import com.facefive.meetbook.UserHandling.UserSessionManager;
+import com.facefive.meetbook.UserHandling.SessionManager;
+import com.facefive.meetbook.app.AppConfig;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -58,6 +56,7 @@ public class SchedulePlanSetting extends AppCompatActivity {
     private CheckBox sunday;
 
     private Button nextBtn;
+    private Button update;
 
 
     private Time tempStart;
@@ -72,10 +71,15 @@ public class SchedulePlanSetting extends AppCompatActivity {
 
 
 
-
-
-
-
+        update = (Button) findViewById(R.id.btn_updatemessage);
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(),UpdateMessage.class);
+                startActivity(intent);
+               // Toast.makeText(getApplicationContext(),"Agya",Toast.LENGTH_SHORT).show();
+            }
+        });
         //...................................Time Picker
         tempStart = new Time(0,0,0);
         tempEnd = new Time(0,0,0);
@@ -164,9 +168,9 @@ public class SchedulePlanSetting extends AppCompatActivity {
         TimetableSession.noOfSlots = numberPicker.getValue();
         numOfSlot = numberPicker.getValue();
 
-        UserSessionManager userSessionManager=new UserSessionManager(getApplicationContext());
+        SessionManager sessionManager =new SessionManager(getApplicationContext());
 
-        getTimeTable(userSessionManager.getUserID());
+        getTimeTable(sessionManager.getUserID());
 
         numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
@@ -228,31 +232,31 @@ public class SchedulePlanSetting extends AppCompatActivity {
 
 
                     if(monday.isChecked()) {
-                        TimetableDay td = new TimetableDay("Monday",TimetableSession.noOfSlots,tempStart,tempEnd);
+                        TimetableDay td = new TimetableDay("Monday",TimetableSession.noOfSlots,TimetableSession.startTime,TimetableSession.endTime);
                         TimetableSession.Days.add(td);
                     }
                     if(tuesday.isChecked()) {
-                        TimetableDay td = new TimetableDay("Tuesday",TimetableSession.noOfSlots,tempStart,tempEnd);
+                        TimetableDay td = new TimetableDay("Tuesday",TimetableSession.noOfSlots,TimetableSession.startTime,TimetableSession.endTime);
                         TimetableSession.Days.add(td);
                     }
                     if(wednesday.isChecked()) {
-                        TimetableDay td = new TimetableDay("Wednesday",TimetableSession.noOfSlots,tempStart,tempEnd);
+                        TimetableDay td = new TimetableDay("Wednesday",TimetableSession.noOfSlots,TimetableSession.startTime,TimetableSession.endTime);
                         TimetableSession.Days.add(td);
                     }
                     if(thursday.isChecked()) {
-                        TimetableDay td = new TimetableDay("Thursday",TimetableSession.noOfSlots,tempStart,tempEnd);
+                        TimetableDay td = new TimetableDay("Thursday",TimetableSession.noOfSlots,TimetableSession.startTime,TimetableSession.endTime);
                         TimetableSession.Days.add(td);
                     }
                     if(friday.isChecked()) {
-                        TimetableDay td = new TimetableDay("Friday",TimetableSession.noOfSlots,tempStart,tempEnd);
+                        TimetableDay td = new TimetableDay("Friday",TimetableSession.noOfSlots,TimetableSession.startTime,TimetableSession.endTime);
                         TimetableSession.Days.add(td);
                     }
                     if(saturday.isChecked()){
-                        TimetableDay td = new TimetableDay("Saturday",TimetableSession.noOfSlots,tempStart,tempEnd);
+                        TimetableDay td = new TimetableDay("Saturday",TimetableSession.noOfSlots,TimetableSession.startTime,TimetableSession.endTime);
                         TimetableSession.Days.add(td);
                     }
                     if(sunday.isChecked()) {
-                        TimetableDay td = new TimetableDay("Sunday",TimetableSession.noOfSlots,tempStart,tempEnd);
+                        TimetableDay td = new TimetableDay("Sunday",TimetableSession.noOfSlots,TimetableSession.startTime,TimetableSession.endTime);
                         TimetableSession.Days.add(td);
                     }
 
@@ -341,6 +345,7 @@ public class SchedulePlanSetting extends AppCompatActivity {
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
+
                 }
 
             }
@@ -348,6 +353,8 @@ public class SchedulePlanSetting extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"yha aya h",Toast.LENGTH_SHORT).show();
+
 
             }
         }){

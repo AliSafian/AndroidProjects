@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@android:color/white"
+        android:id="@+id/layout_updatemessage"
+        >
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/layout_msgplusedit"
+            android:layout_marginTop="25dp"
+            >
+        <TextView
+            android:id="@+id/update_message"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:maxLines="1"
+            android:layout_marginLeft="5dp"
+            android:text="This is my first message"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp" />
+
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/layout_msgplusedit"
+            >
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:src="@drawable/more_vert_black"
+                android:layout_marginTop="25dp"
+                android:id="@+id/update_message_more_vert"
+                />
+
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
+</RelativeLayout>

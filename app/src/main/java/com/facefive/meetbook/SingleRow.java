@@ -5,9 +5,9 @@ package com.facefive.meetbook;
  */
 
 public class SingleRow{
-    String name;
-    String description;
-    int image;
+   public String name;
+    public String description;
+    public int image;
 
     public SingleRow(String name , String description , int image)
     {
@@ -15,5 +15,6 @@ public class SingleRow{
         this.description=description;
         this.image = image;
     }
+
 
 }

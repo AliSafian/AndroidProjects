@@ -14,8 +14,11 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_expand_button" />
-                            <entry key="sourceFile" value="C:\Users\hafiz\Desktop\expand-button.svg" />
+                            <entry key="height" value="512" />
+                            <entry key="outputName" value="ic_message_color" />
+                            <entry key="overrideSize" value="true" />
+                            <entry key="sourceFile" value="C:\Users\Ashar\Desktop\Meetbook\svg\message_color.svg" />
+                            <entry key="width" value="512" />
                           </map>
                         </option>
                       </PersistentState>
