@@ -135,10 +135,12 @@ public class LoginActivity extends AppCompatActivity {
                         String email = user.getString("Email");
                         String picName = user.getString("PictureName");
                         String uniName = user.getString("UniName");
+                        //String fcmToken = user.getString("FCMToken");
 
 
                         // Inserting row in session
                         session.setUser(userID, name, email, picName,uniName);
+
                         // Launch main activity
                         Intent intent = new Intent(LoginActivity.this,
                                 HomeActivity.class);

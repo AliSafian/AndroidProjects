@@ -23,7 +23,7 @@ public class AppConfig {
     public static final String URL_CHECK_OLD_PASSWORD= "http://www.meetbookapp.com/APIs/checkOldPassword.php";
     public static final String URL_CHANGE_PASSWORD= "http://www.meetbookapp.com/APIs/changePassword.php";
     public static final String URL_CHANGE_NAME= "http://www.meetbookapp.com/APIs/changeName.php";
-
+    public static final String URL_UPDATE_FCM_TOKEN= "http://www.meetbookapp.com/APIs/updateFCMToken.php";
 
     public static final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
     public static final String PASSWORD_PATTERN = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,15}$";
@@ -41,6 +41,11 @@ public class AppConfig {
     // id to handle the notification in the notification tray
     public static final int NOTIFICATION_ID = 100;
     public static final int NOTIFICATION_ID_BIG_IMAGE = 101;
+
+    public static final String CHANNEL_ID ="mb_ch_01";
+    public static final String CHANNEL_NAME ="meetbook_channel_one";
+    public static final String CHANNEL_DESCRIPTION ="This app is owned by facefive";
+
 
     public static final String SHARED_PREF = "ah_firebase";
 

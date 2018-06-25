@@ -1,5 +1,7 @@
 package com.facefive.meetbook.activities;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.SearchManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -7,6 +9,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.LocalBroadcastManager;
@@ -87,6 +90,16 @@ public class HomeActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        SessionManager sManager = new SessionManager(getApplicationContext());
+
+        if(sManager.isTokenRefreshed())
+        {
+            int UserID = sManager.getUserID();
+            String FCMToken =sManager.getFCMToken();
+            sendRegistrationToServer(UserID, FCMToken);
+            sManager.setTokenRefreshed(false);
+        }
+
 
         LinearLayout ll_more = findViewById(R.id.ll_more_home_activity);
         LinearLayout ll_messages = findViewById(R.id.ll_messages_home_activity);
@@ -130,6 +143,19 @@ public class HomeActivity extends AppCompatActivity
 
 
 
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationManager mNotificationManager =
+                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel mChannel = new NotificationChannel(AppConfig.CHANNEL_ID, AppConfig.CHANNEL_NAME, importance);
+            mChannel.setDescription(AppConfig.CHANNEL_DESCRIPTION);
+            mChannel.enableLights(true);
+            mChannel.setLightColor(Color.RED);
+            mChannel.enableVibration(true);
+            mChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+            mNotificationManager.createNotificationChannel(mChannel);
+        }
+
 
         txtRegId = (TextView) findViewById(R.id.txt_reg_id);
         txtMessage = (TextView) findViewById(R.id.txt_push_message);
@@ -140,7 +166,7 @@ public class HomeActivity extends AppCompatActivity
 
                 // checking for type intent filter
                 if (intent.getAction().equals(AppConfig.REGISTRATION_COMPLETE)) {
-                    // gcm successfully registered
+                    // fcm successfully registered
                     // now subscribe to `global` topic to receive app wide notifications
                     FirebaseMessaging.getInstance().subscribeToTopic(AppConfig.TOPIC_GLOBAL);
 
@@ -163,9 +189,65 @@ public class HomeActivity extends AppCompatActivity
 
     }
 
+    private void sendRegistrationToServer(final int userId , final String token) {
+        // sending gcm token to server
+        Log.e(TAG, "sendRegistrationToServer: " + token);
+
+
+        RequestQueue requestQueue= Volley.newRequestQueue(this);
+
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, AppConfig.URL_UPDATE_FCM_TOKEN, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    boolean error = jObj.getBoolean("Error");
+
+
+                    // Check for error node in json
+                    if (!error) {
+                        String successMsg = jObj.getString("SuccessMsg");
+                        Toast.makeText(getApplicationContext(),
+                                successMsg, Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        String errorMsg = jObj.getString("ErrorMsg");
+                        Toast.makeText(getApplicationContext(),
+                                errorMsg, Toast.LENGTH_LONG).show();
+
+                    }
+                } catch (JSONException e) {
+                    // JSON error
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String, String> params=new HashMap<String, String>();
+                params.put("UserID",userId+"");
+                params.put("FCMToken",token);
+
+                return params;
+            }
+        };
+        requestQueue.add(stringRequest);
+    }
+
     private void displayFirebaseRegId() {
-        SharedPreferences pref = getApplicationContext().getSharedPreferences(AppConfig.SHARED_PREF, 0);
-        String regId = pref.getString("regId", null);
+
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+
+        String regId = sessionManager.getFCMToken();
 
         Log.e(TAG, "Firebase reg id: " + regId);
 

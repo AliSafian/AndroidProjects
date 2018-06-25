@@ -7,19 +7,33 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.facefive.meetbook.R;
 import com.facefive.meetbook.UserHandling.SessionManager;
+import com.facefive.meetbook.app.AppConfig;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity  {
 
     private TextView name_tv;
     private TextView email_tv;
@@ -43,7 +57,7 @@ public class SettingsActivity extends AppCompatActivity {
 
             name_tv= findViewById(R.id.name);
             email_tv= findViewById(R.id.email);
-           session=new SessionManager(getApplicationContext());
+            session=new SessionManager(getApplicationContext());
             name_tv.setText(session.getName());
             email_tv.setText(session.getEmail());
 
@@ -90,6 +104,8 @@ public class SettingsActivity extends AppCompatActivity {
                     finish();
                     Intent i = new Intent(getApplicationContext(),LoginActivity.class );
                     SessionManager session = new SessionManager(getApplicationContext());
+                    sendRegistrationToServer(session.getUserID(),"");
+                    session.setTokenRefreshed(true);
                     session.setLogin(false);
                     startActivity(i);
                 }
@@ -116,6 +132,59 @@ public class SettingsActivity extends AppCompatActivity {
 
         image.setOnClickListener(btnChoosePhotoPressed);
 
+    }
+
+    private void sendRegistrationToServer(final int userId , final String token) {
+
+
+
+        RequestQueue requestQueue= Volley.newRequestQueue(this);
+
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, AppConfig.URL_UPDATE_FCM_TOKEN, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    boolean error = jObj.getBoolean("Error");
+
+
+                    // Check for error node in json
+                    if (!error) {
+                        String successMsg = jObj.getString("SuccessMsg");
+                        Toast.makeText(getApplicationContext(),
+                                successMsg, Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        String errorMsg = jObj.getString("ErrorMsg");
+                        Toast.makeText(getApplicationContext(),
+                                errorMsg, Toast.LENGTH_LONG).show();
+
+                    }
+                } catch (JSONException e) {
+                    // JSON error
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String, String> params=new HashMap<String, String>();
+                params.put("UserID",userId+"");
+                params.put("FCMToken",token);
+
+                return params;
+            }
+        };
+        requestQueue.add(stringRequest);
     }
     public View.OnClickListener btnChoosePhotoPressed = new View.OnClickListener() {
         @Override
@@ -170,7 +239,5 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
     }
-
-
 
 }
