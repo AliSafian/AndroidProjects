@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:focusable="false"
+    android:focusableInTouchMode="false">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="90dp">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="30dp"
+        android:layout_margin="10dp"
+        android:src="@drawable/ali"
+        app:civ_border_color="@color/colorPrimaryDark"
+        app:civ_border_width="2dp"
+        android:id="@+id/iv_user_pic" />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:id="@+id/ll_single_row_name_and_time"
+    android:layout_marginTop="10dp"
+    android:layout_toRightOf="@+id/iv_user_pic"
+    >
+    <TextView
+        android:id="@+id/rec_meet_tv_name"
+        android:layout_width="160dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="8dp"
+        android:text="Ali Safian Ali Ahmad"
+        android:textColor="@color/colorText"
+        android:textSize="20dp"
+
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/tv_recv_meet_time"
+        android:layout_width="match_parent"
+        android:gravity="end"
+        android:layout_height="wrap_content"
+        android:text="Mar 18, 2018"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="15dp"
+        android:textSize="12dp"
+        android:textColor="@color/colorTime"
+/>
+</LinearLayout>
+  <!--  <ImageView
+        android:layout_width="match_parent"
+        android:layout_toRightOf="@+id/ll_single_row_name_and_time"
+        android:layout_height="30dp"
+        android:src="@drawable/more_vert_black"
+        android:layout_marginTop="5dp"
+        android:id="@+id/recv_meet_more_vert"
+        />-->
+    <TextView
+        android:id="@+id/recv_meet_purpose"
+        android:layout_width="match_parent"
+        android:layout_height="29dp"
+        android:textSize="18sp"
+        android:layout_marginEnd="15dp"
+        android:layout_toRightOf="@+id/iv_user_pic"
+        android:layout_below="@+id/ll_single_row_name_and_time"
+        android:text="purpose comes  here for meeting " />
+
+    </RelativeLayout>
+</RelativeLayout>

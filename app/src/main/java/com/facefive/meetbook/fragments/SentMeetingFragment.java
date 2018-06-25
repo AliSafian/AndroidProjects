@@ -1,15 +1,18 @@
 package com.facefive.meetbook.fragments;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -27,6 +30,7 @@ import com.facefive.meetbook.SingleRow;
 import com.facefive.meetbook.TimetableSession.SlotSingleRow;
 import com.facefive.meetbook.TimetableSession.TimetableDay;
 import com.facefive.meetbook.TimetableSession.TimetableSession;
+import com.facefive.meetbook.UpdateMessage;
 import com.facefive.meetbook.app.AppConfig;
 import com.facefive.meetbook.request;
 
@@ -75,24 +79,99 @@ public class SentMeetingFragment extends Fragment {
         lv_list.setAdapter(adapter);*/
 
 
-        lv_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        lv_list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public boolean onItemLongClick(AdapterView<?> parent, View view,final int position, long id) {
+
+                new AlertDialog.Builder(getContext())
+                        .setTitle("Title")
+                        .setMessage("Do you really want to delete?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int whichButton) {
+
+                                DeleteSentMeeting(list.get(position).MeetID,2);
+                               // Toast.makeText(getContext(), "You pressed long time", Toast.LENGTH_SHORT).show();
+                            }}).setNegativeButton(android.R.string.cancel,null)
+                        .setNeutralButton("Edit Meeting", new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int whichButton) {
+
+                                Intent intent=new Intent(getContext(),request.class);
+                                intent.putExtra("flage",true);
+                                intent.putExtra("purpose",list.get(position).purpose);
+                                intent.putExtra("starttime",list.get(position).starttime);
+                                intent.putExtra("endtime",list.get(position).endtime);
+                                intent.putExtra("MeetID",list.get(position).MeetID);
+                                intent.putExtra("senderID",list.get(position).senderID);
+                                intent.putExtra("receiverID",list.get(position).receiverID);
+                                startActivity(intent);
+                            }}).show();
 
 
-                Intent i = new Intent(getActivity() , request.class );
-                startActivity(i);
+                // Toast.makeText(getApplicationContext(), "selected Item Name is " + v.getText()+position, Toast.LENGTH_SHORT).show();
+                //
+
+                return false;
             }
         });
 
         return view;
     }
+    public  void DeleteSentMeeting(final int MeetID,final int Status)
+    {
+        RequestQueue requestQueue= Volley.newRequestQueue(getContext());
 
+        final StringRequest stringRequest=new StringRequest(Request.Method.POST, AppConfig.URL_CHANGEMEETINGSTATUS, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    JSONObject jsonObject=new JSONObject(response);
+                    //Toast.makeText(getContext()," successfull"+ jsonObject,Toast.LENGTH_SHORT).show();
+
+                    if(! jsonObject.getBoolean("Error"))
+                    {
+                        //JSONArray object=jsonObject.getJSONArray("result");
+                        Toast.makeText(getContext(),jsonObject.toString(),Toast.LENGTH_SHORT).show();
+
+
+                    }
+                    else
+                    {
+
+                        Toast.makeText(getContext(),jsonObject.getString("error_msg"),Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(),error.toString(),Toast.LENGTH_SHORT).show();
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+
+
+                Map<String, String> params = new HashMap<String, String>();
+
+                params.put("MeetID",""+MeetID);
+                params.put("Status",Status+"");
+                return  params;
+            }
+        };
+        requestQueue.add(stringRequest);
+
+    }
     public  void getAllSentMeetings(final int SenderID)
     {
-
-
-
         RequestQueue requestQueue= Volley.newRequestQueue(getContext());
 
         StringRequest stringRequest=new StringRequest(Request.Method.POST, AppConfig.URL_GETALLSENTMEETINGS, new Response.Listener<String>() {
@@ -118,8 +197,8 @@ public class SentMeetingFragment extends Fragment {
 
                             JSONArray array=object.getJSONArray(i);
 
-                            String time=array.get(2).toString();
-                           int day=Integer.parseInt( time.substring(8,10));
+                            String Reqtime=array.get(2).toString();
+                           int day=Integer.parseInt( Reqtime.substring(8,10));
                            int sysday= calendar.get(Calendar.DAY_OF_MONTH);
                            String showday=null;
                            if(day - sysday==0)
@@ -136,9 +215,15 @@ public class SentMeetingFragment extends Fragment {
                            }
                            else
                            {
-                               showday=time.substring(0,10);
+                               showday=Reqtime.substring(0,10);
                            }
-                            MeetingSingleRow row = new MeetingSingleRow(array.get(0).toString() , "You sent meeting "+showday+" at "+time.substring(11,16), images[i]);
+                           String purpose=array.get(4).toString();
+                            String starttime=array.get(5).toString();
+                            String endtime=array.get(6).toString();
+                            int meetID=Integer.parseInt(array.get(7).toString());
+                            int SenderID=Integer.parseInt(array.get(8).toString());
+                            int ReceiverID=Integer.parseInt(array.get(9).toString());
+                            MeetingSingleRow row = new MeetingSingleRow(array.get(0).toString() , "You sent meeting "+showday+" at "+Reqtime.substring(11,16), images[i],meetID,purpose,starttime,endtime,SenderID,ReceiverID,Reqtime);
                             list.add(row);
 
                         }

@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facefive.meetbook.utils.DateUtils;
+
 import java.util.ArrayList;
 
 public class MeetingListAdapter extends BaseAdapter {
@@ -42,22 +44,34 @@ public class MeetingListAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         if(list.size() == 0)
             return null;
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View row = inflater.inflate(R.layout.single_row, parent, false);
+        View row = inflater.inflate(R.layout.single_row_receive_meeting, parent, false);
 
         ImageView image = row.findViewById(R.id.iv_user_pic);
-        TextView name = row.findViewById(R.id.tv_name);
-        TextView description = row.findViewById(R.id.tv_description);
+        TextView name = row.findViewById(R.id.rec_meet_tv_name);
+        TextView description = row.findViewById(R.id.recv_meet_purpose);
+        TextView time = row.findViewById(R.id.tv_recv_meet_time);
+        //ImageView moreVert = row.findViewById(R.id.recv_meet_more_vert);
 
         final MeetingSingleRow temp = list.get(position);
 
         name.setText(temp.name);
-        description.setText(temp.description);
+        description.setText(temp.purpose);
         image.setImageResource(temp.image);
+
+        String showtime= DateUtils.getDateTimeString(temp.reqTime);
+
+        time.setText(showtime);
+  /*      moreVert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context,"yo clicked "+position,Toast.LENGTH_SHORT).show();
+            }
+        });*/
 
         return row;
     }

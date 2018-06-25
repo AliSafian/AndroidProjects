@@ -5,48 +5,29 @@ package com.facefive.meetbook;
  */
 
 public class MeetingSingleRow{
+    public int MeetID;
     public String name;
     public String description;
     public int image;
     public String purpose;
-    public String date,starttime,endtime;
+    public String starttime,endtime;
     public int senderID,receiverID;
+    public String reqTime;
 
-    public MeetingSingleRow(String name , String description , int image)
-    {
-        this.name = name;
-        this.description=description;
-        this.image = image;
-    }
-    public MeetingSingleRow(String name , String description , int image, String purpose)
-    {
-        this.name = name;
-        this.description=description;
-        this.image = image;
-        this.purpose=purpose;
-    }
-    public MeetingSingleRow(String name , String description , int image, String purpose,String date,String starttime,String endtime,int senderID)
+
+
+
+    public MeetingSingleRow(String name , String description , int image,int meetID, String purpose,String starttime,String endtime,int SenderID,int ReceiverID,String reqTime)
     {
         this.name = name;
         this.description=description;
         this.image = image;
         this.purpose=purpose;
-        this.date=date;
         this.starttime=starttime;
         this.endtime=endtime;
-        this.senderID=senderID;
-    }
-    public String getName()
-    {
-        return this.name;
-    }
-
-    public String getDescription()
-    {
-        return this.description;
-    }
-    public int getImageInt()
-    {
-        return this.image;
+        this.MeetID=meetID;
+        this.senderID=SenderID;
+        this.receiverID=ReceiverID;
+        this.reqTime=reqTime;
     }
 }

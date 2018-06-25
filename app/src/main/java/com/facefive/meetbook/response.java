@@ -46,10 +46,10 @@ public class response extends AppCompatActivity {
         Intent intent=getIntent();
         String value=intent.getStringExtra("subject");
         String namevalue=intent.getStringExtra("name");
-        String date=intent.getStringExtra("date");
-        String starttime=intent.getStringExtra("starttime");
+        final String date=intent.getStringExtra("date");
+        final String starttime=intent.getStringExtra("starttime");
         String endtime=intent.getStringExtra("endtime");
-        final int senderID=intent.getIntExtra("senderID",0);
+        final int MeetID=intent.getIntExtra("MeetID",0);
         subject.setText(value);
         name.setText(namevalue);
         tv_date.setText(date);
@@ -57,19 +57,28 @@ public class response extends AppCompatActivity {
         tv_endtime.setText(endtime);
 
         reject=(Button)findViewById(R.id.resp_btn_reject);
+        final Calendar c = Calendar.getInstance();
+        int myear = c.get(Calendar.YEAR);
+        int mmonth = c.get(Calendar.MONTH)+1;
+        int mday = c.get(Calendar.DAY_OF_MONTH);
+        int mhour=c.get(Calendar.HOUR_OF_DAY);
+        int mminut=c.get(Calendar.MINUTE);
+       final String responTime=myear+"-"+mmonth+"-"+mday+" "+mhour+":"+mminut+":"+"00";
         accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SessionManager manager=new SessionManager(getApplicationContext());
+                // Toast.makeText(getApplicationContext(),""+MeetID,Toast.LENGTH_SHORT).show();
 
-                ChangeMeetingStatus(manager.getUserID(),senderID,1);
-               // Toast.makeText(getApplicationContext(),"Request has been accepted"+senderID,Toast.LENGTH_SHORT).show();
+                ChangeMeetingStatus(MeetID,responTime,1);
+               // Toast.makeText(getApplicationContext(),date+" "+starttime+":"+"00",Toast.LENGTH_SHORT).show();
             }
         });
         reject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"Request has been Rejected",Toast.LENGTH_SHORT).show();
+                ChangeMeetingStatus(MeetID,responTime,2);
+                //Toast.makeText(getApplicationContext(),"Request has been Rejected",Toast.LENGTH_SHORT).show();
             }
         });
         startconv.setOnClickListener(new View.OnClickListener() {
@@ -80,7 +89,7 @@ public class response extends AppCompatActivity {
             }
         });
     }
-    public  void ChangeMeetingStatus(final int ReceiverID,final int SenderID,final int Status)
+    public  void ChangeMeetingStatus(final int myMeetID, final String respTime,final int Status)
     {
         RequestQueue requestQueue= Volley.newRequestQueue(response.this);
 
@@ -94,8 +103,8 @@ public class response extends AppCompatActivity {
 
                     if(! jsonObject.getBoolean("Error"))
                     {
-                        JSONArray object=jsonObject.getJSONArray("result");
-                        Toast.makeText(response.this,object.toString(),Toast.LENGTH_SHORT).show();
+                        //JSONArray object=jsonObject.getJSONArray("result");
+                        Toast.makeText(response.this,jsonObject.toString(),Toast.LENGTH_SHORT).show();
 
 
                     }
@@ -123,9 +132,9 @@ public class response extends AppCompatActivity {
 
                 Map<String, String> params = new HashMap<String, String>();
 
-                params.put("ReceiverID",""+ReceiverID);
-                params.put("SenderID",""+SenderID);
+                params.put("MeetID",""+myMeetID);
                 params.put("Status",Status+"");
+                params.put("respTime",respTime);
                 return  params;
             }
         };
