@@ -39,7 +39,7 @@
         <activity
             android:name=".activities.VerifyCodeActivity"
             android:label="@string/title_activity_verify_code"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.NewPasswordActivity"
             android:label="@string/title_activity_new_password"
@@ -110,7 +110,7 @@
         <activity
             android:name=".request"
             android:label="Meeting Request"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".response"
             android:label="Response a meeting"
@@ -122,20 +122,20 @@
         <activity
             android:name=".show_all_meetings"
             android:label="All meeting Requests"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".chat_list"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ConversationBasic"
             android:label="Conversation"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.NotificationActivity"
             android:label="Notification Settings"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".UpdateMessage" />
         <activity android:name=".activities.NewUpdateMessage" />
         <activity android:name=".SchedulePlan" />
@@ -153,23 +153,23 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity android:name=".activities.FeaturesActivity"
+        <activity
+            android:name=".activities.FeaturesActivity"
             android:label="Features"
-            android:screenOrientation="portrait"></activity>
-
+            android:screenOrientation="portrait" />
 
         <service android:name=".services.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
         <service android:name=".services.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 
+        <activity android:name=".activities.AllChatsActivity"></activity>
     </application>
 
 </manifest>

@@ -30,10 +30,11 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.facefive.meetbook.fragments.SentMeetingFragment;
 import com.facefive.meetbook.fragments.FixedMeetingFragment;
 import com.facefive.meetbook.R;
 import com.facefive.meetbook.fragments.ReceiveMeetingFragment;
-import com.facefive.meetbook.fragments.SentMeetingFragment;
+
 
 public class MeetingsActivity extends AppCompatActivity {
 

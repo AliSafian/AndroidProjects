@@ -7,6 +7,8 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.facefive.meetbook.activities.HomeActivity;
+import com.facefive.meetbook.activities.MeetingsActivity;
+import com.facefive.meetbook.activities.PrintSettingActivity;
 import com.facefive.meetbook.app.AppConfig;
 import com.facefive.meetbook.utils.NotificationUtils;
 import com.google.firebase.messaging.FirebaseMessagingService;

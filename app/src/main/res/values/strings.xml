@@ -41,13 +41,13 @@
 
 
     <string-array name="names">
-    <item>Fareed ul Hassan</item>
-    <item>Muhammad Usama</item>
-    <item>Muhammad Shahid</item>
-    <item>Amina Naeem</item>
-    <item>Saira Rehan</item>
-    <item>Ali Safian</item>
-    <item>Ashar Ahmad</item>
+        <item>Fareed ul Hassan</item>
+        <item>Muhammad Usama</item>
+        <item>Muhammad Shahid</item>
+        <item>Amina Naeem</item>
+        <item>Saira Rehan</item>
+        <item>Ali Safian</item>
+        <item>Ashar Ahmad</item>
 
     </string-array>
 

@@ -24,13 +24,16 @@ public class SessionManager {
     int PRIVATE_MODE = 0;
 
     // Shared preferences file name
-    private static final String PREF_NAME = "MeetbookLogin";
+    private static final String PREF_NAME = "SP_MeetBook";
     private static final String KEY_IS_LOGGEDIN = "isLoggedIn";
     private static final String KEY_USER_ID = "UserID";
     private static final String KEY_NAME = "Name";
     private static final String KEY_EMAIL = "Email";
     private static final String KEY_PICTURE_PATH = "PicturePath";
     private static final String KEY_UNI_NAME = "UniName";
+    private static final String KEY_FCM_TOKEN = "FCMToken";
+    private static final String KEY_IS_TOKEN_REFRESHED = "isTokenRefreshed";
+
 
     public SessionManager(Context context) {
         this._context = context;
@@ -48,9 +51,20 @@ public class SessionManager {
         Log.d(TAG, "User login session modified!");
     }
 
+    public void setTokenRefreshed(boolean isRefreshed) {
+        editor.putBoolean(KEY_IS_TOKEN_REFRESHED, isRefreshed);
+        // commit changes
+        editor.commit();
+        Log.d(TAG, "FCM token modified!");
+    }
+
     public boolean isLoggedIn(){
         return pref.getBoolean(KEY_IS_LOGGEDIN, false);
     }
+    public boolean isTokenRefreshed(){
+        return pref.getBoolean(KEY_IS_TOKEN_REFRESHED, false);
+    }
+
 
     public void setUser(int userID ,String name, String email, String picPath, String uniName)
     {
@@ -59,7 +73,6 @@ public class SessionManager {
         editor.putString(KEY_EMAIL, email);
         editor.putString(KEY_PICTURE_PATH, picPath);
         editor.putString(KEY_UNI_NAME, uniName);
-
         editor.commit();
     }
 
@@ -83,6 +96,10 @@ public class SessionManager {
     {
         return pref.getString(KEY_UNI_NAME, null);
     }
+    public String getFCMToken()
+    {
+        return pref.getString(KEY_FCM_TOKEN, null);
+    }
 
     public void setName(String name)
     {
@@ -91,7 +108,6 @@ public class SessionManager {
 
         editor.commit();
     }
-
     public void setEmail(String email)
     {
 
@@ -110,6 +126,13 @@ public class SessionManager {
     {
 
         editor.putString(KEY_UNI_NAME, uniName);
+
+        editor.commit();
+    }
+    public void setFCMToken(String fcmToken)
+    {
+
+        editor.putString(KEY_FCM_TOKEN, fcmToken);
 
         editor.commit();
     }
