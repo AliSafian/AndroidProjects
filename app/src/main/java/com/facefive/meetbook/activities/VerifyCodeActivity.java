@@ -140,15 +140,12 @@ public class VerifyCodeActivity extends AppCompatActivity {
             public void run() {
 
                 try {
-
-                    final String senderEmail ="we.meetbook@gmail.com";
-                    final String password ="mba@gmail";
                     pin = generatePIN();
-                    MailSender sender = new MailSender( senderEmail ,password);
+                    MailSender sender = new MailSender( AppConfig.SENDER_EMAIL ,AppConfig.SENDER_PASSWORD);
                     // sender.addAttachment(Environment.getExternalStorageDirectory().getPath()+"/image.jpg");
-                    String body = "Dear Sir/Madam, Thank You For Registration. \nYou Registration code is "+pin;
+                    String body = "Dear User, welcome to MeetBook network. \nYou Registration code is "+pin;
                     String subject ="MeetBook: Verification Code ";
-                    sender.sendMail(subject ,body , senderEmail,email );
+                    sender.sendMail(subject ,body , AppConfig.SENDER_EMAIL,email );
 
                 } catch (Exception e) {
 

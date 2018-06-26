@@ -51,7 +51,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.app.default_searchable"
-                android:value=".SearchResultActivity" />
+                android:value=".activities.SearchResultActivity" />
         </activity>
         <activity
             android:name=".activities.SearchResultActivity"
