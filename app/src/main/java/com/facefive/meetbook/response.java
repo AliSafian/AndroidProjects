@@ -46,9 +46,9 @@ public class response extends AppCompatActivity {
         Intent intent=getIntent();
         String value=intent.getStringExtra("subject");
         String namevalue=intent.getStringExtra("name");
-        final String date=intent.getStringExtra("date");
-        final String starttime=intent.getStringExtra("starttime");
-        String endtime=intent.getStringExtra("endtime");
+        final String date=intent.getStringExtra("starttime").substring(0,10);;
+        final String starttime=intent.getStringExtra("starttime").substring(11,19);
+        String endtime=intent.getStringExtra("endtime").substring(11,19);
         final int MeetID=intent.getIntExtra("MeetID",0);
         subject.setText(value);
         name.setText(namevalue);

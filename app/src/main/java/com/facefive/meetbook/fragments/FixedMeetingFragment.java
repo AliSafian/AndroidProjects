@@ -29,6 +29,7 @@ import com.facefive.meetbook.MeetingListAdapter;
 import com.facefive.meetbook.MeetingSingleRow;
 import com.facefive.meetbook.R;
 import com.facefive.meetbook.SingleRow;
+import com.facefive.meetbook.UserHandling.SessionManager;
 import com.facefive.meetbook.app.AppConfig;
 import com.facefive.meetbook.request;
 
@@ -51,7 +52,8 @@ public class FixedMeetingFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_fixed_meeting , container, false);
 
         lv_list = (ListView) view.findViewById(R.id.lv_meeting_fixed);
-        getAllFixedMeetings(18);
+        SessionManager manager=new SessionManager(getContext());
+        getAllFixedMeetings(manager.getUserID());
 /*
         Resources res = this.getResources();
         String[] names = res.getStringArray(R.array.names);

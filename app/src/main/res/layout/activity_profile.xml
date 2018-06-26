@@ -54,7 +54,7 @@
                     android:id="@+id/name_tv_profileactivity_xml"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ali Safian"
+                    android:text="Shahid Kanwal"
                     android:textAlignment="center"
                     android:textColor="@color/colorText"
                     android:textSize="24dp"
