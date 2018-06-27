@@ -30,7 +30,6 @@ public class ProfileActivity extends AppCompatActivity {
        final String receiverID = i.getStringExtra("UserID");
 
         String name = i.getStringExtra("name");
-       String name = i.getStringExtra("name");
         int img_id = i.getIntExtra("img_id", R.drawable.ic_dp_demo);
         meetReq=findViewById(R.id.meetingreq_iv_profileactivity_aml);
        name_tv= findViewById(R.id.name_tv_profileactivity_xml);
