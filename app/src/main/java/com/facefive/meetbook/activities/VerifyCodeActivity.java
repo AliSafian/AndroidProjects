@@ -142,7 +142,7 @@ public class VerifyCodeActivity extends AppCompatActivity {
                 try {
 
                     final String senderEmail ="we.meetbook@gmail.com";
-                    final String password ="mba@gmail";
+                    final String password ="mba@web2018";
                     pin = generatePIN();
                     MailSender sender = new MailSender( senderEmail ,password);
                     // sender.addAttachment(Environment.getExternalStorageDirectory().getPath()+"/image.jpg");
