@@ -94,7 +94,7 @@ public class SignupActivity extends AppCompatActivity {
                     return;
                 }
                 else if(!pass.matches(AppConfig.PASSWORD_PATTERN)) {
-                    pass_et.setError("Password requires \nAtleast 1 uppercase and 1 lower case\nLength from 6 to 15");
+                    pass_et.setError("Password requires \nAtleast 1 alphabet \nAtleast 1 digit \nLength from 6 to 15");
                     pass_et.requestFocus();
                     flag= false;
                     return;
@@ -187,7 +187,7 @@ public class SignupActivity extends AppCompatActivity {
                     String pass = pass_et.getText().toString();
 
                     if(!pass.matches(AppConfig.PASSWORD_PATTERN)) {
-                        pass_et.setError("Password requires \nAtleast 1 uppercase and 1 lower case \nAtleast 1 digit \nLength from 6 to 15");
+                        pass_et.setError("Password requires \nAtleast 1 alphabet \nAtleast 1 digit \nLength from 6 to 15");
                     }
                 }
             }

@@ -29,6 +29,7 @@ import com.facefive.meetbook.MeetingListAdapter;
 import com.facefive.meetbook.MeetingSingleRow;
 import com.facefive.meetbook.R;
 import com.facefive.meetbook.SingleRow;
+import com.facefive.meetbook.UserHandling.SessionManager;
 import com.facefive.meetbook.app.AppConfig;
 import com.facefive.meetbook.response;
 
@@ -51,7 +52,8 @@ public class ReceiveMeetingFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_receive_meeting , container, false);
 
         lv_list = (ListView) view.findViewById(R.id.lv_meeting_received);
-        getAllRequestedMeetings(18);
+        SessionManager manager=new SessionManager(getContext());
+        getAllRequestedMeetings(manager.getUserID());
   /*      Resources res = this.getResources();
         String[] names = res.getStringArray(R.array.names);
 

@@ -5,15 +5,16 @@ package com.facefive.meetbook.app;
  */
 
 public class AppConfig {
-    public static final String URL_LOGIN = "http://meetbookapp.com/APIs/login_user.php";
+    public static final String SENDER_EMAIL = "We.MeetBook@gmail.com";
+    public static final String SENDER_PASSWORD = "mba@web2018";
 
+
+    public static final String URL_GETSEARCHEDUSERS= "http://meetbookapp.com/APIs/getSearchedUsers.php";
+    public static final String URL_LOGIN = "http://meetbookapp.com/APIs/login_user.php";
     public static final String URL_TIMATABLE = "http://meetbookapp.com/APIs/timetable_request.php";
     public static final String URL_GETTIMETABLE = "http://meetbookapp.com/APIs/getTimetable_request.php";
-
     public static final String URL_GETALLSENTMEETINGS = "http://meetbookapp.com/APIs/getSentMeetRequests.php";
-
     public static final String URL_CHANGEMEETINGSTATUS = "http://meetbookapp.com/APIs/ChangeMeetingStatus.php";
-
     public static final String URL_SAVEUPDATEMESSAGE = "http://meetbookapp.com/APIs/saveUpdateMessage.php";
     public static final String URL_GETUPDATEMESSAGES = "http://meetbookapp.com/APIs/getUpdateMessages_request.php";
     public static final String URL_DELUPDATEMESSAGE = "http://meetbookapp.com/APIs/deleteUpdateMessage.php";
@@ -26,7 +27,7 @@ public class AppConfig {
     public static final String URL_UPDATE_FCM_TOKEN= "http://www.meetbookapp.com/APIs/updateFCMToken.php";
 
     public static final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-    public static final String PASSWORD_PATTERN = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,15}$";
+    public static final String PASSWORD_PATTERN = "^(?=.*?[a-z])(?=.*?[0-9]).{6,15}$";
     // Password Lentgh is 6-15
     //Password require atleast 1 uppercase and 1 lower case.
 

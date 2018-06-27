@@ -31,6 +31,7 @@ import com.facefive.meetbook.TimetableSession.SlotSingleRow;
 import com.facefive.meetbook.TimetableSession.TimetableDay;
 import com.facefive.meetbook.TimetableSession.TimetableSession;
 import com.facefive.meetbook.UpdateMessage;
+import com.facefive.meetbook.UserHandling.SessionManager;
 import com.facefive.meetbook.app.AppConfig;
 import com.facefive.meetbook.request;
 
@@ -59,7 +60,9 @@ public class SentMeetingFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_sent_meeting , container, false);
 
         lv_list = (ListView) view.findViewById(R.id.lv_meeting_sent);
-        getAllSentMeetings(18);
+        SessionManager manager=new SessionManager(getContext());
+
+        getAllSentMeetings(manager.getUserID());
 
 
         Resources res = this.getResources();
