@@ -274,10 +274,10 @@ public class SchedulePlanSetting extends AppCompatActivity {
     }
 
 
+
+
+
     public  void getTimeTable(final int userid){
-
-
-
         RequestQueue requestQueue= Volley.newRequestQueue(this);
 
         StringRequest stringRequest=new StringRequest(Request.Method.POST, AppConfig.URL_GETTIMETABLE, new Response.Listener<String>() {
