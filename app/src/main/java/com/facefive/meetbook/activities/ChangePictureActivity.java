@@ -71,8 +71,6 @@ public class ChangePictureActivity extends AppCompatActivity {
     private  String mCurrentPhotoPath;
     private  String encodedString;
     private  String imageName;
-
-
     private boolean isPhotoChanged;
 
     @Override
@@ -90,9 +88,7 @@ public class ChangePictureActivity extends AppCompatActivity {
 
         mCurrentPhotoPath =  session.getPicturePath();
 
-        Toast.makeText(getApplicationContext(),mCurrentPhotoPath, Toast.LENGTH_SHORT).show();
-
-        if(!mCurrentPhotoPath.equals("null"))
+        if(mCurrentPhotoPath !=null)
         {
             picUri =  Uri.parse(new File(mCurrentPhotoPath).toString());
             iv_profile_photo.setImageURI(picUri);
@@ -110,13 +106,10 @@ public class ChangePictureActivity extends AppCompatActivity {
                 if(isPhotoChanged)
                 {
                     new EncodeImage().execute();
-
                 }
                 else
                 {
-
                     Toast.makeText(getApplicationContext(),"Select a new photo before saving", Toast.LENGTH_SHORT).show();
-
                 }
             }
         }
@@ -170,31 +163,6 @@ public class ChangePictureActivity extends AppCompatActivity {
             catchPhoto();
         }
     }
-
-    private void catchPhoto() {
-
-       File file = getFile();
-        if(file!=null) {
-            try {
-               Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                    if (intent.resolveActivity(getPackageManager()) != null) {
-                        picUri = FileProvider.getUriForFile(this,
-                                "com.facefive.meetbook.fileprovider",
-                                file);
-                        intent.putExtra(MediaStore.EXTRA_OUTPUT, picUri);
-                        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                        startActivityForResult(intent, CAMERA);
-                    }
-            } catch (ActivityNotFoundException e) {
-                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        } else {
-            Toast.makeText(ChangePictureActivity.this, "please check your sdcard status", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-
-
     private void checkPermissionRG(){
         int permissionCheck = ContextCompat.checkSelfPermission(ChangePictureActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE);
         if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
@@ -213,6 +181,29 @@ public class ChangePictureActivity extends AppCompatActivity {
             getPhotos();
         }
     }
+
+    private void catchPhoto() {
+
+        File file = getFile();
+        if(file!=null) {
+            try {
+                Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    picUri = FileProvider.getUriForFile(this,
+                            "com.facefive.meetbook.fileprovider",
+                            file);
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, picUri);
+                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                    startActivityForResult(intent, CAMERA);
+                }
+            } catch (ActivityNotFoundException e) {
+                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(ChangePictureActivity.this, "please check your sdcard status", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private void getPhotos() {
 
         Intent photoPickerIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -240,15 +231,12 @@ public class ChangePictureActivity extends AppCompatActivity {
         return mediaFile;
     }
 
-
-    private String getPictureName()
-    {
+    private String getPictureName() {
         SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmss");
         String timestamp=sdf.format(new Date());
         SessionManager sm = new SessionManager(getApplicationContext());
         return "MeetBook"+sm.getUserID()+timestamp+".jpg";
     }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -289,36 +277,6 @@ public class ChangePictureActivity extends AppCompatActivity {
 
     }
 
-    private void setPic() {
-        // Get the dimensions of the View
-        int targetW = iv_profile_photo.getWidth();
-        int targetH = iv_profile_photo.getHeight();
-
-        // Get the dimensions of the bitmap
-        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        bmOptions.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-        int photoW = bmOptions.outWidth;
-        int photoH = bmOptions.outHeight;
-
-        // Determine how much to scale down the image
-        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
-
-        // Decode the image file into a Bitmap sized to fill the View
-        bmOptions.inJustDecodeBounds = false;
-        bmOptions.inSampleSize = 6;
-        bmOptions.inPurgeable = true;
-
-        Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-        iv_profile_photo.setImageBitmap(bitmap);
-    }
-    private void galleryAddPic() {
-        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        File f = new File(mCurrentPhotoPath);
-        Uri contentUri = Uri.fromFile(f);
-        mediaScanIntent.setData(contentUri);
-        this.sendBroadcast(mediaScanIntent);
-    }
     public String saveImage(Bitmap myBitmap) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
@@ -332,30 +290,6 @@ public class ChangePictureActivity extends AppCompatActivity {
             e1.printStackTrace();
         }
         return "";
-    }
-    public void ImageCropFunction() {
-
-        // Image Crop Code
-       try {
-            Intent CropIntent = new Intent("com.android.camera.action.CROP");
-
-            CropIntent.setDataAndType(picUri, "image/*");
-
-            CropIntent.putExtra("crop", "true");
-            CropIntent.putExtra("outputX",300);
-            CropIntent.putExtra("outputY",  300);
-            CropIntent.putExtra("aspectX", 5);
-            CropIntent.putExtra("aspectY", 5);
-            CropIntent.putExtra("scaleUpIfNeeded", true);
-            CropIntent.putExtra("return-data", true);
-
-            startActivityForResult(CropIntent, CROP);
-
-        } catch (ActivityNotFoundException e) {
-           String errorMessage = "Whoops - your device doesn't support the crop action!";
-           Toast toast = Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT);
-           toast.show();
-        }
     }
     public void onRequestPermissionsResult (int requestCode, String[] permissions,  int[] grantResults)
     {
@@ -375,21 +309,6 @@ public class ChangePictureActivity extends AppCompatActivity {
                 break;
         }
     }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_save:
-               Toast.makeText(getApplicationContext(), "SAVE", Toast.LENGTH_SHORT).show();
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-
-        }
-    }
-
 
     private class EncodeImage extends AsyncTask<Void, Void, Void>{
         @Override

@@ -1,5 +1,6 @@
 package com.facefive.meetbook.activities;
 
+import android.Manifest;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.SearchManager;
@@ -8,17 +9,25 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.view.MenuInflater;
 import android.support.design.widget.NavigationView;
@@ -30,6 +39,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,6 +65,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -76,14 +91,19 @@ public class HomeActivity extends AppCompatActivity
 
     private boolean doubleBackToExitPressedOnce = false;
 
+
+    private static final int PER_WRITE_EXTERNAL_STORAGE   = 11;
+    private static final int PER_CAMERA   = 10;
+    private static final int PER_READ_EXTERNAL_STORAGE   = 13;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(!isNetworkAvailable())
+       /* if(!isNetworkAvailable())
         {
             Intent intent = new Intent(getApplicationContext(), NoInternetActivity.class);
             startActivity(intent);
-        }
+        }*/
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -94,10 +114,35 @@ public class HomeActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View headerView = navigationView.getHeaderView(0);
+        TextView navName = (TextView) headerView.findViewById(R.id.tv_nav_name);
+        TextView navEmail = (TextView) headerView.findViewById(R.id.tv_nav_email);
+        ImageView navImage = headerView.findViewById(R.id.iv_header_img);
+
+
+        checkPermissionCW();
+        checkPermissionRG();
+        LoadPicture();
+        inItFixedMeetingRecyclerView();
+
 
         SessionManager sManager = new SessionManager(getApplicationContext());
+
+        navName.setText(sManager.getName());
+        navEmail.setText(sManager.getEmail());
+        String path =  sManager.getPicturePath();
+
+        if(path !=null)
+        {
+            navImage.setImageURI(Uri.parse(new File(path).toString()));
+        }
+        else
+        {
+            navImage.setImageResource(R.drawable.ic_dp_demo);
+        }
 
         if(sManager.isTokenRefreshed())
         {
@@ -107,19 +152,12 @@ public class HomeActivity extends AppCompatActivity
             sManager.setTokenRefreshed(false);
         }
 
-
-       // LinearLayout ll_more = findViewById(R.id.ll_more_home_activity);
         LinearLayout ll_messages = findViewById(R.id.ll_messages_home_activity);
         LinearLayout ll_timetable = findViewById(R.id.ll_timetable_home_activity);
         LinearLayout ll_meetings = findViewById(R.id.ll_meeting_home_activity);
         LinearLayout ll_send_update = findViewById(R.id.ll_send_update_home_activity);
         LinearLayout ll_notificatione = findViewById(R.id.ll_notification_home_activity);
         LinearLayout ll_connections = findViewById(R.id.ll_connections_home_activity);
-
-
-
-        inItFixedMeetingRecyclerView();
-
 
 
        /* ll_more.setOnClickListener(new View.OnClickListener() {
@@ -197,6 +235,133 @@ public class HomeActivity extends AppCompatActivity
         displayFirebaseRegId();
 
 
+    }
+
+
+    private void checkPermissionCW(){
+        int permissionCheck = ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                    HomeActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PER_WRITE_EXTERNAL_STORAGE);
+        } else {
+            checkPermissionCA();
+        }
+    }
+    private void checkPermissionCA(){
+        int permissionCheck = ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.CAMERA);
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                    HomeActivity.this, new String[]{Manifest.permission.CAMERA}, PER_CAMERA);
+        }
+    }
+    private void checkPermissionRG(){
+        int permissionCheck = ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE);
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                    HomeActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PER_READ_EXTERNAL_STORAGE);
+        }
+    }
+    public void onRequestPermissionsResult (int requestCode, String[] permissions,  int[] grantResults)
+    {
+
+        switch (requestCode) {
+            case PER_CAMERA:
+                break;
+            case PER_WRITE_EXTERNAL_STORAGE:
+                checkPermissionCA();
+                break;
+            case PER_READ_EXTERNAL_STORAGE:
+                break;
+        }
+    }
+
+    private void LoadPicture(){
+
+        RequestQueue requestQueue= Volley.newRequestQueue(this);
+
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, AppConfig.URL_LOAD_IMAGE, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    boolean error = jObj.getBoolean("Error");
+
+
+                    SessionManager sessionManager = new SessionManager(getApplicationContext());
+
+
+                    // Check for error node in json
+                    if (!error) {
+                        String imageName = jObj.getString("PictureName");
+                        String imageEncoded = jObj.getString("Base64");
+                        String path =saveImage(imageEncoded, imageName);
+                        sessionManager.setPicturePath(path);
+                    } else {
+                        String errorMsg = jObj.getString("ErrorMsg");
+                        Toast.makeText(getApplicationContext(),
+                                errorMsg , Toast.LENGTH_LONG).show();
+                        sessionManager.setPicturePath(null);
+                    }
+                } catch (JSONException e) {
+                    // JSON error
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String, String> params=new HashMap<String, String>();
+
+                SessionManager sessionManager = new SessionManager(getApplicationContext());
+
+                params.put("user_id",sessionManager.getUserID()+"");
+                return params;
+            }
+        };
+        requestQueue.add(stringRequest);
+    }
+
+    public File getFile(String imageName){
+
+        File fileDir = new File(Environment.getExternalStorageDirectory()
+                + "/Android/data/"
+                + getApplicationContext().getPackageName()
+                + "/Files");
+
+        if (!fileDir.exists()){
+            if (!fileDir.mkdirs()){
+                return null;
+            }
+        }
+        File mediaFile = new File(fileDir.getPath() + File.separator +imageName);
+        return mediaFile;
+    }
+    public String saveImage(String encodedImage, String imageName) {
+
+
+        byte[] decodedString = Base64.decode(encodedImage, Base64.DEFAULT);
+        Bitmap myBitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+        try {
+            File f = getFile(imageName);
+            FileOutputStream fo = new FileOutputStream(f);
+            fo.write(bytes.toByteArray());
+            fo.close();
+            return f.getAbsolutePath();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        return "";
     }
 
     private boolean isNetworkAvailable() {
@@ -295,11 +460,6 @@ public class HomeActivity extends AppCompatActivity
         super.onPause();
     }
 
-
-
-
-
-
     private void inItFixedMeetingRecyclerView()
     {
      /*   Resources res = this.getResources();
@@ -320,7 +480,6 @@ public class HomeActivity extends AppCompatActivity
 
 
     }
-
 
     public  void getAllFixedMeetings(final int UserID)
     {

@@ -29,6 +29,7 @@ public class AppConfig {
     public static final String URL_CHANGE_NAME= "http://www.meetbookapp.com/APIs/changeName.php";
     public static final String URL_UPDATE_FCM_TOKEN= "http://www.meetbookapp.com/APIs/updateFCMToken.php";
     public static final String URL_SAVE_IMAGE= "http://www.meetbookapp.com/APIs/savePicture.php";
+    public static final String URL_LOAD_IMAGE= "http://www.meetbookapp.com/APIs/getPicture.php";
 
 
 

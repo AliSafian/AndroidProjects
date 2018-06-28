@@ -62,7 +62,7 @@ public class SettingsActivity extends AppCompatActivity  {
             email_tv.setText(session.getEmail());
 
             String path =session.getPicturePath();
-            if(path.equals("null"))
+            if(path!= null)
             {
                 image.setImageURI(Uri.parse(new File(path).toString()));
             }
