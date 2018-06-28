@@ -53,6 +53,7 @@ public class ProfileActivity extends AppCompatActivity {
 
        final String otherUserID = i.getStringExtra("UserID");
 
+        CheckFollow(Integer.parseInt(otherUserID));
         String name = i.getStringExtra("name");
         int img_id = i.getIntExtra("img_id", R.drawable.ic_dp_demo);
         meetReq=findViewById(R.id.meetingreq_iv_profileactivity_aml);
@@ -102,23 +103,68 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        btn_sub.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(btn_sub.getText().toString().equals("subscribe"))
-                {
-                    btn_sub.setText("subscribed");
-                }
-                else
-                {
-                    btn_sub.setText("subscribe");
-                }
-            }
-        });
+
 
 
     }
+    public  void CheckFollow(final int userid){
+        RequestQueue requestQueue= Volley.newRequestQueue(this);
 
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, AppConfig.URL_CHANGEFOLLOW, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    JSONObject jsonObject=new JSONObject(response);
+
+
+                    if(! jsonObject.getBoolean("Error"))
+                    {
+
+                        if(jsonObject.getString("Status").equals("0"))
+                        {
+                            followtext.setTextColor(Color.RED);
+                            followtext.setText("Followed");
+                        }
+
+
+                    }
+                    else
+                    {
+
+                        Toast.makeText(getApplicationContext(),jsonObject.getString("error_msg"),Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
+
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+
+
+                Map<String, String> params = new HashMap<String, String>();
+                SessionManager manager=new SessionManager(getApplicationContext());
+                params.put("FollowingID",""+userid);
+                params.put("FollowerID",""+manager.getUserID());
+                params.put("Status",""+1);
+                // Toast.makeText(getApplicationContext(),jarray.toString(),Toast.LENGTH_SHORT).show();
+                return  params;
+            }
+        };
+        requestQueue.add(stringRequest);
+
+    }
     public  void setFollow(final int userid){
         RequestQueue requestQueue= Volley.newRequestQueue(this);
 
@@ -136,7 +182,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                         if(jsonObject.getString("Status").equals("0"))
                         {
-                            followtext.setTextColor(Color.BLUE);
+                            followtext.setTextColor(Color.RED);
                             followtext.setText("Followed");
                         }
                         if(jsonObject.getString("Status").equals("1"))
