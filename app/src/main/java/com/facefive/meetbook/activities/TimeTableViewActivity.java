@@ -13,6 +13,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.facefive.meetbook.R;
+import com.facefive.meetbook.SchedulePlan;
 import com.facefive.meetbook.TimeTableExpandableListAdapter;
 import com.facefive.meetbook.TimetableSession.SlotSingleRow;
 import com.facefive.meetbook.TimetableSession.TimetableDay;
@@ -36,19 +37,39 @@ public class TimeTableViewActivity extends AppCompatActivity {
     private TimeTableExpandableListAdapter listAdapter;
     private List<String> listDataHeader;
     private HashMap<String, List<String>> listHash;
+    private int userID =0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_time_table_view);
 
         listView = findViewById(R.id.timatable_ex_lv);
-        int userID = Integer.parseInt(getIntent().getStringExtra("userID"));
-        getCompeleteTimeTable(userID);
-        initData();
-        listAdapter = new TimeTableExpandableListAdapter(this , listDataHeader, listHash);
-        listView.setAdapter(listAdapter);
+        userID = Integer.parseInt(getIntent().getStringExtra("userID"));
+        getCompeleteTimeTable(userID, new VolleyCallback() {
+            @Override
+            public void onSuccess() {
+                initData();
+                listAdapter = new TimeTableExpandableListAdapter(getApplicationContext() , listDataHeader, listHash);
+                listView.setAdapter(listAdapter);
+            }
+        });
+
+
     }
 
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        getCompeleteTimeTable(userID, new VolleyCallback() {
+            @Override
+            public void onSuccess() {
+                initData();
+                listAdapter = new TimeTableExpandableListAdapter(getApplicationContext() , listDataHeader, listHash);
+                listView.setAdapter(listAdapter);
+            }
+        });
+    }
     private void initData() {
 
         listDataHeader = new ArrayList<>();
@@ -79,7 +100,7 @@ public class TimeTableViewActivity extends AppCompatActivity {
 
 
     }
-    public  void getCompeleteTimeTable(final int userid){
+    public  void getCompeleteTimeTable(final int userid, final VolleyCallback callback){
         RequestQueue requestQueue= Volley.newRequestQueue(this);
 
         StringRequest stringRequest=new StringRequest(Request.Method.POST, AppConfig.URL_GETCOMPLETETIMETABLE, new Response.Listener<String>() {
@@ -125,13 +146,13 @@ public class TimeTableViewActivity extends AppCompatActivity {
                             TimetableSession.Days.add(timetableDay);
                             i--;
                         }
-
                     }
                     else
                     {
 
                         Toast.makeText(getApplicationContext(),jsonObject.getString("error_msg"),Toast.LENGTH_SHORT).show();
                     }
+                    callback.onSuccess();
                 } catch (JSONException e) {
                     e.printStackTrace();
 
@@ -159,5 +180,8 @@ public class TimeTableViewActivity extends AppCompatActivity {
         };
         requestQueue.add(stringRequest);
 
+    }
+    private interface VolleyCallback{
+        void onSuccess();
     }
 }

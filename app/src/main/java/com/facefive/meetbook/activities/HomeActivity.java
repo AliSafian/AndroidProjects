@@ -443,21 +443,8 @@ public class HomeActivity extends AppCompatActivity
 
     private void inItFixedMeetingRecyclerView()
     {
-     /*   Resources res = this.getResources();
-        String[] names = res.getStringArray(R.array.names);
-
-        int [] images ={R.drawable.fareed,R.drawable.usama,R.drawable.shahid,R.drawable.amina,R.drawable.saira,R.drawable.ali,R.drawable.ashar};
-        list = new ArrayList<SingleRow>();
-        for (int i =0; i<7 ; i++)
-        {
-
-            SingleRow row = new SingleRow(names[i] , "You sent meeting at 16:00", images[i]);
-            list.add(row);
-
-        }*/
-
         SessionManager manager=new SessionManager(getApplicationContext());
-      getAllFixedMeetings(manager.getUserID());
+        getAllFixedMeetings(manager.getUserID());
 
 
     }
@@ -481,8 +468,6 @@ public class HomeActivity extends AppCompatActivity
 
                         Calendar calendar=Calendar.getInstance();
                         calendar.get(Calendar.DAY_OF_WEEK);
-                        int [] images ={R.drawable.fareed,R.drawable.usama,R.drawable.shahid,R.drawable.amina,R.drawable.saira,R.drawable.ali,R.drawable.ashar};
-
                         list = new ArrayList<MeetingSingleRow>();
                         for (int i =1; i< object.length(); i++)
                         {
@@ -515,7 +500,7 @@ public class HomeActivity extends AppCompatActivity
                             int meetID=Integer.parseInt(array.get(7).toString());
                             int SenderID=Integer.parseInt(array.get(8).toString());
                             int ReceiverID=Integer.parseInt(array.get(9).toString());
-                            MeetingSingleRow row = new MeetingSingleRow(array.get(0).toString() , starttime.substring(11,16)+" to "+endtime.substring(11,16), images[i],meetID,purpose,starttime,endtime,SenderID,ReceiverID,Reqtime);
+                            MeetingSingleRow row = new MeetingSingleRow(array.get(0).toString() , starttime.substring(11,16)+" to "+endtime.substring(11,16),R.drawable.ic_dp_demo,meetID,purpose,starttime,endtime,SenderID,ReceiverID,Reqtime);
                             list.add(row);
 
                         }

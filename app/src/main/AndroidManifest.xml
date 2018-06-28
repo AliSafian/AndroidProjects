@@ -180,7 +180,8 @@
 
         <activity android:name=".activities.AllChatsActivity" />
         <activity android:name=".activities.NoInternetActivity" />
-        <activity android:name=".activities.TimeTableViewActivity"></activity>
+        <activity android:name=".activities.TimeTableViewActivity" />
+        <activity android:name=".activities.FixedMeetingDetailActivity"></activity>
     </application>
 
 </manifest>

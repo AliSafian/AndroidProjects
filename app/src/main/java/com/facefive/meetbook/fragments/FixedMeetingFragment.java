@@ -30,6 +30,7 @@ import com.facefive.meetbook.MeetingSingleRow;
 import com.facefive.meetbook.R;
 import com.facefive.meetbook.SingleRow;
 import com.facefive.meetbook.UserHandling.SessionManager;
+import com.facefive.meetbook.activities.FixedMeetingDetailActivity;
 import com.facefive.meetbook.app.AppConfig;
 import com.facefive.meetbook.request;
 
@@ -54,30 +55,17 @@ public class FixedMeetingFragment extends Fragment {
         lv_list = (ListView) view.findViewById(R.id.lv_meeting_fixed);
         SessionManager manager=new SessionManager(getContext());
         getAllFixedMeetings(manager.getUserID());
-/*
-        Resources res = this.getResources();
-        String[] names = res.getStringArray(R.array.names);
-
-        int [] images ={R.drawable.fareed,R.drawable.usama,R.drawable.shahid,R.drawable.amina,R.drawable.saira,R.drawable.ali,R.drawable.ashar};
-        list = new ArrayList<SingleRow>();
-        for (int i =0; i<7 ; i++)
-        {
-
-            SingleRow row = new SingleRow(names[i] , "You sent meeting at 16:00", images[i]);
-            list.add(row);
-
-        }
-
-        ListAdapter adapter = new ListAdapter(getActivity(), list);
-        lv_list.setAdapter(adapter);
-
-*/
 
         lv_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Intent i = new Intent(getActivity() , request.class );
+                Intent i = new Intent(getActivity() , FixedMeetingDetailActivity.class );
+                MeetingSingleRow sRow=list.get(position);
+                i.putExtra("Name",sRow.name);
+                i.putExtra("StartTime",sRow.starttime.toString());
+                i.putExtra("EndTime",sRow.endtime.toString());
+                i.putExtra("Day",sRow.description.toString());
                 startActivity(i);
             }
         });
@@ -104,8 +92,6 @@ public class FixedMeetingFragment extends Fragment {
 
                         Calendar calendar=Calendar.getInstance();
                         calendar.get(Calendar.DAY_OF_WEEK);
-                        int [] images ={R.drawable.fareed,R.drawable.usama,R.drawable.shahid,R.drawable.amina,R.drawable.saira,R.drawable.ali,R.drawable.ashar};
-
                         list = new ArrayList<MeetingSingleRow>();
                         for (int i =1; i< object.length(); i++)
                         {
@@ -138,7 +124,7 @@ public class FixedMeetingFragment extends Fragment {
                             int meetID=Integer.parseInt(array.get(7).toString());
                             int SenderID=Integer.parseInt(array.get(8).toString());
                             int ReceiverID=Integer.parseInt(array.get(9).toString());
-                            MeetingSingleRow row = new MeetingSingleRow(array.get(0).toString() , "You Have a meeting "+showday+" at "+time.substring(11,16), images[i],meetID,purpose,starttime,endtime,SenderID,ReceiverID,array.get(2).toString());
+                            MeetingSingleRow row = new MeetingSingleRow(array.get(0).toString() , showday, R.drawable.ic_dp_demo,meetID,purpose,starttime,endtime,SenderID,ReceiverID,array.get(2).toString());
                             list.add(row);
 
                         }

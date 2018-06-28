@@ -16,6 +16,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.facefive.meetbook.UserHandling.SessionManager;
+import com.facefive.meetbook.activities.HomeActivity;
 import com.facefive.meetbook.app.AppConfig;
 
 import org.json.JSONArray;
@@ -104,7 +105,7 @@ public class response extends AppCompatActivity {
                     if(! jsonObject.getBoolean("Error"))
                     {
                         //JSONArray object=jsonObject.getJSONArray("result");
-                        Toast.makeText(response.this,jsonObject.toString(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(response.this,"Added To Fixed Meetings",Toast.LENGTH_SHORT).show();
 
 
                     }
@@ -113,6 +114,11 @@ public class response extends AppCompatActivity {
 
                         Toast.makeText(response.this,jsonObject.getString("error_msg"),Toast.LENGTH_SHORT).show();
                     }
+
+                    finishAffinity();
+                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                    startActivity(intent);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
