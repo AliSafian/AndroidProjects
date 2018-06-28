@@ -54,6 +54,7 @@ public class SearchResultActivity extends AppCompatActivity {
 
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
+
             GetSearchedUsers(query);
 
 
@@ -80,11 +81,11 @@ public class SearchResultActivity extends AppCompatActivity {
                         //JSONObject object=jsonObject.getJSONObject("User");
 
                           lv_list = (ListView) findViewById(R.id.lv_users);
-                            int [] images ={R.drawable.fareed,R.drawable.usama,R.drawable.shahid,R.drawable.amina,R.drawable.saira,R.drawable.ali,R.drawable.ashar};
+                           // int [] images ={R.drawable.fareed,R.drawable.usama,R.drawable.shahid,R.drawable.amina,R.drawable.saira,R.drawable.ali,R.drawable.ashar};
                             list = new ArrayList<SingleRow>();
                             for (int i =0; i<arrays.length() ; i++)
                             {
-                                SingleRow row = new SingleRow(arrays.getJSONArray(i).get(1).toString() , arrays.getJSONArray(i).get(2).toString() , images[i]);
+                                SingleRow row = new SingleRow(arrays.getJSONArray(i).get(1).toString() , arrays.getJSONArray(i).get(2).toString() , R.drawable.ic_dp_demo);
                                 list.add(row);
 
                             }
