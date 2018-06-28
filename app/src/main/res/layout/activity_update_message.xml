@@ -17,9 +17,12 @@
      android:id="@+id/update_message_plusbtn"
      android:layout_width="wrap_content"
      android:layout_height="wrap_content"
-     android:layout_marginTop="420dp"
-     android:layout_marginLeft="310dp"
      android:layout_gravity="bottom"
-     android:src="@drawable/plus" />
+     android:layout_marginBottom="20dp"
+     android:layout_marginRight="20dp"
+     android:layout_alignParentBottom="true"
+     android:layout_alignParentRight="true"
+     android:src="@drawable/plus"
+     />
 
 </RelativeLayout>

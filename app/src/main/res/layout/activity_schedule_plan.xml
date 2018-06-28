@@ -35,7 +35,9 @@
                 android:id="@+id/editschedule_btn_scheduleplan_xml"
                 android:layout_toRightOf="@+id/sp_tv_scheduleplan_xml"
                 android:text="Edit Schedule"
-                android:layout_marginLeft="10dp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/rounded_btn"
+                android:layout_marginLeft="30dp"
                 />
 
 

@@ -68,7 +68,7 @@ public class SettingsActivity extends AppCompatActivity  {
             }
             else
             {
-                image.setImageResource(R.drawable.dp_demo);
+                image.setImageResource(R.drawable.ic_dp_demo);
             }
 
             change_name = (RelativeLayout)findViewById(R.id.layout_change_name) ;

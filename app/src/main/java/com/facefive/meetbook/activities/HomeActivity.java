@@ -53,6 +53,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.facefive.meetbook.MeetingSingleRow;
 import com.facefive.meetbook.SingleRow;
+import com.facefive.meetbook.UpdateMessage;
 import com.facefive.meetbook.UserHandling.SessionManager;
 import com.facefive.meetbook.FixedMeetingRecyclerViewAdapter;
 import com.facefive.meetbook.R;
@@ -79,8 +80,6 @@ import java.util.Map;
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private TextView name_tv ;
-    private TextView email_tv;
 
     private static final String TAG = HomeActivity.class.getSimpleName();
     private BroadcastReceiver mRegistrationBroadcastReceiver;
@@ -124,7 +123,6 @@ public class HomeActivity extends AppCompatActivity
 
 
         checkPermissionCW();
-        checkPermissionRG();
         LoadPicture();
         inItFixedMeetingRecyclerView();
 
@@ -160,19 +158,33 @@ public class HomeActivity extends AppCompatActivity
         LinearLayout ll_connections = findViewById(R.id.ll_connections_home_activity);
 
 
-       /* ll_more.setOnClickListener(new View.OnClickListener() {
+        ll_connections.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), FeaturesActivity.class);
+                Intent intent = new Intent(getApplicationContext(), SubscriptionsActivity.class);
                 startActivity(intent);
             }
-        });*/
+        });
+        ll_notificatione.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Under Development", Toast.LENGTH_SHORT).show();
+            }
+        });
+        ll_send_update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), UpdateMessage.class);
+                startActivity(intent);
+            }
+        });
         ll_messages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "Under Development", Toast.LENGTH_SHORT).show();
             }
         });
+
         ll_timetable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -205,8 +217,6 @@ public class HomeActivity extends AppCompatActivity
         }
 
 
-        txtRegId = (TextView) findViewById(R.id.txt_reg_id);
-        txtMessage = (TextView) findViewById(R.id.txt_push_message);
 
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
@@ -218,21 +228,13 @@ public class HomeActivity extends AppCompatActivity
                     // now subscribe to `global` topic to receive app wide notifications
                     FirebaseMessaging.getInstance().subscribeToTopic(AppConfig.TOPIC_GLOBAL);
 
-                    displayFirebaseRegId();
-
                 } else if (intent.getAction().equals(AppConfig.PUSH_NOTIFICATION)) {
                     // new push notification is received
-
                     String message = intent.getStringExtra("message");
-
                     Toast.makeText(getApplicationContext(), "Push notification: " + message, Toast.LENGTH_LONG).show();
-
-                    txtMessage.setText(message);
                 }
             }
         };
-
-        displayFirebaseRegId();
 
 
     }
@@ -243,8 +245,6 @@ public class HomeActivity extends AppCompatActivity
         if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(
                     HomeActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PER_WRITE_EXTERNAL_STORAGE);
-        } else {
-            checkPermissionCA();
         }
     }
     private void checkPermissionCA(){
@@ -268,7 +268,6 @@ public class HomeActivity extends AppCompatActivity
             case PER_CAMERA:
                 break;
             case PER_WRITE_EXTERNAL_STORAGE:
-                checkPermissionCA();
                 break;
             case PER_READ_EXTERNAL_STORAGE:
                 break;
@@ -298,15 +297,12 @@ public class HomeActivity extends AppCompatActivity
                         String path =saveImage(imageEncoded, imageName);
                         sessionManager.setPicturePath(path);
                     } else {
-                        String errorMsg = jObj.getString("ErrorMsg");
-                        Toast.makeText(getApplicationContext(),
-                                errorMsg , Toast.LENGTH_LONG).show();
+
                         sessionManager.setPicturePath(null);
                     }
                 } catch (JSONException e) {
                     // JSON error
                     e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                 }
             }
         }, new Response.ErrorListener() {
@@ -424,20 +420,6 @@ public class HomeActivity extends AppCompatActivity
         requestQueue.add(stringRequest);
     }
 
-    private void displayFirebaseRegId() {
-
-        SessionManager sessionManager = new SessionManager(getApplicationContext());
-
-        String regId = sessionManager.getFCMToken();
-
-        Log.e(TAG, "Firebase reg id: " + regId);
-
-        if (!TextUtils.isEmpty(regId))
-            txtRegId.setText("Firebase Reg Id: " + regId);
-        else
-            txtRegId.setText("Firebase Reg Id is not received yet!");
-    }
-
     protected void onResume() {
         super.onResume();
 
@@ -453,7 +435,6 @@ public class HomeActivity extends AppCompatActivity
         // clear the notification area when the app is opened
         NotificationUtils.clearNotifications(getApplicationContext());
     }
-
     @Override
     protected void onPause() {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
@@ -586,6 +567,7 @@ public class HomeActivity extends AppCompatActivity
         } else {
             if (doubleBackToExitPressedOnce) {
                 super.onBackPressed();
+                finishAffinity();
                 return;
             }
 

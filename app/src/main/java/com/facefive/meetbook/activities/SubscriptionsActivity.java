@@ -135,12 +135,9 @@ public class SubscriptionsActivity extends AppCompatActivity {
             switch (position)
             {
                 case 0:
-                    SubscriptionRequestsFragment srFrag = new SubscriptionRequestsFragment();
-                    return srFrag;
-                case 1:
                     SubscribersFragment sFrag = new SubscribersFragment();
                     return sFrag;
-                case 2:
+                case 1:
                     PublishersFragment pFrag = new PublishersFragment();
                     return pFrag;
             }
@@ -150,7 +147,7 @@ public class SubscriptionsActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 2;
         }
     }
 }

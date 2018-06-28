@@ -38,16 +38,10 @@
                     android:id="@+id/sspd_np_scheduleplansetting_xml"
                     android:layout_width="100dp"
                     android:layout_height="50dp"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="50dp"
                     android:background="@drawable/border_style"
                     android:solidColor="@color/colorAccent"></NumberPicker>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/btn_updatemessage"
-                android:text="Update"
 
-                />
             </LinearLayout>
 
 
@@ -221,6 +215,8 @@
                 android:layout_marginBottom="20dp"
                 android:layout_marginLeft="250dp"
                 android:layout_marginTop="20dp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/rounded_btn"
                 android:text="Next" />
 
         </RelativeLayout>
