@@ -16,6 +16,8 @@ public class AppConfig {
 
     public static final String URL_GETCOMPLETETIMETABLE = "http://meetbookapp.com/APIs/getCompeleteTimetable_request.php";
 
+    public static final String URL_GETFOLLOWERSANDFOLLOWINGS= "http://meetbookapp.com/APIs/getPublisherAndSubscriber.php";
+
     public static final String URL_GETALLSENTMEETINGS = "http://meetbookapp.com/APIs/getSentMeetRequests.php";
     public static final String URL_CHANGEMEETINGSTATUS = "http://meetbookapp.com/APIs/ChangeMeetingStatus.php";
     public static final String URL_CHANGEFOLLOW = "http://meetbookapp.com/APIs/changeFollow.php";
