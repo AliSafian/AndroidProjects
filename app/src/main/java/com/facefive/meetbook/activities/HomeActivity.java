@@ -10,6 +10,8 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.LocalBroadcastManager;
@@ -77,6 +79,11 @@ public class HomeActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(!isNetworkAvailable())
+        {
+            Intent intent = new Intent(getApplicationContext(), NoInternetActivity.class);
+            startActivity(intent);
+        }
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -192,6 +199,12 @@ public class HomeActivity extends AppCompatActivity
 
     }
 
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
     private void sendRegistrationToServer(final int userId , final String token) {
         // sending gcm token to server
         Log.e(TAG, "sendRegistrationToServer: " + token);

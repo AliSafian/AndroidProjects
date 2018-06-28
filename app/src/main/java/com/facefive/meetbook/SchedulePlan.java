@@ -74,62 +74,6 @@ public class SchedulePlan extends AppCompatActivity {
         });
     }
 
-    public  void getTimeTable(final int userid){
-
-
-
-        RequestQueue requestQueue= Volley.newRequestQueue(this);
-
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, AppConfig.URL_GETTIMETABLE, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-
-                try {
-                    JSONObject jsonObject=new JSONObject(response);
-                    if(! jsonObject.getBoolean("error"))
-                    {
-                        JSONArray jsonArray= jsonObject.getJSONArray("item");
-
-
-                        TimetableSession.noOfSlots = jsonArray.getInt(0);
-                        TimetableSession.startTime.setHours(Integer.parseInt(jsonArray.getString(1).substring(0,2)));
-                        TimetableSession.startTime.setMinutes(Integer.parseInt(jsonArray.getString(1).substring(3,5)));
-
-                        TimetableSession.endTime.setHours(Integer.parseInt(jsonArray.getString(2).substring(0,2)));
-                        TimetableSession.endTime.setMinutes(Integer.parseInt(jsonArray.getString(2).substring(3,5)));
-                    }
-                    else
-                    {
-
-                        Toast.makeText(getApplicationContext(),jsonObject.getString("error_msg"),Toast.LENGTH_SHORT).show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
-
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-
-
-
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("userID",""+userid);
-                // Toast.makeText(getApplicationContext(),jarray.toString(),Toast.LENGTH_SHORT).show();
-                return  params;
-            }
-        };
-        requestQueue.add(stringRequest);
-
-    }
 
     private void initData() {
 

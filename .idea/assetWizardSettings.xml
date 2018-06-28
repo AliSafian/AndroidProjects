@@ -19,11 +19,11 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="height" value="480" />
-                            <entry key="outputName" value="ic_features" />
+                            <entry key="height" value="63" />
+                            <entry key="outputName" value="ic_no_internet_connection" />
                             <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="C:\Users\Ashar\Desktop\Meetbook\svg\features.psd" />
-                            <entry key="width" value="512" />
+                            <entry key="sourceFile" value="C:\Users\Ashar\Desktop\Meetbook\svg\no-internet-connection.psd" />
+                            <entry key="width" value="72" />
                           </map>
                         </option>
                       </PersistentState>
