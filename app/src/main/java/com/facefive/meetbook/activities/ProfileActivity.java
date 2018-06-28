@@ -125,6 +125,7 @@ public class ProfileActivity extends AppCompatActivity {
                         {
                             followtext.setTextColor(Color.RED);
                             followtext.setText("Followed");
+                            follow.setImageResource(R.drawable.ic_following_acc);
                         }
 
 
@@ -183,11 +184,13 @@ public class ProfileActivity extends AppCompatActivity {
                         {
                             followtext.setTextColor(Color.RED);
                             followtext.setText("Followed");
+                            follow.setImageResource(R.drawable.ic_following_acc);
                         }
                         if(jsonObject.getString("Status").equals("1"))
                         {
                             followtext.setTextColor(Color.BLACK);
                             followtext.setText("Follow");
+                            follow.setImageResource(R.drawable.ic_follow_req);
                         }
 
                     }

@@ -77,7 +77,6 @@ public class request extends AppCompatActivity {
         if(intent.getBooleanExtra("profile",false)==true)
         {
             receiverID=intent.getStringExtra("ReceiverID");
-            Toast.makeText(request.this,receiverID,Toast.LENGTH_SHORT).show();
         }
 
         if (intent.getBooleanExtra("flage",false)==true)
@@ -88,7 +87,6 @@ public class request extends AppCompatActivity {
             MeetID= intent.getIntExtra("MeetID",0);
             SenderID= intent.getIntExtra("senderID",0);
             ReceiverID= intent.getIntExtra("receiverID",0);
-            Toast.makeText(request.this,""+month,Toast.LENGTH_SHORT).show();
 
             datePickerTimeline.setSelectedDate(Integer.parseInt(intent.getStringExtra("starttime").substring(0,4)),Integer.parseInt(intent.getStringExtra("starttime").substring(5,7))-1,Integer.parseInt(intent.getStringExtra("starttime").substring(8,10)));
             datePickerTimeline.setDateLabelAdapter(new MonthView.DateLabelAdapter() {
@@ -170,7 +168,6 @@ public class request extends AppCompatActivity {
                     SimpleDateFormat sdf = new SimpleDateFormat("hh:mm"); // here set the pattern as you date in string was containing like date/month/year
                     try {
                         final Date time1 = sdf.parse(timePicker1.getText().toString());
-                        Toast.makeText(request.this,time1.toString(),Toast.LENGTH_SHORT).show();
 
 
                         Date time2 = sdf.parse(timePicker2.getText().toString());
@@ -219,7 +216,6 @@ public class request extends AppCompatActivity {
                                                 InsertMeetingRequest(manager.getUserID(),Integer.parseInt( receiverID),0,startTime,endTime,reqTime,purpose.getText().toString());
 
                                             }
-                                           // Toast.makeText(request.this,currentTime,Toast.LENGTH_SHORT).show();
                                         }
                                     })
                                     .OnNegativeClicked(new FancyAlertDialogListener() {
@@ -256,9 +252,7 @@ public class request extends AppCompatActivity {
 
                     if(! jsonObject.getBoolean("Error"))
                     {
-                        Toast.makeText(request.this,jsonObject.toString(),Toast.LENGTH_SHORT).show();
-
-
+                        Toast.makeText(request.this,"Meeting is Updated",Toast.LENGTH_SHORT).show();
                     }
                     else
                     {
@@ -300,7 +294,6 @@ public class request extends AppCompatActivity {
     }
     public  void InsertMeetingRequest(final int mySenderID, final int myReceiverID, final int Status, final String startTime, final String endTime, final String reqTime, final String purpose)
     {
-        Toast.makeText(request.this,startTime+endTime+reqTime+purpose+Status,Toast.LENGTH_SHORT).show();
 
         RequestQueue requestQueue= Volley.newRequestQueue(request.this);
 
@@ -314,7 +307,7 @@ public class request extends AppCompatActivity {
 
                     if(! jsonObject.getBoolean("Error"))
                     {
-                        Toast.makeText(request.this,jsonObject.toString(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(request.this,"Meeting is sent",Toast.LENGTH_SHORT).show();
 
 
                     }
