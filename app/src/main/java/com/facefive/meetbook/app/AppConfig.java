@@ -13,6 +13,9 @@ public class AppConfig {
     public static final String URL_LOGIN = "http://meetbookapp.com/APIs/login_user.php";
     public static final String URL_TIMATABLE = "http://meetbookapp.com/APIs/timetable_request.php";
     public static final String URL_GETTIMETABLE = "http://meetbookapp.com/APIs/getTimetable_request.php";
+
+    public static final String URL_GETCOMPLETETIMETABLE = "http://meetbookapp.com/APIs/getCompeleteTimetable_request.php";
+
     public static final String URL_GETALLSENTMEETINGS = "http://meetbookapp.com/APIs/getSentMeetRequests.php";
     public static final String URL_CHANGEMEETINGSTATUS = "http://meetbookapp.com/APIs/ChangeMeetingStatus.php";
     public static final String URL_SAVEUPDATEMESSAGE = "http://meetbookapp.com/APIs/saveUpdateMessage.php";
