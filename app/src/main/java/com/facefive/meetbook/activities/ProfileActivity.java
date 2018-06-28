@@ -178,7 +178,6 @@ public class ProfileActivity extends AppCompatActivity {
 
                     if(! jsonObject.getBoolean("Error"))
                     {
-                        Toast.makeText(getApplicationContext(),jsonObject.getString("Status"),Toast.LENGTH_SHORT).show();
 
                         if(jsonObject.getString("Status").equals("0"))
                         {
