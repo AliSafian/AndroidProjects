@@ -24,7 +24,7 @@ import java.util.Map;
  * Created by hafiz on 3/27/2018.
  */
 
-public  class  TimetableSession {
+public class  TimetableSession {
     public static int noOfSlots;
     public static int timetableID;
     public  static Time duration;

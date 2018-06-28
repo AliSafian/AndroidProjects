@@ -3,6 +3,11 @@
   <component name="WizardSettings">
     <option name="children">
       <map>
+        <entry key="imageWizard">
+          <value>
+            <PersistentState />
+          </value>
+        </entry>
         <entry key="vectorWizard">
           <value>
             <PersistentState>
@@ -14,10 +19,10 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="height" value="512" />
-                            <entry key="outputName" value="ic_message_color" />
+                            <entry key="height" value="480" />
+                            <entry key="outputName" value="ic_features" />
                             <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="C:\Users\Ashar\Desktop\Meetbook\svg\message_color.svg" />
+                            <entry key="sourceFile" value="C:\Users\Ashar\Desktop\Meetbook\svg\features.psd" />
                             <entry key="width" value="512" />
                           </map>
                         </option>

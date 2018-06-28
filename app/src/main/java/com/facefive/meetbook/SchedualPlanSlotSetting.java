@@ -142,19 +142,21 @@ public class SchedualPlanSlotSetting extends AppCompatActivity {
 
                 try {
                     JSONObject jsonObject=new JSONObject(response);
-                   if(! jsonObject.getBoolean("error"))
+                   if(!jsonObject.getBoolean("error"))
                    {
-
-                       Toast.makeText(getApplicationContext()," successfull"+ jsonObject.get("json"),Toast.LENGTH_SHORT).show();
-
+                       Toast.makeText(getApplicationContext()," successfull"+ jsonObject.get("success_msg"),Toast.LENGTH_SHORT).show();
+                       finish();
                    }
                    else
                    {
-
                        Toast.makeText(SchedualPlanSlotSetting.this,jsonObject.getString("error_msg"),Toast.LENGTH_SHORT).show();
+
+                       finish();
                    }
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
+
+                    finish();
                 }
 
             }

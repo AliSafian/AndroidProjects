@@ -7,6 +7,10 @@
         <menu>
 
             <item
+                android:id="@+id/nav_features"
+                android:icon="@drawable/ic_features"
+                android:title="Features" />
+            <item
                 android:id="@+id/nav_print"
                 android:icon="@drawable/ic_menu_print"
                 android:title="Print" />

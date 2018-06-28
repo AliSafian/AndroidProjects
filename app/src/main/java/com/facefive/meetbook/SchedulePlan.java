@@ -12,42 +12,42 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.facefive.meetbook.TimetableSession.TimetableDay;
+import com.facefive.meetbook.TimetableSession.TimetableSession;
+import com.facefive.meetbook.app.AppConfig;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import yuku.ambilwarna.AmbilWarnaDialog;
 
 public class SchedulePlan extends AppCompatActivity {
 
-    int currentColor;
-
-    LinearLayout colorLayout;
-
-    EditText timeFrom;
-    EditText timeTo;
-
-
-
-    int dateId;
-
-    private DatePicker datePicker;
-    private Calendar calendar;
-    private EditText dateView1;
-    private EditText dateView2;
-    private int year, month, day;
-
-
-
-    private Switch s;
-    private EditText dateTo;
-    private EditText dateFrom;
-    private EditText time1;
-    private EditText time2;
-    Button editBtn;
+    private ExpandableListView listView;
+    private TimeTableExpandableListAdapter listAdapter;
+    private List<String> listDataHeader;
+    private HashMap<String, List<String>> listHash;
+    private Button editBtn ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,219 +55,114 @@ public class SchedulePlan extends AppCompatActivity {
         setContentView(R.layout.activity_schedule_plan);
 
 
-        dateTo = (EditText) findViewById(R.id.dateto_et_scheduleplan_xml);
-        dateFrom = (EditText) findViewById(R.id.datefrom_et_scheduleplan_xml);
-        time1 = (EditText) findViewById(R.id.timeto_et_scheduleplan_xml);
-        time2 = (EditText) findViewById(R.id.timefrom_et_scheduleplan_xml);
+        listView = findViewById(R.id.timatable_ex_lv);
+        editBtn = findViewById(R.id.editschedule_btn_scheduleplan_xml);
 
-        dateTo.setEnabled(false);
-        dateFrom.setEnabled(false);
-        time1.setEnabled(false);
-        time2.setEnabled(false);
-        //................................Date picker
 
-        dateView1 = (EditText) findViewById(R.id.datefrom_et_scheduleplan_xml);
-        dateView2 = (EditText) findViewById(R.id.dateto_et_scheduleplan_xml);
 
-        calendar = Calendar.getInstance();
-        year = calendar.get(Calendar.YEAR);
+        initData();
+        listAdapter = new TimeTableExpandableListAdapter(this , listDataHeader, listHash);
+        listView.setAdapter(listAdapter);
 
-        month = calendar.get(Calendar.MONTH);
-        day = calendar.get(Calendar.DAY_OF_MONTH);
-//        showDate(year, month+1, day);
-
-        dateView1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dateId = v.getId();
-                setDate(v);
-            }
-        });
-
-        dateView2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               dateId=v.getId();
-                setDate(v);
-            }
-        });
-
-        editBtn = (Button) findViewById(R.id.editschedule_btn_scheduleplan_xml);
 
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),SchedulePlanSetting.class);
+                Intent intent = new Intent(getApplicationContext(), SchedulePlanSetting.class);
                 startActivity(intent);
             }
         });
+    }
 
-        timeFrom = (EditText) findViewById(R.id.timefrom_et_scheduleplan_xml);
-        timeTo = (EditText) findViewById(R.id.timeto_et_scheduleplan_xml);
+    public  void getTimeTable(final int userid){
 
-        timeFrom.setOnClickListener(new View.OnClickListener() {
+
+
+        RequestQueue requestQueue= Volley.newRequestQueue(this);
+
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, AppConfig.URL_GETTIMETABLE, new Response.Listener<String>() {
             @Override
-            public void onClick(View v) {
-                Calendar mcurrentTime = Calendar.getInstance();
-                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mcurrentTime.get(Calendar.MINUTE);
-                TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(SchedulePlan.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        timeFrom.setText( selectedHour + ":" + selectedMinute);
+            public void onResponse(String response) {
+
+                try {
+                    JSONObject jsonObject=new JSONObject(response);
+                    if(! jsonObject.getBoolean("error"))
+                    {
+                        JSONArray jsonArray= jsonObject.getJSONArray("item");
+
+
+                        TimetableSession.noOfSlots = jsonArray.getInt(0);
+                        TimetableSession.startTime.setHours(Integer.parseInt(jsonArray.getString(1).substring(0,2)));
+                        TimetableSession.startTime.setMinutes(Integer.parseInt(jsonArray.getString(1).substring(3,5)));
+
+                        TimetableSession.endTime.setHours(Integer.parseInt(jsonArray.getString(2).substring(0,2)));
+                        TimetableSession.endTime.setMinutes(Integer.parseInt(jsonArray.getString(2).substring(3,5)));
                     }
-                }, hour, minute, true);//Yes 24 hour time
-                mTimePicker.setTitle("Select Time");
-                mTimePicker.show();
-            }
-        });
+                    else
+                    {
 
-        timeTo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar mcurrentTime = Calendar.getInstance();
-                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mcurrentTime.get(Calendar.MINUTE);
-                TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(SchedulePlan.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        timeTo.setText( selectedHour + ":" + selectedMinute);
+                        Toast.makeText(getApplicationContext(),jsonObject.getString("error_msg"),Toast.LENGTH_SHORT).show();
                     }
-                }, hour, minute, true);//Yes 24 hour time
-                mTimePicker.setTitle("Select Time");
-                mTimePicker.show();
-            }
-        });
+                } catch (JSONException e) {
+                    e.printStackTrace();
 
-        currentColor = ContextCompat.getColor(this, R.color.colorAccent);
-
-        Button mhBtn = (Button) findViewById(R.id.meetinghourspicker_btn_scheduleplan_xml);
-        Button lhBtn = (Button) findViewById(R.id.lecturehourspicker_btn_scheduleplan_xml);
-        Button nahBtn = (Button) findViewById(R.id.notavailablehourspicker_btn_scheduleplan_xml);
-
-        mhBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                colorLayout = (LinearLayout) findViewById(R.id.meetinghourscolorl_layout_scheduleplan_xml);
-                openDialog(false);
-            }
-        });
-
-
-
-        lhBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                colorLayout = (LinearLayout) findViewById(R.id.lecturehourscolorl_layout_scheduleplan_xml);
-                openDialog(false);
-            }
-        });
-
-
-
-        nahBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                colorLayout = (LinearLayout) findViewById(R.id.notavailablehourscolorl_layout_scheduleplan_xml);
-                openDialog(false);
-            }
-        });
-
-
-
-        //.........................Switch
-
-
-        s = (Switch)findViewById(R.id.inavailability_swh_scheduleplan_xml);
-
-        s.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // do something, the isChecked will be
-                // true if the switch is in the On position
-                if(s.isChecked())
-                {
-                    dateTo.setEnabled(true);
-                    dateFrom.setEnabled(true);
-                    time1.setEnabled(true);
-                    time2.setEnabled(true);
-                }
-                else {
-                    dateTo.setEnabled(false);
-                    dateFrom.setEnabled(false);
-                    time1.setEnabled(false);
-                    time2.setEnabled(false);
                 }
 
             }
-        });
-
-
-
-
-    }
-
-    private void openDialog(boolean supportsAlpha) {
-        AmbilWarnaDialog dialog = new AmbilWarnaDialog(this, currentColor, supportsAlpha, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+        }, new Response.ErrorListener() {
             @Override
-            public void onOk(AmbilWarnaDialog dialog, int color) {
-                currentColor = color;
-                colorLayout.setBackgroundColor(color);
-            }
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
 
+            }
+        }){
             @Override
-            public void onCancel(AmbilWarnaDialog dialog) {
-                Toast.makeText(getApplicationContext(), "Action canceled!", Toast.LENGTH_SHORT).show();
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+
+
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("userID",""+userid);
+                // Toast.makeText(getApplicationContext(),jarray.toString(),Toast.LENGTH_SHORT).show();
+                return  params;
             }
-        });
-        dialog.show();
+        };
+        requestQueue.add(stringRequest);
+
     }
 
+    private void initData() {
+
+        listDataHeader = new ArrayList<>();
+        listHash = new HashMap<>();
 
 
 
+        int daysCount = TimetableSession.Days.size();
 
-    @SuppressWarnings("deprecation")
-    public void setDate(View view) {
-
-        showDialog(999);
-        Toast.makeText(getApplicationContext(), "ca",
-                Toast.LENGTH_SHORT)
-                .show();
-    }
-
-    private void showDate(int year, int month, int day) {
-
-        EditText et = (EditText) findViewById(dateId);
-        et.setText(new StringBuilder().append(day).append("/")
-                .append(month).append("/").append(year));
-    }
-
-
-
-    @Override
-    protected Dialog onCreateDialog(int id) {
-        // TODO Auto-generated method stub
-        if (id == 999) {
-            return new DatePickerDialog(this,
-                    myDateListener, year, month, day);
+        for(TimetableDay object: TimetableSession.Days){
+            Toast.makeText(getApplicationContext(),object.getDay(),Toast.LENGTH_SHORT).show();
         }
-        return null;
-    }
 
-    private DatePickerDialog.OnDateSetListener myDateListener = new
-            DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker arg0,
-                                      int arg1, int arg2, int arg3) {
-                    // TODO Auto-generated method stub
-                    // arg1 = year
-                    // arg2 = month
-                    // arg3 = day
-                    showDate(arg1, arg2+1, arg3);
+        if(daysCount> 0)
+        {
+
+            for (int i =0; i<daysCount ; i++ )
+            {
+                listDataHeader.add(TimetableSession.Days.get(i).getDay());
+                List<String> temp = new ArrayList<>();
+                for (int j =0; j<  TimetableSession.Days.get(i).getSlotList().size() ; j++)
+                {
+                    temp.add(TimetableSession.Days.get(i).getSlotList().get(j).getSlotType()+"\t\t\t"
+                            +TimetableSession.Days.get(i).getSlotList().get(j).getStartTime() +"  -  "
+                            +TimetableSession.Days.get(i).getSlotList().get(j).getEndTime());
                 }
-            };
 
+                listHash.put(TimetableSession.Days.get(i).getDay(), temp);
+            }
+
+        }
+
+    }
 
 }

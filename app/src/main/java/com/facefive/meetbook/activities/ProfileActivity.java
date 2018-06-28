@@ -15,7 +15,6 @@ import com.facefive.meetbook.request;
 public class ProfileActivity extends AppCompatActivity {
 
     private TextView name_tv;
-    private TextView email_tv;
     private ImageView image;
     private ImageView meetReq;
     private TextView btn_req;
@@ -34,6 +33,8 @@ public class ProfileActivity extends AppCompatActivity {
         int img_id = i.getIntExtra("img_id", R.drawable.ic_dp_demo);
         meetReq=findViewById(R.id.meetingreq_iv_profileactivity_aml);
        name_tv= findViewById(R.id.name_tv_profileactivity_xml);
+
+        name_tv= findViewById(R.id.name_tv_profileactivity_xml);
         image= findViewById(R.id.dp_iv_profileactivity_xml);
         btn_req= findViewById(R.id.meetingreq_tv_profileactivity_xml);
         btn_sub= findViewById(R.id.followreq_tv_profileactivity_xml);

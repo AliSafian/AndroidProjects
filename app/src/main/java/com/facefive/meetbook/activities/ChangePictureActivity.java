@@ -2,13 +2,16 @@ package com.facefive.meetbook.activities;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.tv.TvInputService;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
@@ -16,14 +19,29 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.facefive.meetbook.R;
 import com.facefive.meetbook.UserHandling.SessionManager;
+import com.facefive.meetbook.app.AppConfig;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -31,6 +49,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ChangePictureActivity extends AppCompatActivity {
 
@@ -49,6 +69,11 @@ public class ChangePictureActivity extends AppCompatActivity {
     private Uri picUri;
     private ImageView iv_profile_photo;
     private  String mCurrentPhotoPath;
+    private  String encodedString;
+    private  String imageName;
+
+
+    private boolean isPhotoChanged;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,25 +81,43 @@ public class ChangePictureActivity extends AppCompatActivity {
         setContentView(R.layout.activity_change_picture);
 
         Button btn_change_photo = findViewById(R.id.btn_change_picture);
-        Button btn_crop_photo = findViewById(R.id.btn_crop_picture);
+        final Button btn_save_photo = findViewById(R.id.btn_save_picture);
+
+        isPhotoChanged = false;
 
         iv_profile_photo = findViewById(R.id.iv_profile_picture);
-
-
-        SessionManager session = new SessionManager(getApplicationContext());
+        final SessionManager session = new SessionManager(getApplicationContext());
 
         mCurrentPhotoPath =  session.getPicturePath();
-        if(mCurrentPhotoPath != null)
+
+        Toast.makeText(getApplicationContext(),mCurrentPhotoPath, Toast.LENGTH_SHORT).show();
+
+        if(!mCurrentPhotoPath.equals("null"))
         {
             picUri =  Uri.parse(new File(mCurrentPhotoPath).toString());
             iv_profile_photo.setImageURI(picUri);
         }
+        else
+        {
+            iv_profile_photo.setImageResource(R.drawable.ic_dp_demo);
+        }
 
 
-        btn_crop_photo.setOnClickListener(new View.OnClickListener() {
+        btn_save_photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //ImageCropFunction();
+
+                if(isPhotoChanged)
+                {
+                    new EncodeImage().execute();
+
+                }
+                else
+                {
+
+                    Toast.makeText(getApplicationContext(),"Select a new photo before saving", Toast.LENGTH_SHORT).show();
+
+                }
             }
         }
         );
@@ -191,7 +234,8 @@ public class ChangePictureActivity extends AppCompatActivity {
             }
         }
 
-        File mediaFile = new File(fileDir.getPath() + File.separator + getPictureName());
+        imageName = getPictureName();
+        File mediaFile = new File(fileDir.getPath() + File.separator +imageName);
         mCurrentPhotoPath = mediaFile.getAbsolutePath();
         return mediaFile;
     }
@@ -201,7 +245,8 @@ public class ChangePictureActivity extends AppCompatActivity {
     {
         SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmss");
         String timestamp=sdf.format(new Date());
-        return "MeetBook"+timestamp+".jpg";
+        SessionManager sm = new SessionManager(getApplicationContext());
+        return "MeetBook"+sm.getUserID()+timestamp+".jpg";
     }
 
     @Override
@@ -218,9 +263,7 @@ public class ChangePictureActivity extends AppCompatActivity {
 
             case CAMERA:
                 iv_profile_photo.setImageURI(picUri);
-
-                session.setPicturePath(mCurrentPhotoPath);
-
+                isPhotoChanged = true;
                 break;
 
             case GALLERY:
@@ -231,7 +274,7 @@ public class ChangePictureActivity extends AppCompatActivity {
                         mCurrentPhotoPath = saveImage(bitmap);
                         picUri =  Uri.parse(new File(mCurrentPhotoPath).toString());
                         iv_profile_photo.setImageURI(picUri);
-                        session.setPicturePath(mCurrentPhotoPath);
+                        isPhotoChanged = true;
 
                     } catch (IOException e) {
                         Toast.makeText(ChangePictureActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
@@ -240,6 +283,8 @@ public class ChangePictureActivity extends AppCompatActivity {
                 break;
             case CROP:
                 iv_profile_photo.setImageURI(picUri);
+                break;
+
         }
 
     }
@@ -261,7 +306,7 @@ public class ChangePictureActivity extends AppCompatActivity {
 
         // Decode the image file into a Bitmap sized to fill the View
         bmOptions.inJustDecodeBounds = false;
-        bmOptions.inSampleSize = scaleFactor;
+        bmOptions.inSampleSize = 6;
         bmOptions.inPurgeable = true;
 
         Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
@@ -288,8 +333,7 @@ public class ChangePictureActivity extends AppCompatActivity {
         }
         return "";
     }
-
-        public void ImageCropFunction() {
+    public void ImageCropFunction() {
 
         // Image Crop Code
        try {
@@ -298,8 +342,8 @@ public class ChangePictureActivity extends AppCompatActivity {
             CropIntent.setDataAndType(picUri, "image/*");
 
             CropIntent.putExtra("crop", "true");
-            CropIntent.putExtra("outputX", iv_profile_photo.getWidth());
-            CropIntent.putExtra("outputY",  iv_profile_photo.getHeight());
+            CropIntent.putExtra("outputX",300);
+            CropIntent.putExtra("outputY",  300);
             CropIntent.putExtra("aspectX", 5);
             CropIntent.putExtra("aspectY", 5);
             CropIntent.putExtra("scaleUpIfNeeded", true);
@@ -330,5 +374,108 @@ public class ChangePictureActivity extends AppCompatActivity {
                 getPhotos();
                 break;
         }
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_save:
+               Toast.makeText(getApplicationContext(), "SAVE", Toast.LENGTH_SHORT).show();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
+
+    private class EncodeImage extends AsyncTask<Void, Void, Void>{
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            Bitmap bm = BitmapFactory.decodeFile(mCurrentPhotoPath);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bm.compress(Bitmap.CompressFormat.JPEG,30, stream);
+
+            byte [] array = stream.toByteArray();
+            encodedString = Base64.encodeToString(array,0);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            makeRequest();
+        }
+    }
+
+    private void makeRequest() {
+
+        RequestQueue requestQueue= Volley.newRequestQueue(this);
+
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, AppConfig.URL_SAVE_IMAGE, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    boolean error = jObj.getBoolean("Error");
+
+                    // Check for error node in json
+                    if (!error) {
+                        // user successfully logged in
+                        // Create login session
+                        SessionManager session = new SessionManager(getApplicationContext());
+                        session.setPicturePath(mCurrentPhotoPath);
+                        Toast.makeText(getApplicationContext(),"Picture Updated Succesfully", Toast.LENGTH_SHORT).show();
+                        finish();
+
+                        // Launch home activity
+                    } else {
+                        // Error in login. Get the error message
+                        String errorMsg = jObj.getString("ErrorMsg");
+                        Toast.makeText(getApplicationContext(),
+                                errorMsg, Toast.LENGTH_LONG).show();
+
+                        finish();
+
+                    }
+                } catch (JSONException e) {
+                    // JSON error
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    finish();
+                   /* Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    startActivity(intent);*/
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String, String> params=new HashMap<String, String>();
+
+
+                SessionManager sm = new SessionManager(getApplicationContext());
+
+
+                params.put("user_id",sm.getUserID()+"");
+                params.put("image_name",imageName);
+                params.put("image_eccoded_string",encodedString);
+
+                return params;
+            }
+        };
+        requestQueue.add(stringRequest);
+
     }
 }

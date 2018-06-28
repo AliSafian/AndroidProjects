@@ -263,6 +263,7 @@ public class SchedulePlanSetting extends AppCompatActivity {
 
                     Intent intent = new Intent(getApplicationContext(), SchedualPlanSlotSetting.class);
                     startActivity(intent);
+                    finish();
 
                 }
 
@@ -353,8 +354,6 @@ public class SchedulePlanSetting extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
-                Toast.makeText(getApplicationContext(),"yha aya h",Toast.LENGTH_SHORT).show();
-
 
             }
         }){
