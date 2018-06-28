@@ -23,6 +23,7 @@
                 android:id="@+id/cover_rl_profileactivity_xml"
                 android:layout_width="match_parent"
                 android:layout_height="170dp"
+                android:background="@color/colorPrimary"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 >
@@ -60,21 +61,6 @@
                     android:layout_centerHorizontal="true"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/status_tv_profileactivity_xml"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:maxLines="2"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_below="@+id/name_tv_profileactivity_xml"
-                    android:text="اپنی چلتی ہے، دنیا کیوں جلتی ہے۔۔."
-                    android:textSize="17dp"
-                    android:layout_marginTop="8dp"
-
-                    android:layout_centerHorizontal="true"
-                    android:textAlignment="center"
-                    />
             </RelativeLayout>
 
             <!-- menu bar-->
@@ -83,6 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"
                 android:layout_below="@+id/name_rl_profileactivity_xml">
             <View
                 android:layout_width="match_parent"
@@ -96,7 +83,8 @@
             <LinearLayout
                 android:id="@+id/menubar_ll_profileactivity_xml"
                 android:orientation="horizontal"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
                 android:layout_height="wrap_content">
 
@@ -107,8 +95,10 @@
                     >
 
                     <ImageView
-                        android:layout_width="100dp"
-                        android:layout_height="50dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginVertical="5dp"
+                        android:layout_marginHorizontal="25dp"
                         android:id="@+id/followreq_iv_profileactivity_aml"
                         android:src="@drawable/ic_follow_req"/>
                     <TextView
@@ -129,8 +119,10 @@
                     >
 
                     <ImageView
-                        android:layout_width="100dp"
-                        android:layout_height="50dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginVertical="5dp"
+                        android:layout_marginHorizontal="25dp"
                         android:id="@+id/meetingreq_iv_profileactivity_aml"
                         android:src="@drawable/ic_meeting_req"/>
                     <TextView
@@ -150,8 +142,10 @@
                     >
 
                     <ImageView
-                        android:layout_width="100dp"
-                        android:layout_height="50dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginVertical="5dp"
+                        android:layout_marginHorizontal="25dp"
                         android:id="@+id/chatreq_iv_profileactivity_aml"
                         android:src="@drawable/ic_chat_req"/>
                     <TextView
@@ -164,11 +158,10 @@
                         />
                 </LinearLayout>
 
-
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="20dp"
                     android:id="@+id/morereq_iv_profileactivity_aml"
                     android:src="@drawable/ic_more_req"/>
@@ -198,7 +191,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="40dp"
                     android:orientation="horizontal"
                     android:background="@color/cardview_shadow_start_color"
 
@@ -211,14 +204,7 @@
                         android:textSize="18dp"
                         android:layout_marginLeft="20dp"
                         android:textStyle="bold"
-                        android:layout_marginTop="15dp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:text="(Day)"
-                        android:textSize="16dp"
-                        android:layout_marginTop="15dp"/>
+                        android:layout_marginTop="10dp"/>
 
                 </LinearLayout>
 
@@ -229,11 +215,14 @@
                     android:id="@+id/_1_rl_profileactivity_xml"
                     android:layout_below="@+id/_1_ll_profileactivity_xml">
 
-                    <ListView
+                    <TextView
+                        android:id="@+id/tv_timetable_view_profile_xml"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/currentdayschedual_lv_profileactivity_xml">
-                    </ListView>
+                        android:text="Click here to see Timetable"
+                        android:textColor="@color/colorLink"
+                        android:layout_marginLeft="15dp"
+                        />
                 </RelativeLayout>
             </RelativeLayout>
 

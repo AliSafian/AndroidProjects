@@ -179,7 +179,8 @@
         </service>
 
         <activity android:name=".activities.AllChatsActivity" />
-        <activity android:name=".activities.NoInternetActivity"></activity>
+        <activity android:name=".activities.NoInternetActivity" />
+        <activity android:name=".activities.TimeTableViewActivity"></activity>
     </application>
 
 </manifest>

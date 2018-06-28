@@ -14,6 +14,11 @@ public class TimetableDay {
     private ArrayList<SlotSingleRow> slotList;
 
     //........................................... constructor
+    public TimetableDay(String day,ArrayList<SlotSingleRow> list)
+    {
+        this.day=day;
+        this.slotList=list;
+    }
 
     public TimetableDay(String day, int numOfSlots, Time startTime, Time endTime) {
         this.day = day;

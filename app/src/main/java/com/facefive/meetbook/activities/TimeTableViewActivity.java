@@ -1,21 +1,8 @@
-package com.facefive.meetbook;
+package com.facefive.meetbook.activities;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.TimePickerDialog;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.DatePicker;
-import android.widget.EditText;
+import android.os.Bundle;
 import android.widget.ExpandableListView;
-import android.widget.LinearLayout;
-import android.widget.Switch;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -25,6 +12,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.facefive.meetbook.R;
+import com.facefive.meetbook.TimeTableExpandableListAdapter;
 import com.facefive.meetbook.TimetableSession.SlotSingleRow;
 import com.facefive.meetbook.TimetableSession.TimetableDay;
 import com.facefive.meetbook.TimetableSession.TimetableSession;
@@ -37,46 +26,28 @@ import org.json.JSONObject;
 
 import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import yuku.ambilwarna.AmbilWarnaDialog;
-
-public class SchedulePlan extends AppCompatActivity {
+public class TimeTableViewActivity extends AppCompatActivity {
 
     private ExpandableListView listView;
     private TimeTableExpandableListAdapter listAdapter;
     private List<String> listDataHeader;
     private HashMap<String, List<String>> listHash;
-    private Button editBtn ;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_schedule_plan);
-
+        setContentView(R.layout.activity_time_table_view);
 
         listView = findViewById(R.id.timatable_ex_lv);
-        editBtn = findViewById(R.id.editschedule_btn_scheduleplan_xml);
-        SessionManager sessionManager = new SessionManager(getApplicationContext());
-        getCompeleteTimeTable(sessionManager.getUserID());
+        int userID = Integer.parseInt(getIntent().getStringExtra("userID"));
+        getCompeleteTimeTable(userID);
         initData();
         listAdapter = new TimeTableExpandableListAdapter(this , listDataHeader, listHash);
         listView.setAdapter(listAdapter);
-
-
-        editBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SchedulePlanSetting.class);
-                startActivity(intent);
-
-            }
-        });
     }
-
 
     private void initData() {
 
@@ -106,6 +77,7 @@ public class SchedulePlan extends AppCompatActivity {
 
         }
 
+
     }
     public  void getCompeleteTimeTable(final int userid){
         RequestQueue requestQueue= Volley.newRequestQueue(this);
@@ -121,7 +93,7 @@ public class SchedulePlan extends AppCompatActivity {
                     if(! jsonObject.getBoolean("error"))
                     {
                         JSONArray bigArray=jsonObject.getJSONArray("item");
-                       // Toast.makeText(getApplicationContext(), jsonObject.getJSONArray("item").toString(),Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(getApplicationContext(), jsonObject.getJSONArray("item").toString(),Toast.LENGTH_SHORT).show();
                         TimetableSession.noOfSlots=Integer.parseInt(bigArray.get(0).toString());
 
                         TimetableSession.startTime.setHours(Integer.parseInt(bigArray.getString(1).substring(0,2)));
@@ -140,7 +112,7 @@ public class SchedulePlan extends AppCompatActivity {
                             {
 
                                 JSONArray array=bigArray.getJSONArray(i);
-                                 day=array.getString(5);
+                                day=array.getString(5);
                                 Time starttime = new Time(Integer.parseInt(array.getString(1).substring(0, 2)), Integer.parseInt(array.getString(1).substring(3, 5)), 0);
                                 Time endtime = new Time(Integer.parseInt(array.getString(2).substring(0, 2)), Integer.parseInt(array.getString(2).substring(3, 5)), 0);
 
@@ -188,5 +160,4 @@ public class SchedulePlan extends AppCompatActivity {
         requestQueue.add(stringRequest);
 
     }
-
 }

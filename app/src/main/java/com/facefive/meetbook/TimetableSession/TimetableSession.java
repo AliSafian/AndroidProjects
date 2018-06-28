@@ -32,8 +32,5 @@ public class  TimetableSession {
     public static Time  endTime= new Time(0,0,0);
     public static ArrayList<TimetableDay> Days = new ArrayList<>();
 
-    public TimetableSession getTimetable(int UserID)
-    {
-        return  null;
-    }
+
 }
