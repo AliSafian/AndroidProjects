@@ -25,6 +25,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.facefive.meetbook.UserHandling.SessionManager;
 import com.facefive.meetbook.app.AppConfig;
 import com.github.badoualy.datepicker.DatePickerTimeline;
 
@@ -42,6 +43,7 @@ import java.util.Map;
 
 public class request extends AppCompatActivity {
 
+    String receiverID;
     EditText timePicker1;
     EditText timePicker2;
     EditText purpose;
@@ -72,6 +74,11 @@ public class request extends AppCompatActivity {
         req_sub=findViewById(R.id.meetreq_sub_btn);
 
        Intent intent=getIntent();
+        if(intent.getBooleanExtra("profile",false)==true)
+        {
+            receiverID=intent.getStringExtra("ReceiverID");
+            Toast.makeText(request.this,receiverID,Toast.LENGTH_SHORT).show();
+        }
 
         if (intent.getBooleanExtra("flage",false)==true)
         {
@@ -208,7 +215,8 @@ public class request extends AppCompatActivity {
                                             }
                                             else
                                             {
-                                                InsertMeetingRequest(18,18,0,startTime,endTime,reqTime,purpose.getText().toString());
+                                                SessionManager manager=new SessionManager(getApplicationContext());
+                                                InsertMeetingRequest(manager.getUserID(),Integer.parseInt( receiverID),0,startTime,endTime,reqTime,purpose.getText().toString());
 
                                             }
                                            // Toast.makeText(request.this,currentTime,Toast.LENGTH_SHORT).show();

@@ -302,8 +302,8 @@ public class HomeActivity extends AppCompatActivity
 
         }*/
 
-
-      getAllFixedMeetings(18);
+        SessionManager manager=new SessionManager(getApplicationContext());
+      getAllFixedMeetings(manager.getUserID());
 
 
     }

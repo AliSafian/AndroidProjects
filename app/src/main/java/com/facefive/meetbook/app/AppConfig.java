@@ -9,6 +9,7 @@ public class AppConfig {
     public static final String SENDER_PASSWORD = "mba@web2018";
 
 
+    public static final String URL_GETSEARCHEDUSERS= "http://meetbookapp.com/APIs/getSearchedUsers.php";
     public static final String URL_LOGIN = "http://meetbookapp.com/APIs/login_user.php";
     public static final String URL_TIMATABLE = "http://meetbookapp.com/APIs/timetable_request.php";
     public static final String URL_GETTIMETABLE = "http://meetbookapp.com/APIs/getTimetable_request.php";
