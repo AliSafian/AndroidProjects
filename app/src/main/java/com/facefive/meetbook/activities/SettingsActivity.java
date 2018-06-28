@@ -38,8 +38,8 @@ public class SettingsActivity extends AppCompatActivity  {
     private TextView name_tv;
     private TextView email_tv;
     private ImageView image;
-    private RelativeLayout notification;
-    private RelativeLayout privacy;
+    private RelativeLayout change_name;
+    private RelativeLayout change_picture;
     private RelativeLayout change_pass;
     private RelativeLayout logout;
     private SessionManager session;
@@ -62,7 +62,7 @@ public class SettingsActivity extends AppCompatActivity  {
             email_tv.setText(session.getEmail());
 
             String path =session.getPicturePath();
-            if(path!=null)
+            if(path.equals("null"))
             {
                 image.setImageURI(Uri.parse(new File(path).toString()));
             }
@@ -71,8 +71,8 @@ public class SettingsActivity extends AppCompatActivity  {
                 image.setImageResource(R.drawable.dp_demo);
             }
 
-            notification = (RelativeLayout)findViewById(R.id.layout_notification) ;
-            privacy = (RelativeLayout)findViewById(R.id.layout_privacy) ;
+            change_name = (RelativeLayout)findViewById(R.id.layout_change_name) ;
+            change_picture = (RelativeLayout)findViewById(R.id.layout_change_picture) ;
             change_pass = (RelativeLayout)findViewById(R.id.layout_change_pass) ;
             logout = (RelativeLayout)findViewById(R.id.layout_logout) ;
 
@@ -80,19 +80,19 @@ public class SettingsActivity extends AppCompatActivity  {
 
 
 
-            notification.setOnClickListener(new View.OnClickListener() {
+            change_name.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    Intent intent=new Intent(getApplicationContext(),NotificationActivity.class);
+                    Intent intent=new Intent(getApplicationContext(),ChangeNameActivity.class);
                     startActivity(intent);
                 }
             });
 
-            privacy.setOnClickListener(new View.OnClickListener() {
+            change_picture.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent=new Intent(getApplicationContext(),PrivacyActivity.class);
+                    Intent intent=new Intent(getApplicationContext(),ChangePictureActivity.class);
                     startActivity(intent);
                 }
             });
@@ -119,19 +119,6 @@ public class SettingsActivity extends AppCompatActivity  {
                     startActivity(intent);
                 }
             });
-            name_tv.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent=new Intent(getApplicationContext(),ChangeNameActivity.class);
-                        startActivity(intent);
-                        /*FragmentManager fm = getFragmentManager();
-                        ChangeNameDialogFragment frag = new ChangeNameDialogFragment();
-                        frag.show(fm , "frag_change_name");*/
-                    }
-        });
-
-        image.setOnClickListener(btnChoosePhotoPressed);
-
     }
 
     private void sendRegistrationToServer(final int userId , final String token) {
@@ -186,19 +173,6 @@ public class SettingsActivity extends AppCompatActivity  {
         };
         requestQueue.add(stringRequest);
     }
-    public View.OnClickListener btnChoosePhotoPressed = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-          /*  Intent i = new Intent(Intent.ACTION_PICK,
-                    android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-            final int ACTIVITY_SELECT_IMAGE = 1234;
-            startActivityForResult(i, ACTIVITY_SELECT_IMAGE);*/
-
-          Intent intent = new Intent(getApplicationContext(), ChangePictureActivity.class);
-          startActivity(intent);
-        }
-    };
-
 
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data)

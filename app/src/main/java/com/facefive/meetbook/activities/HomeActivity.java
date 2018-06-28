@@ -101,10 +101,13 @@ public class HomeActivity extends AppCompatActivity
         }
 
 
-        LinearLayout ll_more = findViewById(R.id.ll_more_home_activity);
+       // LinearLayout ll_more = findViewById(R.id.ll_more_home_activity);
         LinearLayout ll_messages = findViewById(R.id.ll_messages_home_activity);
         LinearLayout ll_timetable = findViewById(R.id.ll_timetable_home_activity);
         LinearLayout ll_meetings = findViewById(R.id.ll_meeting_home_activity);
+        LinearLayout ll_send_update = findViewById(R.id.ll_send_update_home_activity);
+        LinearLayout ll_notificatione = findViewById(R.id.ll_notification_home_activity);
+        LinearLayout ll_connections = findViewById(R.id.ll_connections_home_activity);
 
 
 
@@ -112,13 +115,13 @@ public class HomeActivity extends AppCompatActivity
 
 
 
-        ll_more.setOnClickListener(new View.OnClickListener() {
+       /* ll_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), FeaturesActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
         ll_messages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -458,11 +461,7 @@ public class HomeActivity extends AppCompatActivity
 
             return true;
         }
-        else if (id == R.id.action_privacy) {
-            Intent i = new Intent(getApplicationContext(), PrivacyActivity.class);
-            startActivity(i);
-            return true;
-        }
+
 
 
         return super.onOptionsItemSelected(item);
@@ -474,7 +473,12 @@ public class HomeActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_print) {
+        if (id == R.id.nav_features) {
+
+            Intent i = new Intent(getApplicationContext(), FeaturesActivity.class);
+            startActivity(i);
+
+        }else if (id == R.id.nav_print) {
 
                 Intent i = new Intent(getApplicationContext(),PrintSettingActivity.class);
                 startActivity(i);

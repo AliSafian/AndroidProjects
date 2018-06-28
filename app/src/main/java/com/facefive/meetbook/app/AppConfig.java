@@ -24,6 +24,10 @@ public class AppConfig {
     public static final String URL_CHANGE_PASSWORD= "http://www.meetbookapp.com/APIs/changePassword.php";
     public static final String URL_CHANGE_NAME= "http://www.meetbookapp.com/APIs/changeName.php";
     public static final String URL_UPDATE_FCM_TOKEN= "http://www.meetbookapp.com/APIs/updateFCMToken.php";
+    public static final String URL_SAVE_IMAGE= "http://www.meetbookapp.com/APIs/savePicture.php";
+
+
+
 
     public static final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
     public static final String PASSWORD_PATTERN = "^(?=.*?[a-z])(?=.*?[0-9]).{6,15}$";
