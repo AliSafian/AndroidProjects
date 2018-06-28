@@ -1,8 +1,10 @@
 package com.facefive.meetbook;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ActionMenuView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -19,6 +21,7 @@ import com.facefive.meetbook.TimetableSession.SlotSingleRow;
 import com.facefive.meetbook.TimetableSession.TimetableDay;
 import com.facefive.meetbook.TimetableSession.TimetableSession;
 import com.facefive.meetbook.UserHandling.SessionManager;
+import com.facefive.meetbook.activities.HomeActivity;
 import com.facefive.meetbook.app.AppConfig;
 
 import org.json.JSONArray;
@@ -145,14 +148,14 @@ public class SchedualPlanSlotSetting extends AppCompatActivity {
                    if(!jsonObject.getBoolean("error"))
                    {
                        Toast.makeText(getApplicationContext()," successfull"+ jsonObject.get("success_msg"),Toast.LENGTH_SHORT).show();
-                       finish();
                    }
                    else
                    {
                        Toast.makeText(SchedualPlanSlotSetting.this,jsonObject.getString("error_msg"),Toast.LENGTH_SHORT).show();
-
-                       finish();
                    }
+                    finishAffinity();
+                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                    startActivity(intent);
                 } catch (JSONException e) {
                     Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
 

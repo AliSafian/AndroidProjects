@@ -26,6 +26,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.facefive.meetbook.UserHandling.SessionManager;
+import com.facefive.meetbook.activities.HomeActivity;
 import com.facefive.meetbook.app.AppConfig;
 import com.github.badoualy.datepicker.DatePickerTimeline;
 
@@ -256,15 +257,16 @@ public class request extends AppCompatActivity {
 
                     if(! jsonObject.getBoolean("Error"))
                     {
-                        Toast.makeText(request.this,jsonObject.toString(),Toast.LENGTH_SHORT).show();
-
-
+                        Toast.makeText(request.this,"Succesfully Updated",Toast.LENGTH_SHORT).show();
                     }
                     else
                     {
 
                         Toast.makeText(request.this,jsonObject.getString("error_msg"),Toast.LENGTH_SHORT).show();
                     }
+                    finishAffinity();
+                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                    startActivity(intent);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -312,9 +314,9 @@ public class request extends AppCompatActivity {
                     JSONObject jsonObject=new JSONObject(response);
                     //Toast.makeText(getContext()," successfull"+ jsonObject,Toast.LENGTH_SHORT).show();
 
-                    if(! jsonObject.getBoolean("Error"))
+                    if(!jsonObject.getBoolean("Error"))
                     {
-                        Toast.makeText(request.this,jsonObject.toString(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(request.this,"Meeting Send",Toast.LENGTH_SHORT).show();
 
 
                     }
@@ -323,6 +325,9 @@ public class request extends AppCompatActivity {
 
                         Toast.makeText(request.this,jsonObject.getString("error_msg"),Toast.LENGTH_SHORT).show();
                     }
+                    finishAffinity();
+                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                    startActivity(intent);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

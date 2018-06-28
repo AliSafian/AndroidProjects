@@ -52,6 +52,8 @@ public class SchedulePlan extends AppCompatActivity {
     private HashMap<String, List<String>> listHash;
     private Button editBtn ;
 
+    private boolean flag ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,10 +63,16 @@ public class SchedulePlan extends AppCompatActivity {
         listView = findViewById(R.id.timatable_ex_lv);
         editBtn = findViewById(R.id.editschedule_btn_scheduleplan_xml);
         SessionManager sessionManager = new SessionManager(getApplicationContext());
-        getCompeleteTimeTable(sessionManager.getUserID());
-        initData();
-        listAdapter = new TimeTableExpandableListAdapter(this , listDataHeader, listHash);
-        listView.setAdapter(listAdapter);
+        getCompeleteTimeTable(sessionManager.getUserID(), new VolleyCallback() {
+            @Override
+            public void onSuccess() {
+                initData();
+                listAdapter = new TimeTableExpandableListAdapter(getApplicationContext() , listDataHeader, listHash);
+                listView.setAdapter(listAdapter);
+            }
+        });
+
+
 
 
         editBtn.setOnClickListener(new View.OnClickListener() {
@@ -77,14 +85,26 @@ public class SchedulePlan extends AppCompatActivity {
         });
     }
 
-
+     @Override
+     protected void onResume()
+     {
+         super.onResume();
+         SessionManager sessionManager = new SessionManager(getApplicationContext());
+         getCompeleteTimeTable(sessionManager.getUserID(), new VolleyCallback() {
+             @Override
+             public void onSuccess() {
+                 initData();
+                 listAdapter = new TimeTableExpandableListAdapter(getApplicationContext() , listDataHeader, listHash);
+                 listView.setAdapter(listAdapter);
+             }
+         });
+     }
     private void initData() {
 
+        if(TimetableSession.Days == null)
+            return;
         listDataHeader = new ArrayList<>();
         listHash = new HashMap<>();
-
-
-
         int daysCount = TimetableSession.Days.size();
 
         if(daysCount> 0)
@@ -107,7 +127,7 @@ public class SchedulePlan extends AppCompatActivity {
         }
 
     }
-    public  void getCompeleteTimeTable(final int userid){
+    public  void getCompeleteTimeTable(final int userid, final VolleyCallback callback){
         RequestQueue requestQueue= Volley.newRequestQueue(this);
 
         StringRequest stringRequest=new StringRequest(Request.Method.POST, AppConfig.URL_GETCOMPLETETIMETABLE, new Response.Listener<String>() {
@@ -160,6 +180,10 @@ public class SchedulePlan extends AppCompatActivity {
 
                         Toast.makeText(getApplicationContext(),jsonObject.getString("error_msg"),Toast.LENGTH_SHORT).show();
                     }
+
+
+
+                    callback.onSuccess();
                 } catch (JSONException e) {
                     e.printStackTrace();
 
@@ -170,8 +194,6 @@ public class SchedulePlan extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
-
-
             }
         }){
             @Override
@@ -181,12 +203,13 @@ public class SchedulePlan extends AppCompatActivity {
 
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("userID",""+userid);
-                // Toast.makeText(getApplicationContext(),jarray.toString(),Toast.LENGTH_SHORT).show();
                 return  params;
             }
         };
         requestQueue.add(stringRequest);
 
     }
-
+    private interface VolleyCallback{
+        void onSuccess();
+    }
 }
