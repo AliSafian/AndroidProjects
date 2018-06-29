@@ -26,6 +26,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.facefive.meetbook.UserHandling.SessionManager;
+import com.facefive.meetbook.activities.HomeActivity;
 import com.facefive.meetbook.app.AppConfig;
 import com.github.badoualy.datepicker.DatePickerTimeline;
 
@@ -238,7 +239,6 @@ public class request extends AppCompatActivity {
     }
     public  void UpdateMeetingRequest( final int MeetID,final int mySenderID,final int myReceiverID, final int Status, final String startTime, final String endTime, final String reqTime, final String purpose)
     {
-        Toast.makeText(request.this,startTime+endTime+reqTime+purpose+Status,Toast.LENGTH_SHORT).show();
 
         RequestQueue requestQueue= Volley.newRequestQueue(request.this);
 
@@ -253,6 +253,9 @@ public class request extends AppCompatActivity {
                     if(! jsonObject.getBoolean("Error"))
                     {
                         Toast.makeText(request.this,"Meeting is Updated",Toast.LENGTH_SHORT).show();
+                        finishAffinity();
+                        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                        startActivity(intent);
                     }
                     else
                     {
@@ -308,8 +311,9 @@ public class request extends AppCompatActivity {
                     if(! jsonObject.getBoolean("Error"))
                     {
                         Toast.makeText(request.this,"Meeting is sent",Toast.LENGTH_SHORT).show();
-
-
+                        finishAffinity();
+                        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                        startActivity(intent);
                     }
                     else
                     {
