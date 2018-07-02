@@ -138,6 +138,14 @@ public class UpdateMessage extends AppCompatActivity {
 
 
 
+    @Override
+    protected  void onResume()
+    {
+        super.onResume();
+        SessionManager manager=new SessionManager(getApplicationContext());
+
+        getUpdateMessages(manager.getUserID());
+    }
 
     public  void getUpdateMessages( final int UserID){
 

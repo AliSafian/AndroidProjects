@@ -5,7 +5,7 @@ package com.facefive.meetbook.app;
  */
 
 public class AppConfig {
-    public static final String SENDER_EMAIL = "We.MeetBook@gmail.com";
+    public static final String SENDER_EMAIL = "We.meetbook@gmail.com";
     public static final String SENDER_PASSWORD = "mba@web2018";
 
 

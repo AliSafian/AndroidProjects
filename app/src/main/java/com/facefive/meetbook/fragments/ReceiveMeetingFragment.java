@@ -146,7 +146,7 @@ public class ReceiveMeetingFragment extends Fragment {
                             int meetID=Integer.parseInt(array.get(7).toString());
                             int SenderID=Integer.parseInt(array.get(8).toString());
                             int ReceiverID=Integer.parseInt(array.get(9).toString());
-                            MeetingSingleRow row = new MeetingSingleRow(array.get(0).toString() , "You Received meeting "+showday+" at "+Reqtime.substring(11,16), images[i],meetID,purpose,starttime,endtime,SenderID,ReceiverID,Reqtime);
+                            MeetingSingleRow row = new MeetingSingleRow(array.get(0).toString() , "You Received meeting "+showday+" at "+Reqtime.substring(11,16), R.drawable.ic_dp_demo,meetID,purpose,starttime,endtime,SenderID,ReceiverID,Reqtime);
                             list.add(row);
 
                         }

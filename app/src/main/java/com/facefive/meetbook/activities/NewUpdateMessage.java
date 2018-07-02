@@ -142,21 +142,17 @@ public class NewUpdateMessage extends AppCompatActivity {
                         } else
                         {
                             endtime=datetext.getText().toString()+" "+timetext.getText().toString()+":00";
-                            Toast.makeText(getApplicationContext(), endtime, Toast.LENGTH_SHORT).show();
                            saveNewUpdateMessage(manager.getUserID());
-                            Intent i=new Intent(getApplicationContext(),UpdateMessage.class);
-                            startActivity(i);
+                            finish();
                         }
                     }
                     else
                     {
 
                         endtime=mYear + "-" + (mMonth + 1) + "-" + (mDay+1)+ " "+c.get(Calendar.HOUR_OF_DAY)+":"+c.get(Calendar.MINUTE)+":00";
-                        Toast.makeText(getApplicationContext(), endtime, Toast.LENGTH_SHORT).show();
 
                          saveNewUpdateMessage(manager.getUserID());
-                        Intent i=new Intent(getApplicationContext(),UpdateMessage.class);
-                        startActivity(i);
+                         finish();
                     }
 
 
@@ -182,7 +178,7 @@ Toast.makeText(getApplicationContext(),datetext.getText().toString()+" "+timetex
                     if(! jsonObject.getBoolean("error"))
                     {
                         //JSONObject array=jsonObject.getJSONObject("response");
-                        Toast.makeText(getApplicationContext(),jsonObject.toString(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),"Saved and Published",Toast.LENGTH_SHORT).show();
 
                     }
                     else
